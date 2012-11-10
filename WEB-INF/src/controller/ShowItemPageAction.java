@@ -75,6 +75,12 @@ public class ShowItemPageAction extends Action{
         		requested = item;
         		request.setAttribute("requested",requested);
         	}
+        	int isOwner = 0;
+        	if(item.getOwner().getUserName().equals(user.getUserName()))
+        		isOwner = 1;
+    		request.setAttribute("isOwner",isOwner);
+
+        		
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -4,7 +4,14 @@
 		<div class="row-fluid">
 			<div class="span4 bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
-					<li class="active"><a href="item_page.jsp"><i class="icon-chevron-right"></i>Item Info</a></li>
+					                <c:if test="${!empty (posted)}">
+
+					<li class="active"><a href="showItems.do?itemId=${posted.id}"><i class="icon-chevron-right"></i>Item Info</a></li>
+				</c:if>
+				   <c:if test="${!empty (requested)}">
+
+					<li class="active"><a href="showItems.do?itemId=${requested.id}"><i class="icon-chevron-right"></i>Item Info</a></li>
+				</c:if>
 					<li><a href="about_movie.jsp"><i class="icon-chevron-right"></i>About Movie</a></li>
 				</ul>
 			</div>
@@ -24,25 +31,30 @@
   					</div>
   					<div class="span8">
   						<h4>${posted.itemName}</h4>
-  						<p>${posted.owner.userName}		<a  href="">Send him/her a message..</a></p>
+  						<p>${posted.owner.userName}		<c:if test="${isOwner==0}">			
+	<a  href="">Send him/her a message..</a>	</c:if></p>
   						<textarea class="span8" rows="4" name="itemDescription">${posted.itemDescription}</textarea>
- 						<input type="hidden" name="type" value="1"><br/>
+  						<c:if test="${isOwner == 0}">
  						<table>
  							<tbody>
 						    <tr>
 						    	<td>
 							      	<form action="" method="post" class="form-horizontal" name="post_form">
+							      	<input type="hidden" name="itemId" value="${posted.id}">
+
 	    							<input type="submit" value="Buy with credits" class="btn">
 	    							</form>
     							</td>
 						      	<td>
 						      		<form action="" method="post" class="form-horizontal" name="post_form">
+						      		<input type="hidden" name="type" value="${posted.id}">
 									<input type="submit" value="Exchange with items" class="btn">
 									</form>
 						      	</td>
 						    </tr>
   							</tbody>   					
     					</table>
+    				</c:if>
   					</div>
 				</div>
 			</c:if>
@@ -59,25 +71,33 @@
   					</div>
   					<div class="span8">
   						<h4>${requested.itemName}</h4>
-  						<p>${requested.owner.userName}			<a  href="">Send him/her a message..</a></p>
+
+  						<p>${requested.owner.userName}		
+  						 			<c:if test="${isOwner == 0}">			
+	<a  href="">Send him/her a message..</a>	</c:if>
+</p>
   						<textarea class="span8" rows="4" name="itemDescription">${posted.itemDescription}</textarea>
- 						<input type="hidden" name="type" value="1"><br/>
+ 						<c:if test="${isOwner == 0}">
  						<table>
  							<tbody>
 						    <tr>
 						    	<td>
 							      	<form action="" method="post" class="form-horizontal" name="post_form">
-	    							<input type="submit" value="Exchange for credits" class="btn">
+							      	<input type="hidden" name="itemId" value="${requested.id}">
+
+	    							<input type="submit" value="Buy with credits" class="btn">
 	    							</form>
     							</td>
 						      	<td>
 						      		<form action="" method="post" class="form-horizontal" name="post_form">
+						      		<input type="hidden" name="type" value="${requested.id}">
 									<input type="submit" value="Exchange with items" class="btn">
 									</form>
 						      	</td>
 						    </tr>
   							</tbody>   					
     					</table>
+    				</c:if>
   					</div>
 				</div>
 			</c:if>
