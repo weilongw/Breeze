@@ -15,7 +15,9 @@
 
                 <div class="row-fluid">
   					<div class="span4">
-  						<img src="http://placehold.it/150x100" alt="">
+  						<div style="width:240px; height:160px; text-align:center">
+							<img src="img/${posted.imgName}" style="max-width:240px; max-height:160px" alt="">
+  						</div>
   						<br/><p>Cost: ${posted.credit} credits</p><br/>
   						<p>The poster also accepts exchange..</p><br/>
 						<a href="">view details..</a>
@@ -48,7 +50,9 @@
 
 				<div class="row-fluid">
   					<div class="span4">
-  						<img src="http://placehold.it/150x100" alt="">
+  						<div style="width:240px; height:160px; text-align:center">
+							<img src="img/${requested.imgName}" style="max-width:240px; max-height:160px" alt="">
+  						</div>
   						<br/><p>Offer: ${requested.credit} credits</p><br/>
   						<p>The poster also offers exchange..</p><br/>
 						<a href="">view details..</a>
