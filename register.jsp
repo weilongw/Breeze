@@ -12,25 +12,25 @@
 					<div class="control-group">
 						<label class="control-label">Username</label>
 						<div class="controls">
-							<input class="span4" type="text" name="userName">
+							<input class="span4" type="text" name="userName" value="${form.userName}">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Email</label>
 						<div class="controls">
-							<input class="span4" type="text" name="email">
+							<input class="span4" type="text" name="email" value="${form.email}">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Confirm Email</label>
 						<div class="controls">
-							<input class="span4" type="text" name="emailConfirm">
+							<input class="span4" type="text" name="emailConfirm" value="${form.emailConfirm}">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Address</label>
 						<div class="controls">
-							<textarea class="span6" rows="4" name="address"></textarea>
+							<textarea class="span6" rows="4" name="address">${form.address}</textarea>
 						</div>
 					</div>
 					<div class="control-group">

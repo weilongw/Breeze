@@ -53,6 +53,15 @@ public class ItemDAO {
 			throw new DAOException(e);
 		}
 	}
+	public Item[] getItemsByType(int type) throws DAOException {
+		try {
+			Item[] list = factory.match(MatchArg.equals("type", type));
+			Arrays.sort(list);
+			return list;
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+	}
 	
 	public Item[] getItemsByCategory(String category) throws DAOException{
 		Item[] list;

@@ -38,6 +38,14 @@ public class SearchAction extends Action{
 		SearchForm form = formBeanFactory.create(request);
 		List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
+        Item[] allItems;
+		try {
+			allItems = itemDAO.getAllItems();
+			request.setAttribute("search_result", allItems);
+		} catch (DAOException e) {
+			errors.add(e.getMessage());
+			return "index.jsp";
+		}
         
         
         errors.addAll(form.getValidationErrors());
@@ -47,7 +55,15 @@ public class SearchAction extends Action{
         }
         
         try {
-			Item[] allItems = itemDAO.getAllItems();
+        	int option = form.getOptionsAsInt();
+        	if (option == 0)
+        		allItems = itemDAO.getAllItems();
+        	else 
+        		allItems = itemDAO.getItemsByType(option);
+        	if (form.getKey().trim().length() == 0) {
+        		request.setAttribute("search_result", allItems);
+        		return "index.jsp";
+        	}
 			List<Item> searchResultList = new ArrayList<Item>();
 			for(Item item:allItems){
 				if(item.getItemName().toLowerCase().contains(form.getKey().toLowerCase()) || 
@@ -62,10 +78,7 @@ public class SearchAction extends Action{
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			errors.add(e.getMessage());
-			return "index.jsp";
 		}
-		
-		
 		
 		return "index.jsp";
 	}

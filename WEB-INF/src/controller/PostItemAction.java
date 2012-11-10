@@ -72,6 +72,8 @@ public class PostItemAction extends Action{
 		newItem.setPostDate(new Date());
 		newItem.setStatus(0);
 		newItem.setClickCount(0);
+		newItem.setCategory(form.getItemCategory());
+		
 		try {
 			newItem.setId(itemDAO.create(newItem));
 		} catch (DAOException e) {
