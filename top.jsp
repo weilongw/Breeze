@@ -27,9 +27,9 @@
 						
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="showProfile.do"> Profile </a></li>
-							<li><a tabindex="-1" href="post_item.jsp"> Post item </a></li>
+							<li><a tabindex="-1" href="postItem.do"> Post item </a></li>
 							<li><a tabindex="-1" href="showMyItems.do"> My items </a></li>
-							<li><a tabindex="-1" href="message.jsp"> My Message</a></li>
+							<li><a tabindex="-1" href="showMessage.do"> My Message</a></li>
 							<li class="divider"></li>
 							<li><a tabindex="-1" href="logout.do"> Sign out </a></li>
 						</ul>

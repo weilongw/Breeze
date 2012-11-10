@@ -8,7 +8,7 @@
 					<li><a href="showProfile.do"><i class="icon-chevron-right"></i>User Info</a></li>
 					<li><a href="postItem.do"><i class="icon-chevron-right"></i>Post</a></li>
 					<li class="active"><a href="showMyItems.do"><i class="icon-chevron-right"></i>My Items</a></li>
-					<li><a href="message.jsp"><i class="icon-chevron-right"></i>My Messages</a></li>
+					<li><a href="showMessage.do"><i class="icon-chevron-right"></i>My Messages</a></li>
 				</ul>
 			</div>
 			<div class="span8" style="padding:20px">
