@@ -3,4 +3,4 @@ session=fname
 extensions=gif,png,jpg
 reply=/upload_image.jsp
 error=/upload_image.jsp
-overwrite=0
+overwrite=1

@@ -35,8 +35,10 @@
     						<c:if test="${!empty (allItemList)}">
     						<c:forEach var="item" items="${allItemList}">  
     						<li class="span4" style="margin-left:0">
-								<div class="thumbnail">
-									<img src="http://placehold.it/300x200" alt="">
+                            <div class="thumbnail">
+                                <div style="width:240px; height:160px; text-align:center">
+                                    <img src="img/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt="">
+                                </div>
 									<h3>${item.itemName}</h3>
 									<p>caption...</p>
 								</div>
@@ -47,8 +49,10 @@
 				<c:if test="${!empty (search_result)}">
     						<c:forEach var="item" items="${search_result}">  
     						<li class="span4" style="margin-left:0">
-								<div class="thumbnail">
-									<img src="http://placehold.it/300x200" alt="">
+                            <div class="thumbnail">
+                                <div style="width:240px; height:160px; text-align:center">
+                                    <img src="img/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt="">
+                                </div>
 									<h3>${item.itemName}</h3>
 									<p>caption...</p>
 								</div>

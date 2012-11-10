@@ -25,7 +25,7 @@
                                 <h4>You can also upload an image of the product</h4>
                                 <table>
                                 <tr>
-                                    <form method="post" enctype="multipart/form-data" action="upload?config">
+                                    <form method="post" enctype="multipart/form-data" action="upload?config&name=${sessionScope.user.userName}${sessionScope.newItem.id}.png">
                                     <td> 
                                         <input style="height:30px" type="file" size=20 name="fname">
                                     </td>
