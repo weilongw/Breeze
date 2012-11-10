@@ -28,6 +28,7 @@ public class Controller extends HttpServlet {
         Action.add(new BrowseAction(model));
         Action.add(new SearchAction(model));
         Action.add(new UploadImageAction(model));
+        Action.add(new ShowItemPageAction(model));
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

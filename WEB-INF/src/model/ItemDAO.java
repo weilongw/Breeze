@@ -66,6 +66,17 @@ public class ItemDAO {
 		}
 	}
 	
+	public Item getItemById(int id) throws DAOException{
+		Item item;
+		try {
+			item = factory.lookup(id);
+			return item;
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e);
+		}		
+	}
+	
 	public Item[] getMyPostedItems(User user) throws DAOException{
 		Item[] list;
 		try {
