@@ -23,6 +23,16 @@
 		</div>
 	</div>
 	<div class="control-group">
+				<label class="control-label">Item Category</label>
+				<div class="controls">
+					<select class="span4" name="itemCategory" value="${requestForm.itemCategory}">
+						<option value="Poster">Poster</option>
+						<option value="DVD">DVD</option>
+						<option value="Prop">Prop</option>
+					</select>
+				</div>
+			</div>
+	<div class="control-group">
 		<label class="control-label">
 			<input type="checkbox" name="forCredit" value="" onclick="enable_text('request_credit', this.checked)">
 		</label>

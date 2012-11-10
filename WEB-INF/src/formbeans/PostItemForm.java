@@ -7,6 +7,7 @@ public class PostItemForm {
 	
 	private String itemName;
 	private String itemDescription;
+	private String itemCategory;
 	private String forCredit;
 	private String credit;
 	private String forExchange;
@@ -33,6 +34,10 @@ public class PostItemForm {
 
 		if (itemDescription == null || itemDescription.trim().length() == 0) {
 			errors.add("Item description is required");
+		}
+		
+		if (itemCategory == null || itemCategory.trim().length() == 0) {
+			errors.add("Item Category is required");
 		}
 		
 		if (forCredit == null && forExchange == null) {
@@ -82,6 +87,12 @@ public class PostItemForm {
 	}
 	public void setItemDescription(String itemDescription) {
 		this.itemDescription = itemDescription.trim();
+	}
+	public String getItemCategory() {
+		return itemCategory;
+	}
+	public void setItemCategory(String x) {
+		itemCategory = x;
 	}
 	public String getForCredit() {
 		return forCredit;

@@ -22,12 +22,14 @@
     							<thead>
     								<tr>
     									<th>From</th>
-    									<th class="pull-right">When</th>
+                                        <th width="450px">Title</th>
+    									<th>When</th>
     								</tr>
     							</thead>
     							<tbody>
     								<tr class="info">
     									<td>foo</td>
+                                        <td>haha</td>
     									<td>10/31/2012</td>
     								</tr>
     								<tr class="info">
@@ -51,6 +53,7 @@
     							<thead>
     								<tr>
     									<th>To</th>
+                                        <th width="450px">Title</th>
     									<th>When</th>
     								</tr>
     							</thead>
@@ -82,6 +85,12 @@
     								<input type="text" class="span4" name="receiver">
     								</div>		
     							</div>
+                                <div class="control-group">
+                                    <label class="control-label">Title</label>
+                                    <div class="controls">                              
+                                    <input type="text" class="span8" name="title">
+                                    </div>      
+                                </div>
     							<div class="control-group">
    									<label class="control-label">Content</label>
     								<div class="controls">  								
@@ -90,7 +99,7 @@
     							</div>
     							<div class="control-group">
     								<div class="controls">
-    								<input type="hidden" name="sender" value="">
+    								<input type="hidden" name="sender" value="${sessionScope.user.userName}">
     								<input type="submit" value="Send" class="btn">
     								</div>		
     							</div>

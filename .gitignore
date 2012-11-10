@@ -1,2 +1,6 @@
 img/*
 WEB-INF/.classpath
+WEB-INF/classes/controller/*.class
+WEB-INF/classes/model/*.class
+WEB-INF/classes/formbeans/*.class
+WEB-INF/classes/databean/*.class

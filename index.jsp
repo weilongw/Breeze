@@ -6,8 +6,8 @@
       			<div class="span3 bs-docs-sidebar">
         			<ul class="nav nav-list bs-docs-sidenav">
           				<li><a href="#"><i class="icon-chevron-right"></i>Poster</a></li>
-          				<li><a href="#"><i class="icon-chevron-right"></i> DVD</a></li>
-          				<li><a href="#"><i class="icon-chevron-right"></i> Props</a></li>
+          				<li><a href="#"><i class="icon-chevron-right"></i>DVD</a></li>
+          				<li><a href="#"><i class="icon-chevron-right"></i>Prop</a></li>
         			</ul>
       			</div>
       			<div class="span8" style="padding:20px">
@@ -40,7 +40,7 @@
                                     <img src="img/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt="">
                                 </div>
 									<h3>${item.itemName}</h3>
-									<p>caption...</p>
+									<p>${item.itemDescription}</p>
 								</div>
 							</li>
 						</c:forEach>
@@ -54,7 +54,7 @@
                                     <img src="img/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt="">
                                 </div>
 									<h3>${item.itemName}</h3>
-									<p>caption...</p>
+									<p>${item.itemDescription}</p>
 								</div>
 							</li>
 						</c:forEach>

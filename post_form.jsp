@@ -10,7 +10,7 @@
 		<h4>Sharing is a bless</h4><br/>
 		<form action="postItem.do" method="post" class="form-horizontal" name="post_form">
 		    <div class="control-group">
-				<label class="control-label">Item name</label>
+				<label class="control-label">Item Name</label>
 					<div class="controls">
 					<input class="span4" type="text" name="itemName" value="${postForm.itemName}">
 				</div>
@@ -19,6 +19,16 @@
 				<label class="control-label">Item Description</label>
 					<div class="controls">
 					<textarea class="span8" rows="4" name="itemDescription">${postForm.itemDescription}</textarea>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Item Category</label>
+				<div class="controls">
+					<select class="span4" name="itemCategory" value="${postForm.itemCategory}">
+						<option value="Poster">Poster</option>
+						<option value="DVD">DVD</option>
+						<option value="Prop">Prop</option>
+					</select>
 				</div>
 			</div>
 			<div class="control-group">

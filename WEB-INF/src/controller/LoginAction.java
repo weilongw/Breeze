@@ -45,6 +45,14 @@ public class LoginAction extends Action{
         
         request.setAttribute("errors",errors);
         request.setAttribute("form",form);
+        
+        try {
+			request.setAttribute("allItemList", itemDAO.getAllItems());
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			errors.add(e.getMessage());
+        	return "index.jsp";
+		}
 
         if (!form.isPresent()) {
             return "index.jsp";
@@ -75,13 +83,7 @@ public class LoginAction extends Action{
 
         HttpSession session = request.getSession();
         session.setAttribute("user",user);
-        try {
-			request.setAttribute("allItemList", itemDAO.getAllItems());
-		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			errors.add(e.getMessage());
-        	return "index.jsp";
-		}
+        
         
         request.setAttribute("success", "Welcome back! " + user.getUserName());
         return "index.jsp";

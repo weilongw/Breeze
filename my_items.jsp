@@ -31,7 +31,7 @@
 										<img src="img/${myPostedItem.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt="">
 										</div>
 										<h3>${myPostedItem.itemName}</h3>
-										<p>caption...</p>
+										<p>${myPostedItem.itemDescription}</p>
 										<form action="#" method="post">
 											<input type="submit" value="close" class="btn">
 										</form>
@@ -56,7 +56,7 @@
 										<img src="img/${myRequestedItem.imgName}" style="max-width:240px; max-height:160px" alt="">
 										</div>
 										<h3>${myRequestedItem.itemName}</h3>
-										<p>caption...</p>
+										<p>${myRequestedItem.itemDescription}</p>
 										<form action="#" method="post">
 											<input type="submit" value="close" class="btn">
 										</form>

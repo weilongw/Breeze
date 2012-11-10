@@ -20,13 +20,17 @@ public class SearchForm {
 		this.options = options;
 	}
 	
+	public int getOptionsAsInt() {
+		return Integer.parseInt(options);
+	}
+	
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
-
-		if (key == null || key.length() == 0) {
+		
+		if (key == null) {
 			errors.add("key is required");
 		}
-
+		 
 		if (options == null || options.length() == 0){
 			errors.add("Option is required");
 			try{
