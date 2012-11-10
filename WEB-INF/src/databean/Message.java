@@ -7,6 +7,7 @@ public class Message {
 	private User sender;
 	private User receiver;
 	private String content;
+	private String title;
 	private int type;
 	private Date sentDate;
 	
@@ -36,6 +37,12 @@ public class Message {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String x) {
+		title = x;
 	}
 	public int getType() {
 		return type;
