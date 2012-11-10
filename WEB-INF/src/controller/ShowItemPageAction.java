@@ -29,7 +29,7 @@ public class ShowItemPageAction extends Action{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "showItem.do";
+		return "showItems.do";
 	}
 
 	@Override
