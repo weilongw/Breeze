@@ -29,6 +29,7 @@ public class Controller extends HttpServlet {
         Action.add(new SearchAction(model));
         Action.add(new UploadImageAction(model));
         Action.add(new ShowItemPageAction(model));
+        Action.add(new BuyItemAction(model));
         Action.add(new ComposeMessageAction(model));
         Action.add(new ShowMessageAction(model));
 	}

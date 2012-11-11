@@ -31,23 +31,26 @@
   					</div>
   					<div class="span8">
   						<h4>${posted.itemName}</h4>
-  						<p>${posted.owner.userName}		<c:if test="${isOwner==0}">			
-	<a  href="">Send him/her a message..</a>	</c:if></p>
+  						<p>${posted.owner.userName}		
+  						<c:if test="${isOwner==0}">			
+							<a  href="">Send him/her a message..</a>	
+						</c:if></p>
   						<textarea class="span8" rows="4" name="itemDescription">${posted.itemDescription}</textarea>
   						<c:if test="${isOwner == 0}">
  						<table>
  							<tbody>
 						    <tr>
 						    	<td>
-							      	<form action="" method="post" class="form-horizontal" name="post_form">
+							      	<form action="buyItem.do" method="post" class="form-horizontal" name="post_form">
 							      	<input type="hidden" name="itemId" value="${posted.id}">
-
+							      	<input type="hidden" name="buyType" value="1">
 	    							<input type="submit" value="Buy with credits" class="btn">
 	    							</form>
     							</td>
 						      	<td>
-						      		<form action="" method="post" class="form-horizontal" name="post_form">
-						      		<input type="hidden" name="type" value="${posted.id}">
+						      		<form action="buyItem.do" method="post" class="form-horizontal" name="post_form">
+						      		<input type="hidden" name="itemId" value="${posted.id}">
+						      		<input type="hidden" name="buyType" value="2">
 									<input type="submit" value="Exchange with items" class="btn">
 									</form>
 						      	</td>
@@ -71,26 +74,26 @@
   					</div>
   					<div class="span8">
   						<h4>${requested.itemName}</h4>
-
   						<p>${requested.owner.userName}		
-  						 			<c:if test="${isOwner == 0}">			
-	<a  href="">Send him/her a message..</a>	</c:if>
-</p>
+  						<c:if test="${isOwner == 0}">			
+							<a  href="">Send him/her a message..</a>		
+						</c:if></p>
   						<textarea class="span8" rows="4" name="itemDescription">${posted.itemDescription}</textarea>
  						<c:if test="${isOwner == 0}">
  						<table>
  							<tbody>
 						    <tr>
 						    	<td>
-							      	<form action="" method="post" class="form-horizontal" name="post_form">
-							      	<input type="hidden" name="itemId" value="${requested.id}">
-
+							      	<form action="buyItem.do" method="post" class="form-horizontal" name="post_form">
+							      	<input type="hidden" name="itemId" value="${requested.id}">			
+							      	<input type="hidden" name="buyType" value="3">
 	    							<input type="submit" value="Buy with credits" class="btn">
 	    							</form>
     							</td>
 						      	<td>
-						      		<form action="" method="post" class="form-horizontal" name="post_form">
-						      		<input type="hidden" name="type" value="${requested.id}">
+						      		<form action="buyItem.do" method="post" class="form-horizontal" name="post_form">
+						      		<input type="hidden" name="itemId" value="${requested.id}">
+						      		<input type="hidden" name="buyType" value="4">
 									<input type="submit" value="Exchange with items" class="btn">
 									</form>
 						      	</td>
