@@ -55,7 +55,7 @@ public class ItemDAO {
 	}
 	public Item[] getItemsByType(int type) throws DAOException {
 		try {
-			Item[] list = factory.match(MatchArg.equals("type", type));
+			Item[] list = factory.match(MatchArg.equals("type", type), MatchArg.equals("status", 0));
 			Arrays.sort(list);
 			return list;
 		} catch (RollbackException e) {
@@ -66,7 +66,7 @@ public class ItemDAO {
 	public Item[] getItemsByCategory(String category) throws DAOException{
 		Item[] list;
 		try {
-			list = factory.match(MatchArg.equals("category", category));
+			list = factory.match(MatchArg.equals("category", category), MatchArg.equals("status", 0));
 			Arrays.sort(list);
 			return list;
 		} catch (RollbackException e) {
