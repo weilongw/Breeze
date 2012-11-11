@@ -66,6 +66,7 @@ public class BuyItemAction extends Action{
 				Item item = itemDAO.getItemById(itemId);
 				int credit = item.getCredit();
 				if(curUser.getCredit() - credit < 0){
+					System.out.println(curUser.getCredit());
 					errors.add("Not enough credits.");
 					request.setAttribute("posted", item);
 					return "item_page.jsp";
