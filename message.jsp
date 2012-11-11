@@ -52,9 +52,8 @@
     						<table class="table table-hover">
     							<thead>
     								<tr>
-    									<th width="100px">From</th>
-                                        
-    									<th width="300px">When</th>
+    									<th width="100px">From</th>           
+    									<th width="300px">Title</th>
     								</tr>
     							</thead>
     							<tbody>

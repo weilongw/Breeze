@@ -87,14 +87,15 @@ public class BuyItemAction extends Action{
 		else{
 			try {
 				Item item = itemDAO.getItemById(itemId);
-				String url = "http://localhost:8080/Breeze/complete.do?buyType=" + buyType + 
-						"&buyerName=" + curUser.getUserName() + "&itemId=" + item.getId();
+				String url = "<a href=&quot;http://localhost:8080/Breeze/complete.do?buyType=" + buyType + 
+						"&buyerName=" + curUser.getUserName() + "&itemId=" + item.getId() +"&quot;>link</a>";
 				String[] buyTypeName = {"exchange with items", "exchange for credits", "exchange with items"};
 				Message msg = new Message();
-				String content = "Your item: " + item.getItemName() + " has been responded " +
-						"by the user: " + curUser.getUserName() + ", email: " + curUser.getEmail() + 
-						", who agreed to " + buyTypeName[buyType - 2] + ". Click the link below " +
-								"if you want to make a transaction with him. \n" + url;
+				String content = "Your item (" + item.getItemName() + ") has been responded " +
+						"by " + curUser.getUserName() +  
+						", who agreed to " + buyTypeName[buyType - 2] + ". Click this " + url +
+								" if you want to make a transaction with him.";
+				System.out.println(content.length());
 				msg.setContent(content);
 				msg.setSender(curUser);
 				msg.setReceiver(item.getOwner());
