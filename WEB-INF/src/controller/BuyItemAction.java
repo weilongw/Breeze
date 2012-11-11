@@ -58,19 +58,22 @@ public class BuyItemAction extends Action{
 		int buyType = form.getBuyTypeAsInt();
         User curUser = (User) request.getSession(false).getAttribute("user");
 
-		if(buyType == 0){
+		if(buyType == 1){
 			try {
 				Item item = itemDAO.getItemById(itemId);
 				int credit = item.getCredit();
 				if(curUser.getCredit() - credit < 0){
+					System.out.println(curUser.getCredit());
 					errors.add("Not enough credits.");
 					request.setAttribute("posted", item);
+					return "item_page.jsp";
 				}
 				curUser.setCredit(curUser.getCredit() - credit);
 				User owner = item.getOwner();
 				owner.setCredit(owner.getCredit() + credit);
 				item.setStatus(1);// set status as closed
 				request.setAttribute("success", "Transaction was successfully made.");
+				
 
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
