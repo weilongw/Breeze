@@ -50,10 +50,10 @@ public class ComposeMessageAction extends Action{
 		try {
 			sender = userDAO.lookup(form.getSender());
 			if (sender == null)
-				errors.add("Cannot find user named" + form.getSender());
+				errors.add("Cannot find user named " + form.getSender());
 			receiver = userDAO.lookup(form.getReceiver());
 			if (receiver == null)
-				errors.add("Cannot find user named" + form.getReceiver());
+				errors.add("Cannot find user named " + form.getReceiver());
 		} catch(DAOException e) {
 			errors.add(e.getMessage());
 		}

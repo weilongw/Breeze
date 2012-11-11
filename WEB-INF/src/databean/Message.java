@@ -2,7 +2,7 @@ package databean;
 
 import java.util.Date;
 
-public class Message {
+public class Message implements Comparable {
 	private int id;		// primary key
 	private User sender;
 	private User receiver;
@@ -11,8 +11,8 @@ public class Message {
 	private int type;
 	private Date sentDate;
 	
-	public int compareTo(Message other){
-		return -sentDate.compareTo(other.sentDate);
+	public int compareTo(Object other){
+		return -sentDate.compareTo(((Message)other).sentDate);
 	}
 	public int getId() {
 		return id;
