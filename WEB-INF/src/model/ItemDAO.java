@@ -124,4 +124,22 @@ public class ItemDAO {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
+	
+	public void closeItem(int itemId) throws DAOException{
+		try {
+			Transaction.begin();
+			Item item = factory.lookup(itemId);
+			if (item == null) {
+				throw new DAOException("item not present");
+			}
+			item.setStatus(1);
+			Transaction.commit();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+		
+	}
 }

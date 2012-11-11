@@ -18,6 +18,7 @@ import formbeans.BuyItemForm;
 import model.ItemDAO;
 import model.MessageDAO;
 import model.Model;
+import model.UserDAO;
 
 public class BuyItemAction extends Action{
 	
@@ -25,10 +26,12 @@ public class BuyItemAction extends Action{
 	
 	ItemDAO itemDAO;
 	MessageDAO messageDAO;
+	UserDAO userDAO;
 	
 	public BuyItemAction(Model model){
 		itemDAO = model.getItemDAO();
 		messageDAO = model.getMessageDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -58,18 +61,19 @@ public class BuyItemAction extends Action{
 		int buyType = form.getBuyTypeAsInt();
         User curUser = (User) request.getSession(false).getAttribute("user");
 
-		if(buyType == 0){
+		if(buyType == 1){
 			try {
 				Item item = itemDAO.getItemById(itemId);
 				int credit = item.getCredit();
 				if(curUser.getCredit() - credit < 0){
 					errors.add("Not enough credits.");
 					request.setAttribute("posted", item);
+					return "item_page.jsp";
 				}
-				curUser.setCredit(curUser.getCredit() - credit);
+				userDAO.setCredit(curUser.getCredit() - credit, curUser.getUserName());
 				User owner = item.getOwner();
-				owner.setCredit(owner.getCredit() + credit);
-				item.setStatus(1);// set status as closed
+				userDAO.setCredit(owner.getCredit() + credit, owner.getUserName());
+				itemDAO.closeItem(itemId);
 				request.setAttribute("success", "Transaction was successfully made.");
 
 			} catch (DAOException e) {

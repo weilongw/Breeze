@@ -8,6 +8,7 @@ import org.mybeans.factory.DuplicateKeyException;
 import org.mybeans.factory.RollbackException;
 import org.mybeans.factory.Transaction;
 
+import databean.Item;
 import databean.User;
 
 public class UserDAO {
@@ -96,6 +97,23 @@ public class UserDAO {
 			dbUser.setPassword(password);
 			Transaction.commit();
 		} catch (RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
+	
+	public void setCredit(int credit, String userName) throws DAOException{
+		try {
+			Transaction.begin();
+			User user = factory.lookup(userName);
+			if (user == null) {
+				throw new DAOException("user not present");
+			}
+			user.setCredit(credit);
+			Transaction.commit();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
 			throw new DAOException(e);
 		} finally {
 			if (Transaction.isActive()) Transaction.rollback();
