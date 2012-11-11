@@ -87,7 +87,7 @@
 							      	<form action="buyItem.do" method="post" class="form-horizontal" name="post_form">
 							      	<input type="hidden" name="itemId" value="${requested.id}">			
 							      	<input type="hidden" name="buyType" value="3">
-	    							<input type="submit" value="Buy with credits" class="btn">
+	    							<input type="submit" value="Exchange with credits" class="btn">
 	    							</form>
     							</td>
 						      	<td>

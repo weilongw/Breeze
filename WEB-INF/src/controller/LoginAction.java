@@ -47,7 +47,7 @@ public class LoginAction extends Action{
         request.setAttribute("form",form);
         
         try {
-			request.setAttribute("allItemList", itemDAO.getAllItems());
+			request.setAttribute("allItemList", itemDAO.getActiveItem());
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			errors.add(e.getMessage());

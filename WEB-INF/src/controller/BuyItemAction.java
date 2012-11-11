@@ -18,6 +18,7 @@ import formbeans.BuyItemForm;
 import model.ItemDAO;
 import model.MessageDAO;
 import model.Model;
+import model.UserDAO;
 
 public class BuyItemAction extends Action{
 	
@@ -25,10 +26,12 @@ public class BuyItemAction extends Action{
 	
 	ItemDAO itemDAO;
 	MessageDAO messageDAO;
+	UserDAO userDAO;
 	
 	public BuyItemAction(Model model){
 		itemDAO = model.getItemDAO();
 		messageDAO = model.getMessageDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -68,12 +71,13 @@ public class BuyItemAction extends Action{
 					request.setAttribute("posted", item);
 					return "item_page.jsp";
 				}
-				curUser.setCredit(curUser.getCredit() - credit);
+				userDAO.setCredit(curUser.getCredit() - credit, curUser.getUserName());
 				User owner = item.getOwner();
-				owner.setCredit(owner.getCredit() + credit);
-				item.setStatus(1);// set status as closed
-				request.setAttribute("success", "Transaction was successfully made.");
-				
+				userDAO.setCredit(owner.getCredit() + credit, owner.getUserName());
+				itemDAO.closeItem(itemId);
+				curUser.setCredit(curUser.getCredit() - credit);
+				request.setAttribute("success", "Transaction was successfully made. Your " +
+						"remaining credits are " + curUser.getCredit());
 
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
@@ -90,7 +94,7 @@ public class BuyItemAction extends Action{
 				String content = "Your item: " + item.getItemName() + " has been responded " +
 						"by the user: " + curUser.getUserName() + ", email: " + curUser.getEmail() + 
 						", who agreed to " + buyTypeName[buyType - 2] + ". Click the link below " +
-								"if you want to make a transaction with him." + url;
+								"if you want to make a transaction with him. \n" + url;
 				msg.setContent(content);
 				msg.setSender(curUser);
 				msg.setReceiver(item.getOwner());
@@ -100,7 +104,7 @@ public class BuyItemAction extends Action{
 				String content2 = "The item: " + item.getItemName() + " you requested has been sent " +
 						"to the user: " + item.getOwner().getUserName() + ", email: " + item.getOwner().getEmail() + 
 						". You agreed to " + buyTypeName[buyType - 2] + ". You will get automatically message notification" +
-								"if the item owner makes the transaction with you.";
+								" if the item owner makes the transaction with you.";
 				msg2.setContent(content2);
 				msg2.setSender(item.getOwner());
 				msg2.setReceiver(curUser);

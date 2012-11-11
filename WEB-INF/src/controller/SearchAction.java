@@ -57,7 +57,7 @@ public class SearchAction extends Action{
         try {
         	int option = form.getOptionsAsInt();
         	if (option == 0)
-        		allItems = itemDAO.getAllItems();
+        		allItems = itemDAO.getActiveItem();
         	else 
         		allItems = itemDAO.getItemsByType(option);
         	if (form.getKey().trim().length() == 0) {
