@@ -65,29 +65,34 @@ public class ShowItemPageAction extends Action{
 
         try {
         	Item item = itemDAO.getItemById(itemId);
-        	Item requested;
-        	Item posted;
-        	if(item.getType() == 1){
-        		posted = item;
-    			request.setAttribute("posted",posted);
+        	if(item.getStatus() == 0){
+	        	Item requested;
+	        	Item posted;
+	        	if(item.getType() == 1){
+	        		posted = item;
+	    			request.setAttribute("posted",posted);
+	        	}
+	        	else{
+	        		requested = item;
+	        		request.setAttribute("requested",requested);
+	        	}
+	        	int isOwner = 0;
+	        	if(item.getOwner().getUserName().equals(user.getUserName()))
+	        		isOwner = 1;
+	    		request.setAttribute("isOwner",isOwner);
+	    		return "item_page.jsp";
         	}
         	else{
-        		requested = item;
-        		request.setAttribute("requested",requested);
+        		errors.add("Invalid operation.");
+        		return "browse.do";
         	}
-        	int isOwner = 0;
-        	if(item.getOwner().getUserName().equals(user.getUserName()))
-        		isOwner = 1;
-    		request.setAttribute("isOwner",isOwner);
-
-        		
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			errors.add(e.getMessage());
+			return "browse.do";
 		}
 
         	
-		return "item_page.jsp";
 	}
 
 }

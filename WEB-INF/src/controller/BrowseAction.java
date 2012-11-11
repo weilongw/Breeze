@@ -31,7 +31,7 @@ public class BrowseAction extends Action{
         request.setAttribute("errors",errors);
 		
 		try {
-			request.setAttribute("allItemList", itemDAO.getAllItems());
+			request.setAttribute("allItemList", itemDAO.getActiveItem());
 
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block

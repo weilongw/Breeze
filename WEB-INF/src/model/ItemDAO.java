@@ -142,4 +142,19 @@ public class ItemDAO {
 		}
 		
 	}
+	
+	public Item[] getActiveItem() throws DAOException{
+		Item[] list;
+		try {
+			list = factory.match(MatchArg.equals("status", 0));
+			Arrays.sort(list);
+			return list;
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e);
+		}
+		
+		
+		
+	}
 }
