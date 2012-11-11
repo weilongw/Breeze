@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,11 +10,13 @@ import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Item;
+import databean.Message;
 import databean.User;
 
 import formbeans.BuyItemForm;
 
 import model.ItemDAO;
+import model.MessageDAO;
 import model.Model;
 
 public class BuyItemAction extends Action{
@@ -21,9 +24,11 @@ public class BuyItemAction extends Action{
 	private FormBeanFactory<BuyItemForm> formBeanFactory = FormBeanFactory.getInstance(BuyItemForm.class, "<>\"");
 	
 	ItemDAO itemDAO;
+	MessageDAO messageDAO;
 	
 	public BuyItemAction(Model model){
 		itemDAO = model.getItemDAO();
+		messageDAO = model.getMessageDAO();
 	}
 	
 	@Override
@@ -65,6 +70,8 @@ public class BuyItemAction extends Action{
 				User owner = item.getOwner();
 				owner.setCredit(owner.getCredit() + credit);
 				item.setStatus(1);// set status as closed
+				request.setAttribute("success", "Transaction was successfully made.");
+
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -75,14 +82,50 @@ public class BuyItemAction extends Action{
 				Item item = itemDAO.getItemById(itemId);
 				String url = "http://localhost:8080/Breeze/complete.do?buyType=" + buyType + 
 						"&buyerName=" + curUser.getUserName() + "&itemId=" + item.getId();
+				String[] buyTypeName = {"exchange with items", "exchange for credits", "exchange with items"};
+				Message msg = new Message();
+				String content = "Your item: " + item.getItemName() + " has been responded " +
+						"by the user: " + curUser.getUserName() + ", email: " + curUser.getEmail() + 
+						", who agreed to " + buyTypeName[buyType - 2] + ". Click the link below " +
+								"if you want to make a transaction with him." + url;
+				msg.setContent(content);
+				msg.setSender(curUser);
+				msg.setReceiver(item.getOwner());
+				msg.setTitle("Item Requested!");
+				msg.setSentDate(new Date());
+				Message msg2 = new Message();
+				String content2 = "The item: " + item.getItemName() + " you requested has been sent " +
+						"to the user: " + item.getOwner().getUserName() + ", email: " + item.getOwner().getEmail() + 
+						". You agreed to " + buyTypeName[buyType - 2] + ". You will get automatically message notification" +
+								"if the item owner makes the transaction with you.";
+				msg2.setContent(content2);
+				msg2.setSender(item.getOwner());
+				msg2.setReceiver(curUser);
+				msg2.setTitle("Request Item Confirmation!");
+				msg2.setSentDate(new Date());
+				try {
+					messageDAO.create(msg);
+					messageDAO.create(msg2);
+
+				} catch (DAOException e) {
+					errors.add(e.getMessage());
+					if(item.getType() == 1)
+						request.setAttribute("posted", item);
+					else 
+						request.setAttribute("requested", item);
+					return "item_page.jsp";
+				}
+				
+				
+				
+				request.setAttribute("success", "Your request has been sent.");
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}			
 		}
 	
-		
-		return null;
+		return "showMessage.do";
 	}
 
 }
