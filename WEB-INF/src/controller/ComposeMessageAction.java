@@ -19,7 +19,7 @@ import formbeans.MessageForm;
 
 public class ComposeMessageAction extends Action{
 
-	private FormBeanFactory<MessageForm> formBeanFactory = FormBeanFactory.getInstance(MessageForm.class, "<>\"");
+	private FormBeanFactory<MessageForm> formBeanFactory = FormBeanFactory.getInstance(MessageForm.class, "<>\"\''");
 	private MessageDAO messageDAO;
 	private UserDAO userDAO;
 	

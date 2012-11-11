@@ -53,7 +53,7 @@ public class LoginAction extends Action{
 			errors.add(e.getMessage());
         	return "index.jsp";
 		}
-
+		
         if (!form.isPresent()) {
             return "index.jsp";
         }

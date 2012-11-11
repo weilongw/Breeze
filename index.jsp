@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="top.jsp" />
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -40,7 +40,7 @@
                                   <a href="showItems.do?itemId=${item.id}"><img src="img/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt=""></a>
                                 </div>
 									<a href="showItems.do?itemId=${item.id}"><h3>${item.itemName}</h3></a>
-									<p>${item.itemDescription}</p>
+									<p>${fn:substring(item.itemDescription,0,30)}</p>
 								</div>
 							</li>
 						</c:forEach>
@@ -54,7 +54,7 @@
                                     <a href="showItems.do?itemId=${item.id}"><img src="img/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt=""></a>
                                 </div>
 									<a href="showItems.do?itemId=${item.id}"><h3>${item.itemName}</h3></a>
-									<p>${item.itemDescription}</p>
+									<p>${fn:substring(item.itemDescription,0,30)}</p>
 								</div>
 							</li>
 						</c:forEach>

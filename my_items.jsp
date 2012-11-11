@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="top.jsp" />
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -30,11 +30,13 @@
 										<div style="width:240px;height:160px; text-align:center">
 										<img src="img/${myPostedItem.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt="">
 										</div>
+										<div class="caption">
 										<h3>${myPostedItem.itemName}</h3>
-										<p>${myPostedItem.itemDescription}</p>
+										<p>${fn:substring(myPostedItem.itemDescription,0,30)}</p>
 										<form action="#" method="post">
 											<input type="submit" value="close" class="btn">
 										</form>
+										</div>
 									</div>
 								</li>
 								</c:forEach>
@@ -55,11 +57,13 @@
 										<div style="width:240px;height:160px; text-align:center">
 										<img src="img/${myRequestedItem.imgName}" style="max-width:240px; max-height:160px" alt="">
 										</div>
+										<div class="caption">
 										<h3>${myRequestedItem.itemName}</h3>
-										<p>${myRequestedItem.itemDescription}</p>
+										<p>${fn:substring(myRequestedItem.itemDescription,0,30)}</p>
 										<form action="#" method="post">
 											<input type="submit" value="close" class="btn">
 										</form>
+										</div>
 									</div>
 								</li>
 								</c:forEach>

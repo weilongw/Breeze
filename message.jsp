@@ -38,56 +38,83 @@
                     </li>
     				</ul>
     				<div class="tab-content">
+                        
                         <c:choose>
                         <c:when test="${empty(form)}">
                         <div class="tab-pane active" id="tab1">
+
                         </c:when>
                         <c:otherwise>
                         <div class="tab-pane" id="tab1">
                         </c:otherwise>
                         </c:choose>
+                            <div class="span8">
     						<table class="table table-hover">
     							<thead>
     								<tr>
-    									<th>From</th>
-                                        <th>Title</th>
-    									<th>When</th>
+    									<th width="100px">From</th>
+                                        
+    									<th width="300px">When</th>
     								</tr>
     							</thead>
     							<tbody>
                                     <c:forEach var="inboxMsg" items="${inbox}">
-                                    <tr>
+                                    <tr onclick="show_msg('1','${inboxMsg.sender.userName}', '${inboxMsg.title}', '${inboxMsg.content}', '${inboxMsg.sentDate}')">
                                         <td style="vertical-align:middle">${inboxMsg.sender.userName}</td>
-                                        <td style="vertical-align:middle">${inboxMsg.title}</td>
-                                        <td>${inboxMsg.sentDate}
-                                            <button class="btn">read</button>
+                                        
+                                        <td>${inboxMsg.title}
                                         </td>
                                     </tr>
                                     </c:forEach>
     							</tbody>
     						</table>
+                            </div>
+                            <div class="span4">
+                                <fieldset>
+                                    <legend>Message</legend>
+                                    <strong>From:</strong><br/>
+                                    <span id="user1"></span><br/>
+                                    <strong>Title:</strong><br/>
+                                    <span id="title1"></span><br/>
+                                    <strong>Content:</strong><br/>
+                                    <span id="content1"></span><br/><br/>
+                                    <strong>@</strong>
+                                    <span id="date1"></span><br/>
+                                </fieldset>  
+                            </div>
     					</div>
     					<div class="tab-pane" id="tab2">
+                            <div class="span8">
    							<table class="table table-hover">
     							<thead>
-    								<tr>
-    									<th>To</th>
-                                        <th>Title</th>
-    									<th>When</th>
-    								</tr>
-    							</thead>
+                                    <tr>
+                                        <th width="100px">To</th>
+                                        <th width="300px">Title</th>
+                                    </tr>
+                                </thead>
     							<tbody>
                                     <c:forEach var="sentMsg" items="${sent}">
-                                    <tr>
+                                    <tr onclick="show_msg('2', '${sentMsg.receiver.userName}', '${sentMsg.title}', '${sentMsg.content}', '${sentMsg.sentDate}')">
                                         <td style="vertical-align:middle">${sentMsg.receiver.userName}</td>
                                         <td style="vertical-align:middle">${sentMsg.title}</td>
-                                        <td>${sentMsg.sentDate}
-                                            <button class="btn">read</button>
-                                        </td>
                                     </tr>
                                     </c:forEach>
                                 </tbody>
     						</table>
+                            </div>
+                            <div class="span4">
+                                <fieldset>
+                                    <legend>Message</legend>
+                                    <strong>To:</strong><br/>
+                                    <span id="user2"></span><br/>
+                                    <strong>Title:</strong><br/>
+                                    <span id="title2"></span><br/>
+                                    <strong>Content:</strong><br/>
+                                    <span id="content2"></span><br/><br/>
+                                    <strong>@</strong>
+                                    <span id="date2"></span><br/>
+                                </fieldset>  
+                            </div>
     					</div>
                         <c:choose>
                         <c:when test="${!empty(form)}">
