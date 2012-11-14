@@ -68,6 +68,10 @@ public class PostItemForm {
 			errors.add("Invalid post type");
 		}
 		
+		if (itemName.length() > 20) {
+			errors.add("Item name is too long");
+		}
+		
 		return errors;
 	}
 	

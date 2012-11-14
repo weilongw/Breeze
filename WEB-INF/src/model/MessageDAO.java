@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.factory.BeanFactory;
@@ -39,6 +40,9 @@ public class MessageDAO {
 		}
 	}
 	
+	protected BeanFactory<Message> getFactory() { return factory; }
+	
+	
 	public Message[] getAllMessages() throws DAOException {
 		try {
 			Message[] list = factory.match();
@@ -67,5 +71,15 @@ public class MessageDAO {
 		} catch (RollbackException e) {
 			throw new DAOException(e);
 		}
+	}
+	
+	public void send(User sender, User receiver, String title, String content) throws DAOException {
+		Message msg = new Message();
+		msg.setSender(sender);
+		msg.setReceiver(receiver);
+		msg.setSentDate(new Date());
+		msg.setTitle(title);
+		msg.setContent(content);
+		create(msg);
 	}
 }

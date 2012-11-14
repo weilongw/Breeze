@@ -50,8 +50,10 @@ public class PostItemAction extends Action{
         
         if (form.getPostTypeAsInt() == Item.POST)
         	request.setAttribute("postForm",form);
-        else
+        else 
         	request.setAttribute("requestForm", form);
+        	
+        
         
         errors.addAll(form.getValidationErrors());
         
@@ -60,6 +62,14 @@ public class PostItemAction extends Action{
         }
         
         User curUser = (User) request.getSession(false).getAttribute("user");
+        
+        if (form.getPostTypeAsInt() == Item.REQUEST && form.getForCredit() != null) {
+        	int forCredit = Integer.parseInt(form.getCredit());
+        	if (forCredit > curUser.getCredit()) {
+        		errors.add("You have not enough credit for this request");
+        		return "post_item.jsp";
+        	}
+        }
         Item newItem = new Item();
         newItem.setType(form.getPostTypeAsInt());
         newItem.setItemName(form.getItemName());

@@ -100,6 +100,12 @@ public class RegisterForm {
 			errors.add("Emails are not the same");
 		}
 		
+		if (userName.length() > 10) {
+			errors.add("Username is too long");
+		}
+		
+		//check email using regex
+		
 		return errors;
 	}
 	

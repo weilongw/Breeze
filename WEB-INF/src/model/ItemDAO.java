@@ -30,6 +30,8 @@ public class ItemDAO {
 		}
 	}
 	
+	protected BeanFactory<Item> getFactory() { return factory; }
+	
 	public int create(Item newItem) throws DAOException {
 		try {
 			Transaction.begin();
@@ -132,7 +134,7 @@ public class ItemDAO {
 			if (item == null) {
 				throw new DAOException("item not present");
 			}
-			item.setStatus(1);
+			item.setStatus(Item.CLOSED);
 			Transaction.commit();
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block

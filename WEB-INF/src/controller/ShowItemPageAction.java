@@ -41,10 +41,6 @@ public class ShowItemPageAction extends Action{
         
         User user =  (User) request.getSession(false).getAttribute("user");
         
-        if (user == null) {
-			errors.add("You are not logged in");
-			return "index.jsp";
-		}
         
         errors.addAll(form.getValidationErrors());
         
@@ -77,7 +73,7 @@ public class ShowItemPageAction extends Action{
 	        		request.setAttribute("requested",requested);
 	        	}
 	        	int isOwner = 0;
-	        	if(item.getOwner().getUserName().equals(user.getUserName()))
+	        	if(user != null && item.getOwner().getUserName().equals(user.getUserName()))
 	        		isOwner = 1;
 	    		request.setAttribute("isOwner",isOwner);
 	    		return "item_page.jsp";

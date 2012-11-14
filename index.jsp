@@ -5,9 +5,9 @@
 			<div class="row-fluid">
       			<div class="span3 bs-docs-sidebar">
         			<ul class="nav nav-list bs-docs-sidenav">
-          				<li><a href="#"><i class="icon-chevron-right"></i>Poster</a></li>
-          				<li><a href="#"><i class="icon-chevron-right"></i>DVD</a></li>
-          				<li><a href="#"><i class="icon-chevron-right"></i>Prop</a></li>
+          				<li><a href="showCategory.do?category=Poster"><i class="icon-chevron-right"></i>Poster</a></li>
+          				<li><a href="showCategory.do?category=DVD"><i class="icon-chevron-right"></i>DVD</a></li>
+          				<li><a href="showCategory.do?category=Prop"><i class="icon-chevron-right"></i>Prop</a></li>
         			</ul>
       			</div>
       			<div class="span8" style="padding:20px">

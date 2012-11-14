@@ -8,3 +8,8 @@ function show_msg(which, user, title, content, date) {
     document.getElementById("content" + which).innerHTML = content;
     document.getElementById("date" + which).innerHTML = date;
 }
+
+function show_xchg(text) {
+	document.getElementById("xchg").innerHTML = "<strong>Item Exchange Description</strong> \
+												<br/><p>" + text + "</p>";
+}

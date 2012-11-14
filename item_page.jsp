@@ -25,33 +25,47 @@
   						<div style="width:240px; height:160px; text-align:center">
 							<img src="img/${posted.imgName}" style="max-width:240px; max-height:160px" alt="">
   						</div>
-  						<br/><p>Cost: ${posted.credit} credits</p><br/>
+  						<br/>
+  						<c:if test="${posted.credit != -1}">
+  						<p>Cost: ${posted.credit} credits</p><br/>
+  						</c:if>
+  						<c:if test="${!empty (posted.exchangeItemDescription)}">
   						<p>The poster also accepts exchange..</p><br/>
-						<a href="">view details..</a>
+						<a href="#" onclick="show_xchg('${posted.exchangeItemDescription}')">view details..</a>
+						</c:if>
   					</div>
   					<div class="span8">
-  						<h4>${posted.itemName}</h4>
+  						<h4>${posted.itemName} (Selling) </h4>
   						<p>${posted.owner.userName}		
   						<c:if test="${isOwner==0}">			
-							<a  href="">Send him/her a message..</a>	
+							<a  href="redirectSend.do?receiver=${posted.owner.userName}&itemId=${posted.id}">Send him/her a message..</a>	
 						</c:if></p>
-  						<textarea class="span8" rows="4" name="itemDescription">${posted.itemDescription}</textarea>
+						<fieldset>
+							<legend>Item Description</legend>
+							<big>${posted.itemDescription}</big>
+						</fieldset>
+						<br/>
+  						<div id="xchg"></div>
   						<c:if test="${isOwner == 0}">
  						<table>
  							<tbody>
 						    <tr>
 						    	<td>
+						    		<c:if test="${posted.credit != -1}">
 							      	<form action="buyItem.do" method="post" class="form-horizontal" name="post_form">
 							      	<input type="hidden" name="itemId" value="${posted.id}">
 							      	<input type="hidden" name="buyType" value="1">
 	    							<input type="submit" value="Buy with credits" class="btn">
 	    							</form>
+	    							</c:if>	
     							</td>
 						      	<td>
+						      		<c:if test="${!empty (posted.exchangeItemDescription)}">
 						      		<form action="buyItem.do" method="post" class="form-horizontal" name="post_form">
 						      		<input type="hidden" name="itemId" value="${posted.id}">
 						      		<input type="hidden" name="buyType" value="2">
 									<input type="submit" value="Exchange with items" class="btn">
+									</c:if>
 									</form>
 						      	</td>
 						    </tr>
@@ -68,34 +82,47 @@
   						<div style="width:240px; height:160px; text-align:center">
 							<img src="img/${requested.imgName}" style="max-width:240px; max-height:160px" alt="">
   						</div>
-  						<br/><p>Offer: ${requested.credit} credits</p><br/>
+  						<br/>
+  						<c:if test="${requested.credit != -1}">
+  						<p>Offer: ${requested.credit} credits</p><br/>
+  						</c:if>
+  						<c:if test="${!empty (requested.exchangeItemDescription)}">
   						<p>The poster also offers exchange..</p><br/>
-						<a href="">view details..</a>
+						<a href="#" onclick="show_xchg('${requested.exchangeItemDescription}')">view details..</a>
+						</c:if>
   					</div>
   					<div class="span8">
-  						<h4>${requested.itemName}</h4>
+  						<h4>${requested.itemName} (Wanted) </h4>
   						<p>${requested.owner.userName}		
   						<c:if test="${isOwner == 0}">			
-							<a  href="">Send him/her a message..</a>		
+							<a  href="redirectSend.do?receiver=${requested.owner.userName}&itemId=${requested.id}">Send him/her a message..</a>		
 						</c:if></p>
-  						<textarea class="span8" rows="4" name="itemDescription">${posted.itemDescription}</textarea>
+  						<fieldset>
+							<legend>Item Description</legend>
+							<big>${requested.itemDescription}</big>
+						</fieldset><br/>
+  						<div id="xchg"></div>
  						<c:if test="${isOwner == 0}">
  						<table>
  							<tbody>
 						    <tr>
 						    	<td>
+						    		<c:if test="${requested.credit != -1}">
 							      	<form action="buyItem.do" method="post" class="form-horizontal" name="post_form">
 							      	<input type="hidden" name="itemId" value="${requested.id}">			
 							      	<input type="hidden" name="buyType" value="3">
 	    							<input type="submit" value="Exchange with credits" class="btn">
 	    							</form>
+	    							</c:if>
     							</td>
 						      	<td>
+						      		<c:if test="${!empty(requested.exchangeItemDescription)}">
 						      		<form action="buyItem.do" method="post" class="form-horizontal" name="post_form">
 						      		<input type="hidden" name="itemId" value="${requested.id}">
 						      		<input type="hidden" name="buyType" value="4">
 									<input type="submit" value="Exchange with items" class="btn">
 									</form>
+									</c:if>
 						      	</td>
 						    </tr>
   							</tbody>   					

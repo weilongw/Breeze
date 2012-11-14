@@ -35,4 +35,9 @@ public class ShowItemForm {
 	public int getItemIdAsInt() {
 		return Integer.parseInt(itemId);
 	}
+	
+	public boolean isPresent() {
+		if (itemId != null) return true;
+		return false;
+	}
 }

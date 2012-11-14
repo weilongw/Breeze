@@ -6,6 +6,9 @@ public class Item implements Comparable{
 	public static final int POST = 1;
 	public static final int REQUEST = 2;
 	
+	public static final int OPEN = 0;
+	public static final int CLOSED = 1;
+	
 	private int id;	// primary key
 	private String itemName;
 	private String relatedMovie;
@@ -15,7 +18,7 @@ public class Item implements Comparable{
 	private String category;
 	private String imgName;
 	private Date postDate;
-	private int credit;
+	private int credit = -1;
 	private int type;	// whether the item is posted as on sale or being requested
 	private int status;	// whether this transaction is complete
 	// keep track of how many times an item's show page has been visited.

@@ -19,7 +19,7 @@ import formbeans.MessageForm;
 
 public class ComposeMessageAction extends Action{
 
-	private FormBeanFactory<MessageForm> formBeanFactory = FormBeanFactory.getInstance(MessageForm.class, "<>\"\'\\");
+	private FormBeanFactory<MessageForm> formBeanFactory = FormBeanFactory.getInstance(MessageForm.class, "<>\"'\\");
 	private MessageDAO messageDAO;
 	private UserDAO userDAO;
 	
@@ -60,10 +60,10 @@ public class ComposeMessageAction extends Action{
 		if (errors.size() != 0) return "message.jsp";
 		
 		Message msg = new Message();
-		msg.setContent(form.getContent());
+		msg.setContent(form.getContent().replace("&#39;", "&quot;"));
 		msg.setSender(sender);
 		msg.setReceiver(receiver);
-		msg.setTitle(form.getTitle());
+		msg.setTitle(form.getTitle().replace("&#39;", "&quot;"));
 		msg.setSentDate(new Date());
 		try {
 			messageDAO.create(msg);

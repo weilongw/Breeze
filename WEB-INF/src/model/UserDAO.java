@@ -120,4 +120,19 @@ public class UserDAO {
 		}
 	}
 	
+	public void transferCredit(int credit, User from, User to) throws DAOException {
+		try{
+			User usr1 = factory.lookup(from.getUserName());
+			User usr2 = factory.lookup(to.getUserName());
+			if (usr1.getCredit() < credit) throw new DAOException("Not enough credit");
+			setCredit(usr1.getCredit() - credit, usr1.getUserName());
+			setCredit(usr2.getCredit() + credit, usr2.getUserName());
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	
+	}
+	
 }
