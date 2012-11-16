@@ -12,6 +12,7 @@ public class Item implements Comparable{
 	private int id;	// primary key
 	private String itemName;
 	private String relatedMovie;
+	private String relatedMovieYear;
 	private User owner;		// user who posted this item
 	private String itemDescription;
 	private String exchangeItemDescription;	

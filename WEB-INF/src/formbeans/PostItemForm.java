@@ -13,6 +13,7 @@ public class PostItemForm {
 	private String forExchange;
 	private String exchangeDescription;
 	private String postType;
+	private String relatedMovie;
 	
 	public boolean isPresent() {
 		if (itemName != null) return true;
@@ -22,6 +23,7 @@ public class PostItemForm {
 		if (forExchange  != null) return true;
 		if (exchangeDescription   != null) return true;
 		if (postType   != null) return true;
+		if (relatedMovie != null) return true;
 		return false;
 	}
 	
@@ -38,6 +40,9 @@ public class PostItemForm {
 		
 		if (itemCategory == null || itemCategory.trim().length() == 0) {
 			errors.add("Item Category is required");
+		}
+		if (relatedMovie == null || relatedMovie.trim().length() == 0) {
+			errors.add("Related Movie is required");
 		}
 		
 		if (forCredit == null && forExchange == null) {
@@ -97,6 +102,12 @@ public class PostItemForm {
 	}
 	public void setItemCategory(String x) {
 		itemCategory = x;
+	}
+	public String getRelatedMovie() {
+		return relatedMovie;
+	}
+	public void setRelatedMovie(String x) {
+		relatedMovie = x;
 	}
 	public String getForCredit() {
 		return forCredit;

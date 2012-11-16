@@ -10,10 +10,10 @@
 					<li><a href="showMessage.do"><i class="icon-chevron-right"></i>My Messages</a></li>
 				</ul>
 			</div>
-			<div class="span8" style="padding:20px">
+			<div class="span6" style="padding:20px">
                 <jsp:include page="error.jsp" />
                 <jsp:include page="success.jsp" />
-				<div class="tabbable"> <!-- Only required for left/right tabs -->
+				<div class="tabbable"><!-- Only required for left/right tabs -->
     				<ul class="nav nav-tabs">
     				<c:choose>
                         <c:when test="${empty(requestForm)}">
@@ -43,6 +43,9 @@
     				</div>
     			</div>
 			</div>
+            <div class="span3" id="movie">
+                
+            </div>
 		</div>
 	</div>
 </div>

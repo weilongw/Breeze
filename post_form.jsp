@@ -12,13 +12,20 @@
 		    <div class="control-group">
 				<label class="control-label">Item Name</label>
 					<div class="controls">
-					<input class="span4" type="text" name="itemName" value="${postForm.itemName}">
+					<input class="span6" type="text" name="itemName" value="${postForm.itemName}">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label">Item Description</label>
 					<div class="controls">
-					<textarea class="span8" rows="4" name="itemDescription">${postForm.itemDescription}</textarea>
+					<textarea class="span10" rows="4" name="itemDescription">${postForm.itemDescription}</textarea>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Related Movie</label>
+				<div class="controls">
+				<input type="text" class="span6" id="p-ajax-movie" onchange="search_movie('p');">
+				<input type="text" class="span2" id="p-ajax-movie-year" onchange="search_movie('p');" placeholder="Year">
 				</div>
 			</div>
 			<div class="control-group">
@@ -54,15 +61,17 @@
 					Exchange Description:
 				</label>
 				<div class="controls" style="padding-top:6	;">
-					<textarea id="post_exchange" class="span8" rows="4" name="exchangeDescription" disabled>${postFrom.exchangeDescription}</textarea>
+					<textarea id="post_exchange" class="span10" rows="4" name="exchangeDescription" disabled>${postFrom.exchangeDescription}</textarea>
 				</div>
 			</div>
 			<div class="control-group">
 				<div class="controls">
 				<input type="hidden" name="postType" value="1">
+				<input type="hidden" id="p-movie-name" name="relatedMovie" value="">
 				<input type="submit" value="Post" class="btn">
 				</div>		
 			</div>
+			
 	</form>
 
 </div>

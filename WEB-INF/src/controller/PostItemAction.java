@@ -44,6 +44,11 @@ public class PostItemAction extends Action{
 		
 		request.setAttribute("errors",errors);
         
+		User curUser = (User) request.getSession(false).getAttribute("user");
+		if (curUser == null) {
+			errors.add("You are not logged in");
+			return "index.jsp";
+		}
         if (!form.isPresent()) {
             return "post_item.jsp";
         }
@@ -61,7 +66,6 @@ public class PostItemAction extends Action{
             return "post_item.jsp";
         }
         
-        User curUser = (User) request.getSession(false).getAttribute("user");
         
         if (form.getPostTypeAsInt() == Item.REQUEST && form.getForCredit() != null) {
         	int forCredit = Integer.parseInt(form.getCredit());
@@ -83,6 +87,7 @@ public class PostItemAction extends Action{
 		newItem.setStatus(0);
 		newItem.setClickCount(0);
 		newItem.setCategory(form.getItemCategory());
+		newItem.setRelatedMovie(form.getRelatedMovie());
 		
 		try {
 			newItem.setId(itemDAO.create(newItem));

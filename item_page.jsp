@@ -2,17 +2,18 @@
 <jsp:include page="top.jsp" />
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span4 bs-docs-sidebar">
+			<div class="span3 bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
-					                <c:if test="${!empty (posted)}">
+				<c:if test="${!empty (posted)}">
 
 					<li class="active"><a href="showItems.do?itemId=${posted.id}"><i class="icon-chevron-right"></i>Item Info</a></li>
+					<li><a href="showMovie.do?itemId=${posted.id}"><i class="icon-chevron-right"></i>About Movie</a></li>
 				</c:if>
-				   <c:if test="${!empty (requested)}">
-
+				<c:if test="${!empty (requested)}">
 					<li class="active"><a href="showItems.do?itemId=${requested.id}"><i class="icon-chevron-right"></i>Item Info</a></li>
+					<li><a href="showMovie.do?itemId=${requested.id}"><i class="icon-chevron-right"></i>About Movie</a></li>
 				</c:if>
-					<li><a href="about_movie.jsp"><i class="icon-chevron-right"></i>About Movie</a></li>
+					
 				</ul>
 			</div>
 			<div class="span8" style="padding:20px">

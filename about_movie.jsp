@@ -6,8 +6,15 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	
 		<script type="text/javascript" src="js/bootstrap.js"></script>
 		<script type="text/javascript" src="breeze.js"></script>
+		<style media="screen" type="text/css">
+
+		.movie tr{
+			line-height: 30	px;
+		}
+
+		</style>
 	</head>
-	<body style="padding-top : 60px">	
+	<body style="padding-top : 60px" onload="load_movie('${item.relatedMovie}')">	
 		<div style="width:1350px;">
 		<header class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -57,3 +64,46 @@
 				</div>
 			</div>
 		</header>
+<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span3 bs-docs-sidebar">
+				<ul class="nav nav-list bs-docs-sidenav">
+					                
+					<li><a href="showItems.do?itemId=${item.id}"><i class="icon-chevron-right"></i>Item Info</a></li>
+					<li class="active"><a href="showMovie.do?itemId=${item.id}"><i class="icon-chevron-right"></i>About Movie</a></li>
+				</ul>
+			</div>
+			<div class="span9" style="padding:20px">
+                <jsp:include page="error.jsp" />
+                <jsp:include page="success.jsp" />
+                
+                <fieldset onload="load_movie('${item.relatedMovie}')">
+                	<legend id="legend_title"></legend>
+                	<div class="span8">
+                	<table class="movie">
+                	<tr id="title"></tr>
+                	<tr id="year"></tr>
+                	<tr id="rated"></tr>
+                	<tr id="released"></tr>
+                	<tr id="runtime"></tr>
+                	<tr id="genre"></tr>	
+                	<tr id="director"></tr>
+                	<tr id="writer"></tr>
+                	<tr id="actors"></tr>
+                	<tr id="plot"></tr>
+                	<tr id="imdbRating"></tr>
+                	<tr id="imdbVotes"></tr>
+                	</table>
+                	</div>
+                	<div class="span3">
+                		<img src="" alt="empty movie.." id="movie_poster">
+            		</div>
+                </fieldset>
+            		
+            	
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
