@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,16 +27,17 @@ public class BrowseAction extends Action{
 	@Override
 	public String perform(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
+		//List<String> errors = new ArrayList<String>();
+        //request.setAttribute("errors",errors);
+		List<String> errors = prepareErrors(request);
 		
 		try {
 			request.setAttribute("allItemList", itemDAO.getActiveItem());
 
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
+			
 			errors.add(e.getMessage());
-        	return "index.jsp";
+        	
 		}
     	
 		return "index.jsp";

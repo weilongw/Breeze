@@ -130,10 +130,10 @@ function enable_text(text, isChecked) {
 	document.getElementById(text).disabled = !isChecked;
 }
 
-function show_msg(which, user, title, content, date) {
-    document.getElementById("user" + which).innerHTML = user;
-    document.getElementById("title"+ which).innerHTML = title;
-    document.getElementById("content" + which).innerHTML = content;
+function show_msg(which, msg_id, date) {
+    document.getElementById("user" + which).innerHTML = document.getElementById(msg_id + "user").value;
+    document.getElementById("title"+ which).innerHTML = document.getElementById(msg_id + "title").value;
+    document.getElementById("content" + which).innerHTML = document.getElementById(msg_id + "content").value;
     document.getElementById("date" + which).innerHTML = date;
 }
 

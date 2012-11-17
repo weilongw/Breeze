@@ -1,7 +1,7 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Date;
+
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,13 +13,13 @@ import model.UserDAO;
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
-import databean.Message;
+
 import databean.User;
 import formbeans.MessageForm;
 
 public class ComposeMessageAction extends Action{
 
-	private FormBeanFactory<MessageForm> formBeanFactory = FormBeanFactory.getInstance(MessageForm.class, "<>\"'\\");
+	private FormBeanFactory<MessageForm> formBeanFactory = FormBeanFactory.getInstance(MessageForm.class, "<>\"'\\\n");
 	private MessageDAO messageDAO;
 	private UserDAO userDAO;
 	
@@ -36,21 +36,22 @@ public class ComposeMessageAction extends Action{
 	@Override
 	public String perform(HttpServletRequest request) {
 		MessageForm form = formBeanFactory.create(request);
-		List<String> errors = new ArrayList<String>();
+		
 		request.setAttribute("form", form);
-		request.setAttribute("errors", errors);
+		List<String> errors = prepareErrors(request);
 		if (!form.isPresent()) {
 			return "message.jsp";
 		}
-		
+		User curUser = (User)request.getSession().getAttribute("user");
+		if (curUser == null) {
+			errors.add("You are not logged in");
+			return "browse.do";
+		}
 		errors.addAll(form.getValidationErrors());
-		if (errors.size() != 0) return "message.jsp";
+		if (errors.size() != 0) return "showMessage.do";
 		
-		User sender = null, receiver = null;
+		User receiver = null;
 		try {
-			sender = userDAO.lookup(form.getSender());
-			if (sender == null)
-				errors.add("Cannot find user named " + form.getSender());
 			receiver = userDAO.lookup(form.getReceiver());
 			if (receiver == null)
 				errors.add("Cannot find user named " + form.getReceiver());
@@ -59,17 +60,18 @@ public class ComposeMessageAction extends Action{
 		}
 		if (errors.size() != 0) return "message.jsp";
 		
-		Message msg = new Message();
-		msg.setContent(form.getContent().replace("&#39;", "&quot;"));
-		msg.setSender(sender);
-		msg.setReceiver(receiver);
-		msg.setTitle(form.getTitle().replace("&#39;", "&quot;"));
-		msg.setSentDate(new Date());
+		//Message msg = new Message();
+//		msg.setContent(form.getContent().replace("&#39;", "&quot;"));
+		
+		//msg.setReceiver(receiver);
+		//msg.setTitle(form.getTitle().replace("&#39;", "&quot;"));
+		//msg.setSentDate(new Date());
 		try {
-			messageDAO.create(msg);
+			messageDAO.send(curUser, receiver, form.getTitle(),
+											   form.getContent());
 		} catch (DAOException e) {
 			errors.add(e.getMessage());
-			return "message.jsp";
+			return "showMessage.do";
 		}
 		
 		request.setAttribute("success", "Your message has been sent");

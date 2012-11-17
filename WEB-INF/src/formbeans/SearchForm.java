@@ -7,6 +7,11 @@ public class SearchForm {
 	private String key;
 	private String options;// Will it be better if we can search it by select the range in searching, like in item name, item description, user name
 	
+	public boolean isPresend() {
+		if (key != null) return true;
+		if (options != null) return true;
+		return false;
+	}
 	public String getKey() {
 		return key;
 	}

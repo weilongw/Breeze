@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,14 +39,12 @@ public class PostItemAction extends Action{
 	public String perform(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		PostItemForm form = formBeanFactory.create(request);
-		List<String> errors = new ArrayList<String>();
-		
-		request.setAttribute("errors",errors);
+		List<String> errors = prepareErrors(request);
         
 		User curUser = (User) request.getSession(false).getAttribute("user");
 		if (curUser == null) {
 			errors.add("You are not logged in");
-			return "index.jsp";
+			return "browse.do";
 		}
         if (!form.isPresent()) {
             return "post_item.jsp";
@@ -104,7 +101,6 @@ public class PostItemAction extends Action{
 
     	return "upload_image.jsp";
 
-		//return "showItem.do";
 	}
 
 }

@@ -13,6 +13,7 @@
 			<div class="span8" style="padding:20px">
                 <jsp:include page="error.jsp" />
                 <jsp:include page="success.jsp" />
+                <jsp:include page="message_content.jsp"/>
 				<div class="tabbable"> <!-- Only required for left/right tabs -->
     				<ul class="nav nav-tabs">
                     <c:choose>
@@ -58,7 +59,7 @@
     							</thead>
     							<tbody>
                                     <c:forEach var="inboxMsg" items="${inbox}">
-                                    <tr onclick="show_msg('1','${inboxMsg.sender.userName}', '${inboxMsg.title}', '${inboxMsg.content}', '${inboxMsg.sentDate}')">
+                                    <tr onclick="show_msg('1','${inboxMsg.id}', '${inboxMsg.sentDate}')">
                                         <td style="vertical-align:middle">${inboxMsg.sender.userName}</td>
                                         
                                         <td>${inboxMsg.title}
@@ -93,7 +94,7 @@
                                 </thead>
     							<tbody>
                                     <c:forEach var="sentMsg" items="${sent}">
-                                    <tr onclick="show_msg('2', '${sentMsg.receiver.userName}', '${sentMsg.title}', '${sentMsg.content}', '${sentMsg.sentDate}')">
+                                    <tr onclick="show_msg('2','${sentMsg.id}', '${sentMsg.sentDate}')">
                                         <td style="vertical-align:middle">${sentMsg.receiver.userName}</td>
                                         <td style="vertical-align:middle">${sentMsg.title}</td>
                                     </tr>
@@ -144,7 +145,7 @@
     							 </div>
     							<div class="control-group">
     								<div class="controls">
-    								<input type="hidden" name="sender" value="${sessionScope.user.userName}">
+    								
     								<input type="submit" value="Send" class="btn">
     								</div>		
     							</div>

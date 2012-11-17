@@ -41,9 +41,9 @@ public class PostItemForm {
 		if (itemCategory == null || itemCategory.trim().length() == 0) {
 			errors.add("Item Category is required");
 		}
-		if (relatedMovie == null || relatedMovie.trim().length() == 0) {
+	/*	if (relatedMovie == null || relatedMovie.trim().length() == 0) {
 			errors.add("Related Movie is required");
-		}
+		}*/
 		
 		if (forCredit == null && forExchange == null) {
 			errors.add("You must choose one from the checkbox.");

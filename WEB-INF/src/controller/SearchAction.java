@@ -36,22 +36,14 @@ public class SearchAction extends Action{
 	public String perform(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		SearchForm form = formBeanFactory.create(request);
-		List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
-        Item[] allItems;
-		try {
-			allItems = itemDAO.getAllItems();
-			request.setAttribute("search_result", allItems);
-		} catch (DAOException e) {
-			errors.add(e.getMessage());
-			return "index.jsp";
-		}
-        
+		List<String> errors = prepareErrors(request);
+		if (!form.isPresend()) return "browse.do";
+        Item[] allItems = null;
         
         errors.addAll(form.getValidationErrors());
         
         if (errors.size() != 0) {
-            return "index.jsp";
+            return "browse.do";
         }
         
         try {

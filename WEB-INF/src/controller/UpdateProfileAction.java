@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,13 +35,12 @@ public class UpdateProfileAction extends Action{
 	public String perform(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		UpdateProfileForm form = formBeanFactory.create(request);
-		List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
+		List<String> errors = prepareErrors(request);
         User user =  (User) request.getSession(false).getAttribute("user");
         
         if (user == null) {
 			errors.add("You are not logged in");
-			return "index.jsp";
+			return "browse.do";
 		}
         
         if (!form.isPresent()) {

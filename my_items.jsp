@@ -12,6 +12,8 @@
 				</ul>
 			</div>
 			<div class="span8" style="padding:20px">
+				<jsp:include page="error.jsp" />
+                <jsp:include page="success.jsp" />
 				<div class="tabbable"> <!-- Only required for left/right tabs -->
     				<ul class="nav nav-tabs">
     				<li class="active"><a href="#tab1" data-toggle="tab">Posted</a></li>
@@ -26,16 +28,19 @@
 								<c:forEach var="myPostedItem" items="${myPostedItems}"> 
 
     							<li class="span4" style="margin-left:0">
-									<div class="thumbnail">
+									<div class="thumbnail" style="height:300;">
 										<div style="width:240px;height:160px; text-align:center">
 										<img src="img/${myPostedItem.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt="">
 										</div>
 										<div class="caption">
 										<h3>${myPostedItem.itemName}</h3>
 										<p>${fn:substring(myPostedItem.itemDescription,0,30)}</p>
-										<form action="#" method="post">
+										<c:if test="${myPostedItem.status == 0}">
+										<form action="closeItem.do" method="post" onsubmit="return confirm('Do you really want to close this item?');">
+											<input type="hidden" name="itemId" value="${myPostedItem.id}">
 											<input type="submit" value="close" class="btn">
 										</form>
+										</c:if>
 										</div>
 									</div>
 								</li>
@@ -53,16 +58,19 @@
 
 								<c:forEach var="myRequestedItem" items="${myRequestedItems}"> 
     							<li class="span4" style="margin-left:0">
-									<div class="thumbnail">
+									<div class="thumbnail" style="height:300;">
 										<div style="width:240px;height:160px; text-align:center">
 										<img src="img/${myRequestedItem.imgName}" style="max-width:240px; max-height:160px" alt="">
 										</div>
 										<div class="caption">
 										<h3>${myRequestedItem.itemName}</h3>
 										<p>${fn:substring(myRequestedItem.itemDescription,0,30)}</p>
-										<form action="#" method="post">
+										<c:if test="${myRequestedItem.status==0}">
+										<form action="closeItem.do" method="post">
+											<input type="hidden" name="itemId" value="${myRequestedItem.id}">
 											<input type="submit" value="close" class="btn">
 										</form>
+										</c:if>
 										</div>
 									</div>
 								</li>

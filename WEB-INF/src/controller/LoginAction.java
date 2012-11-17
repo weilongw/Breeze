@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,26 +41,16 @@ public class LoginAction extends Action{
 		
 		LoginForm form = formBeanFactory.create(request);
     	
-        List<String> errors = new ArrayList<String>();
+		List<String> errors = prepareErrors(request);
         
-        request.setAttribute("errors",errors);
-        request.setAttribute("form",form);
-        
-        try {
-			request.setAttribute("allItemList", itemDAO.getActiveItem());
-		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			errors.add(e.getMessage());
-        	return "index.jsp";
-		}
 		
         if (!form.isPresent()) {
-            return "index.jsp";
+            return "browse.do";
         }
-
+        request.setAttribute("form",form);
         errors.addAll(form.getValidationErrors());
         if (errors.size() != 0) {
-            return "index.jsp";
+            return "browse.do";
         }
 
         User user;
@@ -68,17 +58,17 @@ public class LoginAction extends Action{
         	user = userDAO.lookup(form.getUserName());
         } catch (DAOException e) {
         	errors.add(e.getMessage());
-        	return "index.jsp";
+        	return "browse.do";
         }
         
         if (user == null) {
             errors.add("Username not found");
-            return "index.jsp";
+            return "browse.do";
         }
 
         if (!user.checkPassword(form.getPassword())) {
             errors.add("Incorrect password");
-            return "index.jsp";
+            return "browse.do";
         }
 
         HttpSession session = request.getSession();
@@ -86,7 +76,7 @@ public class LoginAction extends Action{
         
         
         request.setAttribute("success", "Welcome back! " + user.getUserName());
-        return "index.jsp";
+        return "browse.do";
         
 	}
 

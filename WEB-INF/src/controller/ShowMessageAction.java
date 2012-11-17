@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,13 +28,13 @@ public class ShowMessageAction extends Action{
 
 	@Override
 	public String perform(HttpServletRequest request) {
-		List<String> errors = new ArrayList<String>();
+		List<String> errors = prepareErrors(request);
 		Message[] inbox = null;
 		Message[] sent = null;
 		User user = (User)request.getSession().getAttribute("user");
 		if (user == null) {
 			errors.add("You are not logged in");
-			return "index.jsp";
+			return "browse.do";
 		}
 		
 		try {

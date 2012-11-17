@@ -31,19 +31,30 @@ public class ExchangeDAO {
 		}
 	}
 	
-	public void create(Exchange newExchange) throws DAOException {
+	public int create(Exchange newExchange) throws DAOException {
 		try{
 			Transaction.begin();
 			Exchange dbExchange = factory.create();
 			factory.copyInto(newExchange, dbExchange);
+			int exchangeId = dbExchange.getId();
 			Transaction.commit();
+			return exchangeId;
 		} catch (RollbackException e) {
 			throw new DAOException(e);
 		} finally {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
-	
+	public Exchange lookup(int exchangeId) throws DAOException {
+		try {
+			Exchange ret = factory.lookup(exchangeId);
+			return ret;
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
 	public void closeTransaction(Item item) throws DAOException {
 		int itemId = item.getId();
 		User owner = item.getOwner();
@@ -70,9 +81,23 @@ public class ExchangeDAO {
 		closeItemTransaction(item);
 	}
 	
+	public void closeTransaction(int exchangeId) throws DAOException {
+		try {
+			Transaction.begin();
+			Exchange xchg = factory.lookup(exchangeId);
+			xchg.setStatus(Exchange.CLOSED);
+			Transaction.commit();
+		} catch(RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
+	
 	public void closeItemTransaction(Item item) throws DAOException {
 		try {
-			Exchange[] item_xchgs = factory.match(MatchArg.equals("status", Exchange.PENDING));
+			Exchange[] item_xchgs = factory.match(MatchArg.equals("status", Exchange.PENDING), 
+											      MatchArg.equals("itemId", item.getId()));
 			for (Exchange xchg : item_xchgs) {
 				Transaction.begin();
 				Exchange ex = factory.lookup(xchg.getId());
@@ -86,7 +111,7 @@ public class ExchangeDAO {
 		}
 	}
 	
-	public void openPendingTransaction(Item item, User responder, int respondType) throws DAOException {
+	public int openPendingTransaction(Item item, User responder, int respondType) throws DAOException {
 		int itemId = item.getId();
 		User owner = item.getOwner();
 		Exchange newExchange = new Exchange();
@@ -95,7 +120,33 @@ public class ExchangeDAO {
 		newExchange.setResponder(responder);
 		newExchange.setRespondType(respondType);
 		newExchange.setStatus(Exchange.PENDING);
-		create(newExchange);
+		return create(newExchange);
+	}
+	
+	public Exchange[] findItemClosedTransactions(Item item) throws DAOException {
+		Exchange[] ret = null;
+ 		try {
+			ret = factory.match(MatchArg.equals("status", Exchange.CLOSED),
+								MatchArg.equals("itemId", item.getId()));
+		} catch(RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+ 		return ret;
+	}
+	
+	public Exchange[] findItemPendingTransactions(Item item) throws DAOException {
+		Exchange[] ret = null;
+ 		try {
+			ret = factory.match(MatchArg.equals("status", Exchange.PENDING),
+								MatchArg.equals("itemId", item.getId()));
+		} catch(RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+ 		return ret;
 	}
 
 }

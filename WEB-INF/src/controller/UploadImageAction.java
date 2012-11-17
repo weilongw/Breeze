@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,9 +30,7 @@ public class UploadImageAction extends Action{
 	@Override
 	public String perform(HttpServletRequest request) {
 		UploadForm form = formBeanFactory.create(request);
-		List<String> errors = new ArrayList<String>();
-		
-		request.setAttribute("errors", errors);
+		List<String> errors = prepareErrors(request);
 		if (!form.isPresent()) {
 			return "post_item.jsp";
 		}

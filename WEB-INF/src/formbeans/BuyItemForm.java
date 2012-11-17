@@ -7,6 +7,11 @@ public class BuyItemForm {
 	String buyType;
 	String itemId;
 	
+	public boolean isPresent() {
+		if (buyType != null) return true;
+		if (itemId != null) return true;
+		return false;
+	}
 	public String getBuyType() {
 		return buyType;
 	}

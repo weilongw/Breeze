@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,10 +33,13 @@ public class RedirectSendAction extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 		RedirectSendForm form = formBeanFactory.create(request);
-		List<String> errors = new ArrayList<String>();
+		List<String> errors = prepareErrors(request);
 		User curUser = (User)request.getSession().getAttribute("user");
 		
-		if (curUser == null) return "browse.do";
+		if (curUser == null) {
+			errors.add("You are not logged in");
+			return "browse.do";
+		}
 		if (!form.isPresent()) {
 			return "browse.do";
 		}
@@ -51,11 +53,11 @@ public class RedirectSendAction extends Action {
 			item = itemDAO.getItemById(itemId);
 			if (item == null) {
 				errors.add("Cannot find such item");
-				return "index.jsp";
+				return "browse.do";
 			}
 		} catch (DAOException e) {
 			errors.add(e.getMessage());
-			return "index.jsp";
+			return "browse.do";
 		}
 		
 		MessageForm newForm = new MessageForm();
@@ -64,7 +66,7 @@ public class RedirectSendAction extends Action {
 		newForm.setTitle("About " + item.getItemName());
 		
 		request.setAttribute("form", newForm);
-		return "message.jsp";
+		return "showMessage.do";
 		
 		
 	}

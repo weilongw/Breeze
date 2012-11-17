@@ -20,7 +20,7 @@ public class ItemDAO {
 	public ItemDAO(String jdbcDriver, String jdbcURL, UserDAO userDAO) throws DAOException{
 		try{
 		BeanTable<Item> itemTable = BeanTable.getSQLInstance(
-				Item.class, "team17_Item", jdbcDriver, jdbcURL,
+				Item.class, "team17_item", jdbcDriver, jdbcURL,
 				userDAO.getFactory());
 		if(!itemTable.exists()) itemTable.create("id");
 		itemTable.setIdleConnectionCleanup(true);

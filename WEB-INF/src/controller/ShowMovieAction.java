@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,24 +31,23 @@ public class ShowMovieAction extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 		ShowItemForm form = formBeanFactory.create(request);
-		List<String> errors = new ArrayList<String>();
-		request.setAttribute("errors", errors);
+		List<String> errors = prepareErrors(request);
 		
 		if (!form.isPresent()) {
 			return "browse.do";
 		}
 		errors.addAll(form.getValidationErrors());
-		if (errors.size() != 0) return "index.jsp";
+		if (errors.size() != 0) return "browse.do";
 		Item item = null;
 		try {
 			item = itemDAO.getItemById(form.getItemIdAsInt());
 			if (item == null) {
 				errors.add("Invalid item");
-				return "index.jsp";
+				return "browse.do";
 			}
 		} catch (DAOException e) {
 			errors.add(e.getMessage());
-			return "index.jsp";
+			return "browse.do";
 		}
 		request.setAttribute("item", item);
 		return "about_movie.jsp";

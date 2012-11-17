@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.mybeans.dao.DAOException;
@@ -26,7 +28,12 @@ public class ShowMyItemsAction extends Action{
 	@Override
 	public String perform(HttpServletRequest request) {
 		// TODO Auto-generated method stub
+		List<String> errors = prepareErrors(request);
         User curUser = (User) request.getSession(false).getAttribute("user");
+        if (curUser == null) {
+        	errors.add("You are not logged in");
+        	return "browse.do";
+        }
         try {
 			Item[] myPostedItems = itemDAO.getMyPostedItems(curUser);
 			request.setAttribute("myPostedItems",myPostedItems);
@@ -34,8 +41,8 @@ public class ShowMyItemsAction extends Action{
 			request.setAttribute("myRequestedItems",myRequestedItems);
 
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			errors.add(e.getMessage());
+			return "browse.do";
 		}
         
         

@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import model.ItemDAO;
@@ -36,8 +36,7 @@ public class ShowItemPageAction extends Action{
 	public String perform(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		ShowItemForm form = formBeanFactory.create(request);
-		List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
+		List<String> errors = prepareErrors(request);
         
         User user =  (User) request.getSession(false).getAttribute("user");
         
@@ -45,23 +44,18 @@ public class ShowItemPageAction extends Action{
         errors.addAll(form.getValidationErrors());
         
         if (errors.size() != 0) {
-            return "index.jsp";
+            return "browse.do";
         }
         
         int itemId = form.getItemIdAsInt();
-        try {
-			if(itemId > itemDAO.getAllItems().length){
-				errors.add("Invalid item.");
-				return "index.jsp";
-			}
-		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+    
         try {
         	Item item = itemDAO.getItemById(itemId);
-        	if(item.getStatus() == 0){
+        	if (item == null) {
+        		errors.add("Invalid itemID");
+        		return "browse.do";
+        	}
+        	else if(item.getStatus() == 0){
 	        	Item requested;
 	        	Item posted;
 	        	if(item.getType() == 1){
@@ -83,7 +77,7 @@ public class ShowItemPageAction extends Action{
         		return "browse.do";
         	}
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
+			
 			errors.add(e.getMessage());
 			return "browse.do";
 		}

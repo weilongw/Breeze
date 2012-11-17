@@ -1,6 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +12,15 @@ public abstract class Action {
 	public abstract String getName();
 	
     public abstract String perform(HttpServletRequest request);
+    
+    public List<String> prepareErrors(HttpServletRequest request) {
+    	List<String> errors = null;
+    	errors = (List<String>)request.getAttribute("errors");
+    	if (errors == null) 
+    		errors = new ArrayList<String>();
+    	request.setAttribute("errors", errors);
+    	return errors;
+    }
 
     private static Map<String,Action> hash = new HashMap<String,Action>();
 

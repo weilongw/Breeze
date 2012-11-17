@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,19 +29,17 @@ public class ShowCategoryAction extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 		CategoryForm form = formBeanFactory.create(request);
-		List<String> errors = new ArrayList<String>();
-		request.setAttribute("errors", errors);
+		List<String> errors = prepareErrors(request);
 		if (!form.isPresent()) return "browse.do";
 		errors.addAll(form.getValidationErrors());
-		if (errors.size() != 0) return "index.jsp";
+		if (errors.size() != 0) return "browse.do";
 		
 		try {
 			request.setAttribute("allItemList", itemDAO.getItemsByCategory(form.getCategory()));
 
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
 			errors.add(e.getMessage());
-        	return "index.jsp";
+        	
 		}
     	
 		return "index.jsp";

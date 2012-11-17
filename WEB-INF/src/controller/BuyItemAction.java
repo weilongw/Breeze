@@ -1,7 +1,7 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Date;
+
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,6 @@ import org.mybeans.forms.FormBeanFactory;
 
 import databean.Exchange;
 import databean.Item;
-import databean.Message;
 import databean.User;
 import formbeans.BuyItemForm;
 
@@ -47,11 +46,12 @@ public class BuyItemAction extends Action{
 	public String perform(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		BuyItemForm form = formBeanFactory.create(request);
-		List<String> errors = new ArrayList<String>();
-		request.setAttribute("errors", errors);
+		List<String> errors = prepareErrors(request);
+		
+		if (!form.isPresent()) { return "browse.do"; }
 		
 		errors.addAll(form.getValidationErrors());
-		if (errors.size() != 0) return "index.jsp";
+		if (errors.size() != 0) return "browse.do";
 		
 		int itemId = form.getItemIdAsInt();
 		int buyType = form.getBuyTypeAsInt();
@@ -59,7 +59,7 @@ public class BuyItemAction extends Action{
         
         if (curUser == null) {
         	errors.add("You are not logged in");
-        	return "index.jsp";
+        	return "browse.do";
         }
         Item item = null;
         User admin = null;
@@ -68,29 +68,42 @@ public class BuyItemAction extends Action{
         	admin = userDAO.lookup("Admin");
         } catch (DAOException e) {
         	errors.add(e.getMessage());
-        	return "index.jsp";
+        	return "browse.do";
         }
         
         if(item == null || admin == null || item.getStatus() == Item.CLOSED) {
         	errors.add("Item not available");
-        	return "index.jsp";
+        	return "browse.do";
         }
      
-        
+        if(item.getType() == Item.POST)
+			request.setAttribute("posted", item);
+		else 
+			request.setAttribute("requested", item);
+        if (item.getOwner().getUserName().equals(curUser.getUserName())) {
+        	errors.add("You can not buy your own item");
+        	return "item_page.jsp";
+        }
 		if(buyType == 1 && item.getType() == Item.POST && item.getCredit() != -1){
 			try {
-				request.setAttribute("posted", item);
+				
 				int credit = item.getCredit();
 				if(curUser.getCredit() - credit < 0){
 					errors.add("Not enough credits.");			
 					return "item_page.jsp";
 				}
-				//userDAO.setCredit(curUser.getCredit() - credit, curUser.getUserName());
+				
 				User owner = item.getOwner();
-				//userDAO.setCredit(owner.getCredit() + credit, owner.getUserName());
+				
 				itemDAO.closeItem(itemId);
 				curUser.setCredit(curUser.getCredit() - credit);
 				userDAO.transferCredit(credit, curUser, owner);
+				Exchange[] pending = exchangeDAO.findItemPendingTransactions(item);
+				for (Exchange xchg : pending) {
+					messageDAO.send(admin, xchg.getResponder(), "Transaction dismissed", 
+									"The item (" + item.getItemName() + ") you have responded to is now closed");
+				}
+				exchangeDAO.openPendingTransaction(item, curUser, Exchange.ANSWER_POST_WITH_CREDIT);
 				exchangeDAO.closeItemTransaction(item);
 				messageDAO.send(admin, owner, "Your item has been sold", 
 								"Your item: " + item.getItemName() +" has been bought by "
@@ -110,13 +123,10 @@ public class BuyItemAction extends Action{
 				 (buyType == 3 && item.getType() == Item.REQUEST && item.getCredit() != -1) ||
 				 (buyType == 4 && item.getType() == Item.REQUEST && item.getExchangeItemDescription() != null)) {
 			try {
-				if(item.getType() == Item.POST)
-					request.setAttribute("posted", item);
-				else 
-					request.setAttribute("requested", item);
+				
 				User owner = item.getOwner();
-				String url = "<a href=&quot;http://localhost:8080/Breeze/complete.do?buyType=" + buyType + 
-						"&buyerName=" + curUser.getUserName() + "&itemId=" + item.getId() +"&quot;>link</a>";
+				int exchangeId = exchangeDAO.openPendingTransaction(item, curUser, buyType);
+				String url = "<a href=&quot;http://localhost:8080/Breeze/complete.do?exchangeId=" + exchangeId + "&quot;>link</a>";
 				String[] buyTypeName = {"exchange with items", "exchange for credits", "exchange with items"};
 				
 				String content = "Your item (" + item.getItemName() + ") has been responded " +
@@ -130,14 +140,14 @@ public class BuyItemAction extends Action{
 						"to the user: " + item.getOwner().getUserName() + ", email: " + item.getOwner().getEmail() + 
 						". You agreed to " + buyTypeName[buyType - 2] + ". You will get automatically message notification" +
 								" if the item owner makes the transaction with you.";
-				exchangeDAO.openPendingTransaction(item, curUser, buyType);
+				
 				messageDAO.send(admin, owner, "Your item has been responded", content);
 				messageDAO.send(admin, curUser, "Your request is accepted", content2);
 				
 				
 				request.setAttribute("success", "Your request has been sent.");
 			} catch (DAOException e) {
-				
+				errors.add(e.getMessage());
 			}			
 		}
 	
