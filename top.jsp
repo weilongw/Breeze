@@ -121,6 +121,8 @@
 					<li class="divider-vertical"></li>
 					<li><a href="browse.do">Home</a></li>
 					<li class="divider-vertical"></li>
+					<li><a href="community.jsp">Community</a></li>
+					<li class="divider-vertical"></li>
 					<c:if test="${!empty(sessionScope.user)}">
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">

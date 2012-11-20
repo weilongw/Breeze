@@ -10,7 +10,6 @@ import org.mybeans.factory.Transaction;
 
 import databean.Exchange;
 import databean.Item;
-import databean.Message;
 import databean.User;
 
 public class ExchangeDAO {
@@ -25,6 +24,7 @@ public class ExchangeDAO {
 													jdbcURL, 
 													userDAO.getFactory());
 			if(!exchangeTable.exists()) exchangeTable.create("id");
+			exchangeTable.setIdleConnectionCleanup(true);
 			factory = exchangeTable.getFactory();
 		} catch (BeanFactoryException e) {
 			throw new DAOException(e);

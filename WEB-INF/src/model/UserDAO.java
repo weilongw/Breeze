@@ -8,7 +8,7 @@ import org.mybeans.factory.DuplicateKeyException;
 import org.mybeans.factory.RollbackException;
 import org.mybeans.factory.Transaction;
 
-import databean.Item;
+
 import databean.User;
 
 public class UserDAO {

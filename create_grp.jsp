@@ -4,13 +4,14 @@
 		<div class="row-fluid">
 			<div class="span8">
 				<section>
-    				<h4 style="margin-left:20px;">Create your own group</h4>
+    				<h4 style="margin-left:20px;">Create your own community</h4>
     				<p>&nbsp;</p>
-    				<form action="#" method="post" class="form-horizontal" name="post-topic-form">
+    				<jsp:include page="error.jsp" />
+    				<form action="createCommunity.do" method="post" class="form-horizontal">
 		    			<div class="control-group">
-							<label class="control-label" style="width:120px;">Group name</label>
+							<label class="control-label" style="width:120px;">Community name</label>
 							<div class="controls">
-								<input class="span6" type="text" name="groupName" value="${form.groupName}">
+								<input class="span6" type="text" name="name" value="${form.name}">
 							</div>
 						</div>
 						<div class="control-group">
@@ -23,16 +24,17 @@
 						<div class="control-group">
 							<label class="control-label" style="width:120px;">Welcome Info</label>
 							<div class="controls">
-								<textarea class="span8" rows="4" name="postContent" value="${form.postContent}"></textarea>
+								<textarea class="span8" rows="4" name="info" >${form.info}</textarea>
 							</div>
 						</div>
 						<div class="control-group">
 							<div class="controls">
-								<input type="hidden" name="creater" value="${sessionScope.user.userName}">
+								<input type="hidden" id="p-movie-name" name="relatedMovie" value="">
 								<input type="submit" value="Post" class="btn">
 							</div>		
 						</div>
 					</form>
+					<input type="hidden" id="r-movie-name" name="dump" value="">
     			</section>
 			</div>
 

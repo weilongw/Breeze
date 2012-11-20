@@ -2,7 +2,7 @@ package databean;
 
 import java.util.Date;
 
-public class Item implements Comparable{
+public class Item implements Comparable<Item>{
 	public static final int POST = 1;
 	public static final int REQUEST = 2;
 	
@@ -12,7 +12,6 @@ public class Item implements Comparable{
 	private int id;	// primary key
 	private String itemName;
 	private String relatedMovie;
-	private String relatedMovieYear;
 	private User owner;		// user who posted this item
 	private String itemDescription;
 	private String exchangeItemDescription;	
@@ -25,13 +24,22 @@ public class Item implements Comparable{
 	// keep track of how many times an item's show page has been visited.
 	private int clickCount;
 	
+	@Override
+	public int compareTo(Item o) {
+		int c = postDate.compareTo(o.postDate);
+		if (c != 0) return -c;
+		c = itemName.compareTo(o.itemName);
+		return c;
+	}		
+	
+	/*
 	public int compareTo(Object other){
 		Item item = (Item) other;
 		int c = postDate.compareTo(item.postDate);
 		if(c != 0)	return -c;
 		c = itemName.compareTo(item.itemName);
 		return c;
-	}
+	}*/
 	public int getId() {
 		return id;
 	}
@@ -109,8 +117,7 @@ public class Item implements Comparable{
 	}
 	public void setClickCount(int clickCount) {
 		this.clickCount = clickCount;
-	}		
-	
+	}
 	
 
 }

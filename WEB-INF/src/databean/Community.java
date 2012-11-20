@@ -1,0 +1,41 @@
+package databean;
+
+import java.util.Date;
+
+public class Community {
+
+
+	private String name;
+	private String relatedMovie;
+	private String info;
+	private User creater;
+	private int userCount;
+	private int topicCount;
+	private Date createdAt;
+	
+	public Community(String name) { this.name = name; }
+
+	public String getName() { return name; }
+	public String getRelatedMovie() { return relatedMovie; }
+	public String getInfo() { return info; }
+	public User getCreater() { return creater; }
+	public int getUserCount() { return userCount; }
+	public int getTopicCount() { return topicCount; }
+	public Date getCreatedAt() { return createdAt; }
+	
+
+	//public void setName(String x) { name = x; }
+	public void setRelatedMovie(String x) { relatedMovie = x; }
+	public void setInfo(String x) { info = x; }
+	public void setCreater(User x) { creater = x; }
+	public void setUserCount(int x) { userCount = x; }
+	public void setTopicCount(int x) { topicCount = x; }
+	public void setCreatedAt(Date x) { createdAt = x; }
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Community)) return false;
+		Community another_c = (Community)obj;
+		return this.name.equals(another_c.name);
+	}
+}

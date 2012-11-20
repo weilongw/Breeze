@@ -7,13 +7,24 @@
 					<div class="right_part_title"> 
 						<span class="right_part_title_font">Top Community</span>
 					</div>
+                    <c:set var="rank" value="0" scope="page"/>
 					<ul class="community_ul">
 						<li><span class="badge badge-info">1</span><span class="community_font">haha1</span></li>
 						<li><span class="badge badge-info">2</span><span class="community_font">haha2</span></li>
+                        
+                        <c:forEach var="community" items="${tops}" varStatus="loop-count">
+                            <c:set var="rank" value="${rank + 1}"/>
+                            <li>
+                                <span class="badge badge-info">${rank}</span>
+                                <span class="community_font">${community.name}</span>
+                            </li>
+                        </c:forEach>
+                        
+
 					</ul>
 				</div>
                 <p>&nbsp;</p>
-				<span style="padding-top:20px"><a href="#">Create your own group!</a></span>
+				<span style="padding-top:20px"><a href="create_grp.jsp">Create your own group!</a></span>
 			</div>
 			<div class="span8" style="padding:20px">
 				<section>
