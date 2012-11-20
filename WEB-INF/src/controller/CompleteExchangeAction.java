@@ -85,6 +85,7 @@ public class CompleteExchangeAction extends Action {
 		try {
 			if (xchg.getRespondType() == Exchange.ANSWER_REQUEST_FOR_CREDIT) {
 				userDAO.transferCredit(item.getCredit(), xchg.getPoster(), xchg.getResponder());
+				curUser.setCredit(curUser.getCredit() - item.getCredit());
 			}
 			itemDAO.closeItem(item.getId());
 			exchangeDAO.closeTransaction(xchg.getId());
@@ -104,7 +105,7 @@ public class CompleteExchangeAction extends Action {
 			
 		} catch(DAOException e) {
 			errors.add(e.getMessage());
-			return "showMessage.do";
+			return "showMyItems.do";
 		}
 		request.setAttribute("success", "Congrats, your transaction has been made");
 		return "showMyItems.do";

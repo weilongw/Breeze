@@ -6,6 +6,110 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	
 		<script type="text/javascript" src="js/bootstrap.js"></script>
 		<script type="text/javascript" src="breeze.js"></script>
+		<style type="text/css">
+		.right_part_title{
+			background: url("img/bataiTitle.png") repeat-x;
+			height:28px;
+			width:100%;
+			border-bottom:1px #E7E6FA  solid;
+		}
+		.right_part_title_font{
+			display:block;
+			float:left;
+			margin-top:5px;
+			margin-left:8px;
+			font-size:14px;
+			font-weight:bold;
+			color:#515151;
+			
+		}
+		.community_ul{
+			list-style-type: none;
+			display: block;
+			margin-top:8px;
+			margin-left:8px;
+		
+		}	
+		.community_ul li{
+			float-left;
+			line-height:24px;
+			background-position:0px 4px;
+
+		}
+		.community_font {
+			margin-left: 10px;
+			vertical-align: middle;
+		}
+		.rep_num {
+			padding:0 4px 0 1px;
+			font-size: 13px;
+			overflow:hidden;
+			width:50px;
+			height:23px;
+			line-height:23px;
+			text-align:center;
+			color:#333;
+			background:url("img/reply_num_bg.gif") no-repeat;
+			margin-left:10px
+		}
+		.topic {
+			float: left;
+			border: 1px solid #CCCCCC;
+    		width: 900px;
+		}
+		.topic-title {
+			background: none repeat scroll 0 0 #FFFFFF;
+    		height: 43px;
+    		line-height: 43px;
+    		padding: 0 15px;
+    		word-break: break-all;
+		}
+		.topic-title span {
+			color: black;
+    		font-size: 20px;
+    		font-weight: bold;
+		    text-align: left;
+
+		}
+		.post-list {
+
+			border-color: #999999;
+    		border-style: solid;
+   			border-width: 1px 0;
+    		position: relative;
+    		z-index: 1;
+		}
+		.post {
+			#border:1px solid;
+			#border: 0 none;
+			border-bottom: 1px solid #CCCCCC;
+		}
+		.post-author {
+			
+			width:200px;
+			height:220px;
+			background-color: #EEEEEE	;
+			
+		}
+		.post-author ul{
+			list-style-type: none;
+			margin-left:35px;
+		}
+		.post-content-main {
+    		padding: 20px 15px 6px;
+    		
+		}
+		.p-content-top {
+			height:auto !important;
+			min-height: 165px;
+		}
+		.p-content-bottom {
+			#border: 1px,solid;
+			height: 28px;
+    		line-height: 28px;
+		}
+		</style>
+		
 	</head>
 	<body style="padding-top : 60px">	
 		<div style="width:1350px;">

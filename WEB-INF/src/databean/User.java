@@ -12,6 +12,7 @@ public class User {
 	private String address = null;
 	private int credit = 0;
 	private String email;
+	private String userPhoto="default_icon.jpg";
 
 	public User(String userName) { this.userName = userName; }
 
@@ -25,6 +26,7 @@ public class User {
 	public int    getCredit()         { return credit; }
 	public String getAddress()        { return address; }
 	public String getEmail()          { return email; }
+	public String getUserPhoto()	  { return userPhoto; }
 
 	public int hashCode() 			  { return userName.hashCode(); }
 
@@ -34,6 +36,7 @@ public class User {
 	public void setAddress(String x) { address = x; }
 	public void setCredit(int x) { credit = x; }
 	public void setEmail(String x)   { email =  x; }
+	public void setUserPhoto(String x) { userPhoto = x; }
 
 	private String hash(String clearPassword) {
 		if (salt == 0) return null;

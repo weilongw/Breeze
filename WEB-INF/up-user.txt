@@ -1,0 +1,6 @@
+dir=./img/user/
+session=fname
+extensions=gif,png,jpg
+reply=/user_profile.jsp
+error=/user_profile.jsp
+overwrite=1

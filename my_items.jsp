@@ -30,7 +30,7 @@
     							<li class="span4" style="margin-left:0">
 									<div class="thumbnail" style="height:300;">
 										<div style="width:240px;height:160px; text-align:center">
-										<img src="img/${myPostedItem.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt="">
+										<img src="img/item/${myPostedItem.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt="">
 										</div>
 										<div class="caption">
 										<h3>${myPostedItem.itemName}</h3>
@@ -60,7 +60,7 @@
     							<li class="span4" style="margin-left:0">
 									<div class="thumbnail" style="height:300;">
 										<div style="width:240px;height:160px; text-align:center">
-										<img src="img/${myRequestedItem.imgName}" style="max-width:240px; max-height:160px" alt="">
+										<img src="img/item/${myRequestedItem.imgName}" style="max-width:240px; max-height:160px" alt="">
 										</div>
 										<div class="caption">
 										<h3>${myRequestedItem.itemName}</h3>

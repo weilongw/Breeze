@@ -17,7 +17,7 @@
 				<div class="tabbable"> <!-- Only required for left/right tabs -->
     				<ul class="nav nav-tabs">
                     <c:choose>
-                        <c:when test="${empty(form)}">
+                        <c:when test="${(empty(form)) && (empty(success)) }">
                     <li class="active">
                         </c:when>
                         <c:otherwise>
@@ -26,9 +26,18 @@
                     </c:choose>
                         <a href="#tab1" data-toggle="tab">Inbox</a>
                     </li>
-    				<li><a href="#tab2" data-toggle="tab">Sent</a></li>
                     <c:choose>
-                        <c:when test="${!empty(form)}">
+                        <c:when test="${(!empty(form)) && (!empty(success)) }">
+                        <li class="active">
+                        </c:when>
+                        <c:otherwise>
+                        <li>
+                        </c:otherwise>
+                    </c:choose>
+                        <a href="#tab2" data-toggle="tab">Sent</a>
+                    </li>
+                    <c:choose>
+                        <c:when test="${(!empty(form)) && (empty(success))}">
                     <li class="active">
                         </c:when>
                         <c:otherwise>
@@ -41,7 +50,7 @@
     				<div class="tab-content">
                         
                         <c:choose>
-                        <c:when test="${empty(form)}">
+                        <c:when test="${(empty(form)) && (empty(success)) }">
                         <div class="tab-pane active" id="tab1">
 
                         </c:when>
@@ -71,7 +80,7 @@
                             </div>
                             <div class="span4">
                                 <fieldset>
-                                    <legend>Message</legend>
+                                    <legend>Message<small id="reply-btn" style="float:right">reply</small></legend>
                                     <strong>From:</strong><br/>
                                     <span id="user1"></span><br/>
                                     <strong>Title:</strong><br/>
@@ -83,7 +92,16 @@
                                 </fieldset>  
                             </div>
     					</div>
-    					<div class="tab-pane" id="tab2">
+                        <c:choose>
+                        <c:when test="${(!empty(form)) && (!empty(success)) }">
+                        <div class="tab-pane active" id="tab2">
+
+                        </c:when>
+                        <c:otherwise>
+                        <div class="tab-pane" id="tab2">
+                        </c:otherwise>
+                        </c:choose>
+    					
                             <div class="span8">
    							<table class="table table-hover">
     							<thead>
@@ -117,7 +135,7 @@
                             </div>
     					</div>
                         <c:choose>
-                        <c:when test="${!empty(form)}">
+                        <c:when test="${(!empty(form)) && (empty(success))}">
                         <div class="tab-pane active" id="tab3">
                         </c:when>
                         <c:otherwise>

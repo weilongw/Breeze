@@ -74,15 +74,7 @@ public class UserDAO {
 	
 	protected BeanFactory<User> getFactory() { return factory; }
 	
-	/*public User[] getUsers() throws DAOException {
-		try {
-			User[] users = factory.match();
-			Arrays.sort(users);  // We want them sorted by last and first names (as per User.compareTo());
-			return users;
-		} catch (RollbackException e) {
-			throw new DAOException(e);
-		}
-	}*/
+
 	
 	//what's the use of this?
 	public void setPassword(String userName, String password) throws DAOException {
@@ -133,6 +125,19 @@ public class UserDAO {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	
+	}
+	
+	public void setPhoto(User user, String photo) throws DAOException {
+		try {
+			Transaction.begin();
+			User usr = factory.lookup(user.getUserName());
+			usr.setUserPhoto(photo);
+			Transaction.commit();
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
 	}
 	
 }

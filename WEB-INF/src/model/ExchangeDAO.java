@@ -148,5 +148,17 @@ public class ExchangeDAO {
 		}
  		return ret;
 	}
+	
+	public boolean exists(int itemId, int respond, User responder) throws DAOException {
+		try {
+			Exchange[] xchg = factory.match(MatchArg.equals("itemId", itemId),
+										   MatchArg.equals("respondType", respond),
+										   MatchArg.equals("responder", responder));
+			if (xchg.length == 0) return false;
+		} catch (RollbackException e) {
+			throw new DAOException (e);
+		}
+		return true;
+	}
 
 }

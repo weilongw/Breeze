@@ -1,4 +1,4 @@
-dir=./img/
+dir=./img/item/
 session=fname
 extensions=gif,png,jpg
 reply=/upload_image.jsp

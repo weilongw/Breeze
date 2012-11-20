@@ -123,7 +123,10 @@ public class BuyItemAction extends Action{
 				 (buyType == 3 && item.getType() == Item.REQUEST && item.getCredit() != -1) ||
 				 (buyType == 4 && item.getType() == Item.REQUEST && item.getExchangeItemDescription() != null)) {
 			try {
-				
+				if (exchangeDAO.exists(itemId, buyType, curUser)) {
+					errors.add("You have already reponded to this item");
+					return "item_page.jsp";
+				}
 				User owner = item.getOwner();
 				int exchangeId = exchangeDAO.openPendingTransaction(item, curUser, buyType);
 				String url = "<a href=&quot;http://localhost:8080/Breeze/complete.do?exchangeId=" + exchangeId + "&quot;>link</a>";
@@ -150,8 +153,12 @@ public class BuyItemAction extends Action{
 				errors.add(e.getMessage());
 			}			
 		}
+		else {
+			errors.add("Illegal state argument");
+			
+		}
 	
-		return "showMessage.do";
+		return "showMyItems.do";
 	}
 
 }

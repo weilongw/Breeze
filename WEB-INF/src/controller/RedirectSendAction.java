@@ -4,13 +4,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import model.ItemDAO;
 import model.Model;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
-import databean.Item;
 import databean.User;
 import formbeans.MessageForm;
 import formbeans.RedirectSendForm;
@@ -20,10 +19,9 @@ public class RedirectSendAction extends Action {
 
 	private FormBeanFactory<RedirectSendForm> formBeanFactory = FormBeanFactory.getInstance(RedirectSendForm.class, "<>\"");
 	
-	private ItemDAO itemDAO;
-	
+	private UserDAO userDAO;
 	public RedirectSendAction(Model model) {
-		itemDAO = model.getItemDAO();
+		userDAO = model.getUserDAO();
 	}
 	@Override
 	public String getName() {
@@ -31,7 +29,7 @@ public class RedirectSendAction extends Action {
 	}
 
 	@Override
-	public String perform(HttpServletRequest request) {
+	public String perform(HttpServletRequest request){
 		RedirectSendForm form = formBeanFactory.create(request);
 		List<String> errors = prepareErrors(request);
 		User curUser = (User)request.getSession().getAttribute("user");
@@ -47,12 +45,10 @@ public class RedirectSendAction extends Action {
 		errors.addAll(form.getValidationErrors());
 		if (errors.size() != 0) return "browse.do";
 		
-		int itemId = form.getItemIdAsInt();
-		Item item = null;
 		try {
-			item = itemDAO.getItemById(itemId);
-			if (item == null) {
-				errors.add("Cannot find such item");
+			User user = userDAO.lookup(form.getReceiver());
+			if (user == null) {
+				errors.add("No such user present");
 				return "browse.do";
 			}
 		} catch (DAOException e) {
@@ -63,7 +59,7 @@ public class RedirectSendAction extends Action {
 		MessageForm newForm = new MessageForm();
 		
 		newForm.setReceiver(form.getReceiver());
-		newForm.setTitle("About " + item.getItemName());
+		newForm.setTitle(form.getTitle());
 		
 		request.setAttribute("form", newForm);
 		return "showMessage.do";

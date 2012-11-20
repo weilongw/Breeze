@@ -135,6 +135,10 @@ function show_msg(which, msg_id, date) {
     document.getElementById("title"+ which).innerHTML = document.getElementById(msg_id + "title").value;
     document.getElementById("content" + which).innerHTML = document.getElementById(msg_id + "content").value;
     document.getElementById("date" + which).innerHTML = date;
+    if (which='1') {
+    	document.getElementById("reply-btn").innerHTML="<a href=\"redirectSend.do?receiver=" + document.getElementById(msg_id + "user").value 
+    													+ "&title=Reply:" + document.getElementById(msg_id + "title").value +"\">reply</a>";
+    }
 }
 
 function show_xchg(text) {

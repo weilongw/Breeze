@@ -25,10 +25,13 @@
     <servlet>
         <servlet-name>upload</servlet-name>
         <servlet-class>com.jsos.upload.UploadServlet</servlet-class>
-        <init-param>
-            <param-name>config</param-name>
-            <param-value>./WEB-INF/upconf.txt</param-value>
-        </init-param>
+        <!--init-param-->
+            <!--param-name>config</param-name>
+            <param-value>./WEB-INF/upconf.txt</param-value-->
+
+            <!--param-name>config1</param-name>
+            <param-value>./WEB-INF/upconf1.txt</param-value-->
+        <!--/init-param-->
     </servlet>
     <servlet-mapping>
         <servlet-name>upload</servlet-name>

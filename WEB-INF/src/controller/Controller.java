@@ -37,6 +37,7 @@ public class Controller extends HttpServlet {
         Action.add(new ShowMovieAction(model));
         Action.add(new CloseItemAction(model));
         Action.add(new CompleteExchangeAction(model));
+        Action.add(new UpdatePhotoAction(model));
         
 	}
 	

@@ -24,7 +24,7 @@
                 <div class="row-fluid">
   					<div class="span4">
   						<div style="width:240px; height:160px; text-align:center">
-							<img src="img/${posted.imgName}" style="max-width:240px; max-height:160px" alt="">
+							<img src="img/item/${posted.imgName}" style="max-width:240px; max-height:160px" alt="">
   						</div>
   						<br/>
   						<c:if test="${posted.credit != -1}">
@@ -39,7 +39,7 @@
   						<h4>${posted.itemName} (Selling) </h4>
   						<p>${posted.owner.userName}		
   						<c:if test="${isOwner==0}">			
-							<a  href="redirectSend.do?receiver=${posted.owner.userName}&itemId=${posted.id}">Send him/her a message..</a>	
+							<a  href="redirectSend.do?receiver=${posted.owner.userName}&title=About ${posted.itemName}">Send him/her a message..</a>	
 						</c:if></p>
 						<fieldset>
 							<legend>Item Description</legend>
@@ -81,7 +81,7 @@
 				<div class="row-fluid">
   					<div class="span4">
   						<div style="width:240px; height:160px; text-align:center">
-							<img src="img/${requested.imgName}" style="max-width:240px; max-height:160px" alt="">
+							<img src="img/item/${requested.imgName}" style="max-width:240px; max-height:160px" alt="">
   						</div>
   						<br/>
   						<c:if test="${requested.credit != -1}">
@@ -96,7 +96,7 @@
   						<h4>${requested.itemName} (Wanted) </h4>
   						<p>${requested.owner.userName}		
   						<c:if test="${isOwner == 0}">			
-							<a  href="redirectSend.do?receiver=${requested.owner.userName}&itemId=${requested.id}">Send him/her a message..</a>		
+							<a  href="redirectSend.do?receiver=${requested.owner.userName}&title=About ${requested.itemName}">Send him/her a message..</a>		
 						</c:if></p>
   						<fieldset>
 							<legend>Item Description</legend>

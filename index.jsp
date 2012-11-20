@@ -37,7 +37,7 @@
     						<li class="span4" style="margin-left:0">
                             <div class="thumbnail">
                                 <div style="width:240px; height:160px; text-align:center">
-                                  <a href="showItems.do?itemId=${item.id}"><img src="img/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt=""></a>
+                                  <a href="showItems.do?itemId=${item.id}"><img src="img/item/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt=""></a>
                                 </div>
 									<a href="showItems.do?itemId=${item.id}"><h3>${item.itemName}</h3></a>
 									<p>${fn:substring(item.itemDescription,0,30)}</p>
@@ -51,7 +51,7 @@
     						<li class="span4" style="margin-left:0">
                             <div class="thumbnail">
                                 <div style="width:240px; height:160px; text-align:center">
-                                    <a href="showItems.do?itemId=${item.id}"><img src="img/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt=""></a>
+                                    <a href="showItems.do?itemId=${item.id}"><img src="img/item/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt=""></a>
                                 </div>
 									<a href="showItems.do?itemId=${item.id}"><h3>${item.itemName}</h3></a>
 									<p>${fn:substring(item.itemDescription,0,30)}</p>

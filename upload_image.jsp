@@ -25,7 +25,7 @@
                                 <h4>You can also upload an image of the product</h4>
                                 <table>
                                 <tr>
-                                    <form method="post" enctype="multipart/form-data" action="upload?config&name=${sessionScope.user.userName}${sessionScope.newItem.id}.png">
+                                    <form method="post" enctype="multipart/form-data" action="upload?config=WEB-INF/upconf.txt&name=${sessionScope.user.userName}${sessionScope.newItem.id}.png">
                                     <td> 
                                         <input style="height:30px" type="file" size=20 name="fname">
                                     </td>
@@ -59,7 +59,7 @@
                                 </table>
                             </div>
                             <div class="span3">
-                                <img src="img/${uploadedFile}" style="max-width:250px; max-height:250px; float:left; padding-top:100px" alt="preview">
+                                <img src="img/item/${uploadedFile}" style="max-width:250px; max-height:250px; float:left; padding-top:100px" alt="preview">
                             </div>
                         </div>        
     				</div>
