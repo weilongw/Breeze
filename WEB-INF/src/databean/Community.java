@@ -2,7 +2,7 @@ package databean;
 
 import java.util.Date;
 
-public class Community {
+public class Community implements Comparable<Community> {
 
 
 	private String name;
@@ -37,5 +37,12 @@ public class Community {
 		if (!(obj instanceof Community)) return false;
 		Community another_c = (Community)obj;
 		return this.name.equals(another_c.name);
+	}
+
+	@Override
+	public int compareTo(Community o) {
+		if (userCount > o.userCount) return 1;
+		if (userCount < o.userCount) return -1;
+		return 0;
 	}
 }

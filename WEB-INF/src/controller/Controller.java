@@ -39,6 +39,9 @@ public class Controller extends HttpServlet {
         Action.add(new CompleteExchangeAction(model));
         Action.add(new UpdatePhotoAction(model));
         Action.add(new CreateCommunityAction(model));
+        Action.add(new BrowseCommunityAction(model));
+        Action.add(new CommunitySearchAction(model));
+        Action.add(new ViewCommunityAction(model));
         
 	}
 	

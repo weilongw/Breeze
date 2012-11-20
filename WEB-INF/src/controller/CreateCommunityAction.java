@@ -34,12 +34,12 @@ public class CreateCommunityAction extends Action {
 		CreateCommunityForm form = formBeanFactory.create(request);
 		List<String> errors = prepareErrors(request);
 		User curUser = (User)request.getSession().getAttribute("user");
+		
+		if (!form.isPresent()) return "create_grp.jsp";
 		if (curUser == null) {
 			errors.add("You are not logged in");
-			return "community.jsp";
+			return "browseCommunity.do";
 		}
-		if (!form.isPresent()) return "create_grp.jsp";
-		
 		request.setAttribute("form", form);
 		errors.addAll(form.getValidationErrors());
 		if (errors.size() != 0) return "create_grp.jsp";
@@ -59,7 +59,7 @@ public class CreateCommunityAction extends Action {
 			return "create_grp.jsp";
 		}
 		request.setAttribute("success", "Your community has been created");
-		return "community.jsp";
+		return "browseCommunity.do";
 	}
 
 	

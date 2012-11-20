@@ -1,10 +1,13 @@
 package model;
 
+import java.util.Arrays;
+
 import org.mybeans.dao.DAOException;
 import org.mybeans.factory.BeanFactory;
 import org.mybeans.factory.BeanFactoryException;
 import org.mybeans.factory.BeanTable;
 import org.mybeans.factory.DuplicateKeyException;
+import org.mybeans.factory.MatchArg;
 import org.mybeans.factory.RollbackException;
 import org.mybeans.factory.Transaction;
 
@@ -55,5 +58,34 @@ public class CommunityDAO {
  		} catch (RollbackException e) { 
  			throw new DAOException(e);
  		}
+	}
+	
+	public Community[] getPopular() throws DAOException {
+		Community[] all = getAllCommunities();
+		Arrays.sort(all);
+		if (all.length <= 10) return all;
+		Community[] part = new Community[10];
+		for (int i = 0; i < 10; i++)
+			part[i] = all[i];
+		return part;
+	}
+	
+	public Community[] search(String key) throws DAOException {
+		try {
+			Community[] results = factory.match(MatchArg.containsIgnoreCase("name", key));
+			return results;
+		} catch(RollbackException e) {
+			throw new DAOException(e);
+		}
+	}
+	
+	public Community lookup(String name) throws DAOException {
+		try {
+			Community comm = factory.lookup(name);
+			return comm;
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+		
 	}
 }

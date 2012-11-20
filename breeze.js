@@ -42,7 +42,7 @@ function search_movie(choice) {
 function load_movie(movieid) {
 	if (request.readyState != 0) return;
 	if (movieid== "") {
-		alert("empty movie");
+		document.getElementById("legend_title").innerHTML = "No movie info present";
 		return;
 	}
 	var url = "http://www.omdbapi.com/?i="+movieid+"&r=XML";
@@ -62,6 +62,7 @@ function update_movie() {
 	var root = xmlDoc.getElementsByTagName("root")[0].attributes.getNamedItem("response").nodeValue;
 	if (root == "False") {
 		request = createRequest();
+		document.getElementById("legend_title").innerHTML = "Service unavaliable";
 		return;
 	}
 	var attributes = xmlDoc.getElementsByTagName("movie")[0].attributes;
@@ -87,6 +88,7 @@ function update() {
 	var root = xmlDoc.getElementsByTagName("root")[0].attributes.getNamedItem("response").nodeValue;
 	if (root == "False") {
 		request = createRequest();
+		document.getElementById("movie").innerHTML="<h4>Sorry, no movie was found</h4>";	
 		return;
 	}
 

@@ -29,9 +29,9 @@ public class CreateCommunityForm {
 		if (name == null || name.trim().length() == 0) {
 			errors.add("Community name is required");
 		}
-		if (relatedMovie == null || relatedMovie.trim().length() == 0) {
+/*		if (relatedMovie == null || relatedMovie.trim().length() == 0) {
 			errors.add("A related movie is required");
-		}
+		}*/
 		if (info == null || info.trim().length() == 0) {
 			errors.add("Welcome info is required");
 		}

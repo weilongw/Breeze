@@ -1,5 +1,169 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="top.jsp" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+	<head>
+		<title> Breeze </title>
+		<link type="text/css" href="css/bootstrap.css" rel="stylesheet" media="screen">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="breeze.js"></script>
+		<style type="text/css">
+		.right_part_title{
+			background: url("img/bataiTitle.png") repeat-x;
+			height:28px;
+			width:100%;
+			border-bottom:1px #E7E6FA  solid;
+		}
+		.right_part_title_font{
+			display:block;
+			float:left;
+			margin-top:5px;
+			margin-left:8px;
+			font-size:14px;
+			font-weight:bold;
+			color:#515151;
+			
+		}
+		.community_ul{
+			list-style-type: none;
+			display: block;
+			margin-top:8px;
+			margin-left:8px;
+		
+		}	
+		.community_ul li{
+			float-left;
+			line-height:24px;
+			background-position:0px 4px;
+
+		}
+		.community_font {
+			margin-left: 10px;
+			vertical-align: middle;
+		}
+		.rep_num {
+			padding:0 4px 0 1px;
+			font-size: 13px;
+			overflow:hidden;
+			width:50px;
+			height:23px;
+			line-height:23px;
+			text-align:center;
+			color:#333;
+			background:url("img/reply_num_bg.gif") no-repeat;
+			margin-left:10px
+		}
+		.topic {
+			float: left;
+			border: 1px solid #CCCCCC;
+    		width: 900px;
+		}
+		.topic-title {
+			background: none repeat scroll 0 0 #FFFFFF;
+    		height: 43px;
+    		line-height: 43px;
+    		padding: 0 15px;
+    		word-break: break-all;
+		}
+		.topic-title span {
+			color: black;
+    		font-size: 20px;
+    		font-weight: bold;
+		    text-align: left;
+
+		}
+		.post-list {
+
+			border-color: #999999;
+    		border-style: solid;
+   			border-width: 1px 0;
+    		position: relative;
+    		z-index: 1;
+		}
+		.post {
+			#border:1px solid;
+			#border: 0 none;
+			border-bottom: 1px solid #CCCCCC;
+		}
+		.post-author {
+			
+			width:200px;
+			height:220px;
+			background-color: #EEEEEE	;
+			
+		}
+		.post-author ul{
+			list-style-type: none;
+			margin-left:35px;
+		}
+		.post-content-main {
+    		padding: 20px 15px 6px;
+    		
+		}
+		.p-content-top {
+			height:auto !important;
+			min-height: 165px;
+		}
+		.p-content-bottom {
+			#border: 1px,solid;
+			height: 28px;
+    		line-height: 28px;
+		}
+		</style>
+		
+	</head>
+	<body style="padding-top : 60px" onload="load_movie('${comm.relatedMovie}')">	
+		<div style="width:1350px;">
+		<header class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div style="width:1200px;height:30px;padding-left:100px">
+				<a class="brand" href="browse.do">Breeze</a>
+				<ul class="nav pull-right" style="padding-right:80px">
+					<li class="divider-vertical"></li>
+					<li><a href="browse.do">Home</a></li>
+					<li class="divider-vertical"></li>
+					<li><a href="browseCommunity.do">Community</a></li>
+					<li class="divider-vertical"></li>
+					<c:if test="${!empty(sessionScope.user)}">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+							Hi, ${sessionScope.user.userName}
+							<b class="caret"></b>
+						</a>
+						
+						<ul class="dropdown-menu">
+							<li><a tabindex="-1" href="showProfile.do"> Profile </a></li>
+							<li><a tabindex="-1" href="postItem.do"> Post item </a></li>
+							<li><a tabindex="-1" href="showMyItems.do"> My items </a></li>
+							<li><a tabindex="-1" href="showMessage.do"> My Message</a></li>
+							<li class="divider"></li>
+							<li><a tabindex="-1" href="logout.do"> Sign out </a></li>
+						</ul>
+					</li>
+					<li class="divider-vertical"></li>
+					</c:if>
+					<c:if test="${empty(sessionScope.user)}">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+							Sign in<b class="caret"></b>
+						</a>
+						<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;"> 
+							<form action="login.do" method="post" class='form-horizontal'>
+								<p><input type='text' class='span3' style="height:30px; padding:5px;" name="userName" placeholder="Username"></p>
+
+								<p><input type='password' class='span3' style="height:30px" placeholder="Password" name="password"></p>
+								<input class="btn btn-info" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+							</form>
+						</div>
+					</li>
+					<li class="divider-vertical"></li>
+					<li><a href="register.jsp">Sign up</a></li>
+					<li class="divider-vertical"></li>
+					</c:if>
+				</ul>
+				</div>
+			</div>
+		</header>
 <div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span3" style="padding:10px;padding-top:20px;">
@@ -9,19 +173,23 @@
 						<a href="#" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
 					</div>
 					<ul class="community_ul">
-						<li><span class="community_font">Creater: Super user</span></li>
-						<li><span class="community_font">@ 2012-12-21</span></li>
-						<li><span class="community_font">Welcome msg</span></li>
+						<li><span class="community_font">Creater: ${comm.creater.userName}</span></li>
+						<li><span class="community_font">@ ${comm.createdAt}</span></li>
+						<li><span class="community_font">${comm.info}</span></li>
 					</ul>
+				</div>
+				<p>&nbsp;</p>
+				<div>
+					<img src="" alt="No movie info.." id="movie_poster" style="max-height:400px;">
 				</div>
 				
 			</div>
 			<div class="span6" style="padding-top:20px">
-				<section style="padding-left:60px;">
+				<section style="padding-left:70px;">
       				    <form action="#" method="get" class="form-search" >
     						    <div class="input-append">
     							<input class="span12" type="text" size="40"  name = "key">
-    							
+    							<input type="hidden" name="options" value="1">
     							<input class="btn" type="submit" value="Search">
     							</div>
     					</form>
@@ -33,36 +201,25 @@
     				<table class="table table-striped">
     					<thead>
     						<tr>
-    							<th class="span1"></th>           
-    							<th class="span6"></th>
-    							<th class="span2"></th>
-    							<th class="span2"></th>
+    							<th class="span1">Reply</th>           
+    							<th class="span6">Title</th>
+    							<th class="span2">Poster</th>
+    							<th class="span2">Time</th>
     						</tr>
     					</thead>
-    					<tr>
-    						<td><div class="rep_num" title="20 reply">20</div></td>
-    						<td><a href="#">Topic 1</a></td>
-    						<td>by user1</td>		
-    						<td>time1</td>
-    					</tr>
-    					<tr>
-    						<td><div class="rep_num" title="20 reply">20</div></td>
-    						<td><a href="#">Topic 2</a></td>
-    						<td>by user2</td>
-    						<td>time2</td>
-    					</tr>
-    					<tr>
-    						<td><div class="rep_num" title="20 reply">20</div></td>
-    						<td><a href="#">Topic 3</a></td>
-    						<td>by user3</td>
-    						<td>time3</td>
-    					</tr>
-    					<tr>
-    						<td><div class="rep_num" title="20 reply">20</div></td>
-    						<td><a href="#">Topic 4</a></td>
-    						<td>by user3</td>
-    						<td>time3</td>
-    					</tr>
+    					<c:forEach var="topic" items="${topics}">
+    						<tr>
+    							<td>
+    								<div class="rep_num" title="${topic.replyCount} replies">
+    									${topic.replyCount}
+    								</div>
+    							</td>
+    							<td><a href="#">${topic.title}</a></td>
+    							<td>by ${topic.poster.userName}</td>
+    							<td>${topic.postDate}</td>
+    						</tr>
+    					</c:forEach>
+    					
     				</table>
     			</section>
     			<hr/>
@@ -84,7 +241,7 @@
 						</div>
 						<div class="control-group">
 							<div class="controls">
-								<input type="hidden" name="communityName" value="">
+								<input type="hidden" name="communityName" value="${comm.name}">
 								<input type="submit" value="Post" class="btn">
 							</div>		
 						</div>
@@ -98,27 +255,26 @@
 						<span class="right_part_title_font">About Movie</span>
 						<a href="#" style="float:right; margin-top:5px; margin-right:8px">Imdb link?</a>
 					</div>
-					<ul class="community_ul">
-						<li><span class="community_font">Title : batman</span></li>
-						<li>
-							<div style="width:280px;height:350px; text-align:center">
-								<img src="http://ia.media-imdb.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg" style="max-width:280px; max-height:350px; vertical-align:middle" alt="">
-							</div>
-						</li>
-						<li><span class="community_font">Year</span></li>
-						<li><span class="community_font">Rated</span></li>
-						<li><span class="community_font">Released</span></li>
-						<li><span class="community_font">Runtime</span></li>
-						<li><span class="community_font">Genre</span></li>
-						<li><span class="community_font">Director</span></li>
-						<li><span class="community_font">Write</span></li>
-						<li><span class="community_font">Actors</span></li>
-						<li><span class="community_font">Plot</span></li>
-						<li><span class="community_font">Imdb Rating</span></li>
-						<li><span class="community_font">Imdb Votes</span></li>
-
-
-					</ul>
+					<div class="community_ul">
+						
+						<fieldset>
+                		<legend id="legend_title"></legend>
+                			<table class="movie">
+                				<tr id="title"></tr>
+                				<tr id="year"></tr>
+                				<tr id="rated"></tr>
+                				<tr id="released"></tr>
+                				<tr id="runtime"></tr>
+                				<tr id="genre"></tr>	
+								<tr id="director"></tr>
+								<tr id="writer"></tr>
+								<tr id="actors"></tr>
+								<tr id="plot"></tr>
+								<tr id="imdbRating"></tr>
+								<tr id="imdbVotes"></tr>
+                			</table>
+                		</fieldset>
+                	</div>
 				</div>
 			</div>
 		</div>

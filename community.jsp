@@ -9,10 +9,7 @@
 					</div>
                     <c:set var="rank" value="0" scope="page"/>
 					<ul class="community_ul">
-						<li><span class="badge badge-info">1</span><span class="community_font">haha1</span></li>
-						<li><span class="badge badge-info">2</span><span class="community_font">haha2</span></li>
-                        
-                        <c:forEach var="community" items="${tops}" varStatus="loop-count">
+                        <c:forEach var="community" items="${top_C}">
                             <c:set var="rank" value="${rank + 1}"/>
                             <li>
                                 <span class="badge badge-info">${rank}</span>
@@ -24,16 +21,16 @@
 					</ul>
 				</div>
                 <p>&nbsp;</p>
-				<span style="padding-top:20px"><a href="create_grp.jsp">Create your own group!</a></span>
+				<span style="padding-top:20px"><a href="createCommunity.do">Create your own group!</a></span>
 			</div>
 			<div class="span8" style="padding:20px">
 				<section>
-      				    <form action="#" method="get" class="form-search" >
+      				    <form action="communitySearch.do" method="get" class="form-search" >
     						    <div class="input-append">
-    							<input class="span12" type="text" size="40"  name = "key">
+    							<input class="span12" type="text" size="40"  name = "key" value="${form.key}">
     							<span class="add-on">
-    								<select name="options" style="width:100px;">
-    									<option value="0">Group</option>
+    								<select name="options" selected="1" style="width:120px;">
+    									<option value="0">Community</option>
     									<option value="1">Topic</option>
     								</select>
     							</span>
@@ -45,40 +42,88 @@
     			<jsp:include page="error.jsp" />
     			<jsp:include page="success.jsp" />
     			<section>
-    				<table class="table table-striped">
-    					<thead>
-    						<tr>
-    							<th class="span1"></th>           
-    							<th class="span6"></th>
-    							<th class="span2"></th>
-    							<th class="span2"></th>
-    						</tr>
-    					</thead>
-    					<tr>
-    						<td><div class="rep_num" title="20 reply">20</div></td>
-    						<td><a href="#">Topic 1</a></td>
-    						<td>by user1</td>		
-    						<td>time1</td>
-    					</tr>
-    					<tr>
-    						<td><div class="rep_num" title="20 reply">20</div></td>
-    						<td><a href="#">Topic 2</a></td>
-    						<td>by user2</td>
-    						<td>time2</td>
-    					</tr>
-    					<tr>
-    						<td><div class="rep_num" title="20 reply">20</div></td>
-    						<td><a href="#">Topic 3</a></td>
-    						<td>by user3</td>
-    						<td>time3</td>
-    					</tr>
-    					<tr>
-    						<td><div class="rep_num" title="20 reply">20</div></td>
-    						<td><a href="#">Topic 4</a></td>
-    						<td>by user3</td>
-    						<td>time3</td>
-    					</tr>
-    				</table>
+                    <h4>${title}</h4>
+                    <c:if test="${!empty(top_T)}">
+                        <table class="table table-striped">
+                          
+                            <thead>
+                                <tr>
+                                    <th class="span1">Reply</th>
+                                    <th class="span6">Title</th>
+                                    <th class="span2">Poster</th>
+                                    <th class="span2">Time</th>
+                                </tr>
+                                
+                            </thead>
+                                <c:forEach var="topic" items="${top_T}">
+                                    <tr>
+                                    <td>
+                                        <div class="rep_num" title="${topic.replyCount} reply">
+                                            ${topic.replyCount}
+                                        </div>
+                                    </td>
+                                    <td><a href="#">${topic.title}</a></td>
+                                    <td>by ${topic.poster.userName}</td>
+                                    <td>@ ${topic.postDate}</td>
+                                    </tr>
+                                </c:forEach>
+                            
+                        </table>
+                    </c:if>
+                    <c:if test="${!empty(search_T)}">
+                        <table class="table table-striped">
+                            
+                            <thead>
+                                <tr>
+                                    <th class="span1">Reply</th>
+                                    <th class="span6">Title</th>
+                                    <th class="span2">Poster</th>
+                                    <th class="span2">Time</th>
+                                </tr> 
+                            </thead>
+                                <c:forEach var="topic" items="${search_T}">
+                                    <tr>
+                                    <td>
+                                        <div class="rep_num" title="${topic.replyCount} reply">
+                                            ${topic.replyCount}
+                                        </div>
+                                    </td>
+                                    <td><a href="#">${topic.title}</a></td>
+                                    <td>by ${topic.poster.userName}</td>
+                                    <td>@ ${topic.postDate}</td>
+                                    </tr>
+                                </c:forEach>
+                           
+                        </table>
+                    </c:if>
+                    <c:if test="${!empty(search_C)}">
+                        
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="span1">Member</th>
+                                    <th class="span5">Name</th>
+                                    <th class="span2">Creater</th>
+                                    <th class="span2">Topics</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="comm" items="${search_C}">
+                                    <tr>
+                                    <td>
+                                        <div class="rep_num" title="${comm.userCount} members">
+                                            ${comm.userCount}
+                                        </div>
+                                    </td>
+                                    <td><a href="viewCommunity.do?name=${comm.name}">${comm.name}</a></td>
+                                    <td>by ${comm.creater.userName}</td>
+                                    <td>${comm.topicCount}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:if>
+
     			</section>
 			</div>
 		</div>
