@@ -44,7 +44,7 @@
     			</div>
 			</div>
             <div class="span3" id="movie">
-                
+                <h4>Here shows the movie you are looking for</h4>
             </div>
 		</div>
 	</div>

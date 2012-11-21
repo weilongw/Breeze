@@ -16,7 +16,7 @@
 								<ul>
 									<li>&nbsp;</li>
 									<li>
-										<img src="img/default.png" style="max-width:130px;max-height:130px;">
+										<img src="img/user/${post.poster.userPhoto}" style="max-width:130px;max-height:130px;">
 									</li>
 									<li>&nbsp;</li>
 									<li>${post.poster.userName}</li>
