@@ -46,6 +46,7 @@ public class Controller extends HttpServlet {
         Action.add(new NewTopicAction(model));
         Action.add(new ViewTopicAction(model));
         Action.add(new NewPostAction(model));
+        Action.add(new SearchTopicAction(model));
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

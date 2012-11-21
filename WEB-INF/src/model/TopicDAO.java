@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.factory.BeanFactory;
@@ -10,7 +12,6 @@ import org.mybeans.factory.RollbackException;
 import org.mybeans.factory.Transaction;
 
 import databean.Community;
-import databean.Post;
 import databean.Topic;
 
 public class TopicDAO {
@@ -86,6 +87,18 @@ public class TopicDAO {
 		}
 	}
 	
+	public Topic[] searchInCommunity(String key, Community community) throws DAOException {
+		try {
+			Topic[] oResults = factory.match(MatchArg.containsIgnoreCase("title", key), MatchArg.equals("ownerGroup", community));
+			List<Topic> list = Arrays.asList(oResults);
+			Collections.sort(list, Topic.REVERSE_TIMEORDER);
+			Topic[] results = (Topic[]) list.toArray();
+			return results;
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+	}
+	
 	public Topic lookup(int id) throws DAOException {
 		try {
 			Topic topic = factory.lookup(id);
@@ -98,7 +111,10 @@ public class TopicDAO {
 	
 	public Topic[] getTopicsByCommunity(Community key) throws DAOException {
 		try {
-			Topic[] results = factory.match(MatchArg.equals("ownerGroup", key));
+			Topic[] oResults = factory.match(MatchArg.equals("ownerGroup", key));
+			List<Topic> list = Arrays.asList(oResults);
+			Collections.sort(list, Topic.REVERSE_TIMEORDER);
+			Topic[] results = (Topic[]) list.toArray();
 			return results;
 		} catch (RollbackException e) {
 			throw new DAOException(e);

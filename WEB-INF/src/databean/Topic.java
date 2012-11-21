@@ -1,5 +1,6 @@
 package databean;
 
+import java.util.Comparator;
 import java.util.Date;
 
 public class Topic implements Comparable<Topic>{
@@ -30,10 +31,18 @@ public class Topic implements Comparable<Topic>{
 	
 	@Override
 	public int compareTo(Topic o) {
-		if(replyCount > o.replyCount) return 1;
-		if (replyCount < o.replyCount) return -1;
+		if(replyCount > o.replyCount) return -1;
+		if (replyCount < o.replyCount) return 1;
 		return 0;
 	}
 	
+	public static final Comparator<Topic> REVERSE_TIMEORDER = 
+            new Comparator<Topic>() {		
+		@Override
+		public int compare(Topic t1, Topic t2) {
+			// TODO Auto-generated method stub
+			return t2.postDate.compareTo(t1.postDate);
+		}
+	};
 
 }

@@ -188,10 +188,10 @@
 			</div>
 			<div class="span6" style="padding-top:20px">
 				<section style="padding-left:70px;">
-      				    <form action="#" method="get" class="form-search" >
+      				    <form action="searchTopic.do" method="get" class="form-search" >
     						    <div class="input-append">
-    							<input class="span12" type="text" size="40"  name = "key">
-    							<input type="hidden" name="options" value="1">
+    							<input class="span12" type="text" size="40"  name = "key" value="${sForm.key}">
+    							<input type="hidden" name="commName" value="${comm.name}">
     							<input class="btn" type="submit" value="Search">
     							</div>
     					</form>
@@ -200,6 +200,8 @@
     			<jsp:include page="error.jsp" />
     			<jsp:include page="success.jsp" />
     			<section>
+    				<c:if test="${!empty(topics)}">
+
     				<table class="table table-striped">
     					<thead>
     						<tr>
@@ -223,6 +225,36 @@
     					</c:forEach>
     					
     				</table>
+    			</c:if>
+
+				<c:if test="${!empty(search)}">
+
+    				<table class="table table-striped">
+    					<thead>
+    						<tr>
+    							<th class="span1">Reply</th>           
+    							<th class="span6">Title</th>
+    							<th class="span2">Poster</th>
+    							<th class="span2">Time</th>
+    						</tr>
+    					</thead>
+    					<c:forEach var="topic" items="${search}">
+    						<tr>
+    							<td>
+    								<div class="rep_num" title="${topic.replyCount} replies">
+    									${topic.replyCount}
+    								</div>
+    							</td>
+    							<td><a href="viewTopic.do?topicId=${topic.id}">${topic.title}</a></td>
+    							<td>by ${topic.poster.userName}</td>
+    							<td>${topic.postDate}</td>
+    						</tr>
+    					</c:forEach>
+    					
+    				</table>
+    			</c:if>
+
+
     			</section>
     			<hr/>
     			<section>
