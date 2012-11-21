@@ -37,8 +37,10 @@ public class ViewCommunityAction extends Action {
 		List<String> errors = prepareErrors(request);
 		ViewCommunityForm form = formBeanFactory.create(request);
 		if(!form.isPresent()) return "browseCommunity.do";
-		errors.addAll(form.getValidationErrors());
-		if (errors.size() != 0) return "browseCommunity.do";
+		//System.out.println("here");
+		//errors.addAll(form.getValidationErrors());
+		//if (errors.size() != 0) return "browseCommunity.do";
+		//System.out.println("here");
 		Community comm = null;
 		try {
 			comm = communityDAO.lookup(form.getName());
@@ -46,6 +48,7 @@ public class ViewCommunityAction extends Action {
 			errors.add(e.getMessage());
 			return "browseCommunity.do";
 		}
+		
 		if (comm == null) {
 			errors.add("Community named " + form.getName() + " not found");
 			return "browseCommunity.do";

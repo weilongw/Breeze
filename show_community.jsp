@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+
 <html>
 	<head>
 		<title> Breeze </title>
@@ -226,7 +228,7 @@
     			<section>
     				<h4 style="margin-left:20px;">Add a new topic</h4>
     				<p>&nbsp;</p>
-    				<form action="#" method="post" class="form-horizontal" name="post-topic-form">
+    				<form action="newTopic.do" method="post" class="form-horizontal" name="post-topic-form">
 		    			<div class="control-group">
 							<label class="control-label" style="width:120px;">Title</label>
 							<div class="controls">

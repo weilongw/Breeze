@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.CommunityDAO;
 import model.Model;
+import model.RelationDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
@@ -20,9 +21,11 @@ public class CreateCommunityAction extends Action {
 	private FormBeanFactory<CreateCommunityForm> formBeanFactory = FormBeanFactory.getInstance(CreateCommunityForm.class, "<>\"");
 	
 	private CommunityDAO communityDAO;
+	private RelationDAO relationDAO;
 	
 	public CreateCommunityAction (Model model) {
 		communityDAO = model.getCommunityDAO();
+		relationDAO = model.getRelationDAO();
 	}
 	@Override
 	public String getName() {
@@ -52,12 +55,15 @@ public class CreateCommunityAction extends Action {
 		newCommunity.setUserCount(1);
 		newCommunity.setCreatedAt(new Date());
 		
+		
 		try {
 			communityDAO.create(newCommunity);
+			relationDAO.create(curUser, newCommunity);
 		} catch (DAOException e) {
 			errors.add(e.getMessage());
 			return "create_grp.jsp";
 		}
+		
 		request.setAttribute("success", "Your community has been created");
 		request.setAttribute("form", null);
 		return "browseCommunity.do";

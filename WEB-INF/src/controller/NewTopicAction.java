@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Community;
+import databean.Post;
+import databean.Topic;
 import databean.User;
 import formbeans.NewTopicForm;
 
@@ -30,6 +33,7 @@ public class NewTopicAction extends Action {
 		communityDAO = model.getCommunityDAO();
 		topicDAO = model.getTopicDAO();
 		postDAO = model.getPostDAO();
+		relationDAO = model.getRelationDAO();
 	}
 	@Override
 	public String getName() {
@@ -64,7 +68,39 @@ public class NewTopicAction extends Action {
 		request.setAttribute("form", form);
 		errors.addAll(form.getValidationErrors());
 		if (errors.size() != 0) return "viewCommunity.do?name=" + comm.getName();
-		if ()
+		try {
+			if (!relationDAO.exist(curUser, comm)) {
+				errors.add("You are not a member of this community");
+				System.out.println("1");
+				return "viewCommunity.do?name=" + comm.getName();
+			}
+		} catch (DAOException e) {
+			errors.add(e.getMessage());
+			return "viewCommunity.do?name="+comm.getName();
+		}
+		Topic newTopic = new Topic();
+		Post newPost = new Post();
+		newTopic.setOwnerGroup(comm);
+		newTopic.setPoster(curUser);
+		newTopic.setReplyCount(1);
+		newTopic.setTitle(form.getTitle());
+		newTopic.setViewCount(0);
+		newTopic.setPostDate(new Date());
+		try {
+			newTopic = topicDAO.create(newTopic);
+			newPost.setContent(form.getContent());
+			newPost.setPoster(curUser);
+			newPost.setTopic(newTopic);
+			newPost.setPostDate(new Date());
+			postDAO.create(newPost);
+			communityDAO.addTopic(comm.getName());
+		} catch (DAOException e) {
+			errors.add(e.getMessage());
+			return "viewCommunity.do?name="+comm.getName();
+		}
+		request.setAttribute("success", "A new topic is posted!");
+		request.setAttribute("form", null);
+		return "viewCommunity.do?name=" + comm.getName();
 		
 	}
 

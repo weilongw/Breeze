@@ -28,14 +28,13 @@ public class TopicDAO {
 	
 	protected BeanFactory<Topic> getFactory() { return factory; }
 	
-	public int create (Topic newTopic) throws DAOException {
+	public Topic create (Topic newTopic) throws DAOException {
 		try {
 			Transaction.begin();
 			Topic dbTopic = factory.create();
 			factory.copyInto(newTopic, dbTopic);
-			int topicId = dbTopic.getId();
 			Transaction.commit();
-			return topicId;
+			return dbTopic;
 		} catch (RollbackException e) {
 			throw new DAOException(e);
 		} finally {
