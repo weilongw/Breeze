@@ -13,7 +13,7 @@
                             <c:set var="rank" value="${rank + 1}"/>
                             <li>
                                 <span class="badge badge-info">${rank}</span>
-                                <span class="community_font">${community.name}</span>
+                                <span class="community_font"><a href="viewCommunity.do?name=${community.name}">${community.name}</a></span>
                             </li>
                         </c:forEach>
                         
@@ -62,7 +62,7 @@
                                             ${topic.replyCount}
                                         </div>
                                     </td>
-                                    <td><a href="#">${topic.title}</a></td>
+                                    <td><a href="viewTopic.do?topicId=${topic.id}">${topic.title}</a></td>
                                     <td>by ${topic.poster.userName}</td>
                                     <td>@ ${topic.postDate}</td>
                                     </tr>

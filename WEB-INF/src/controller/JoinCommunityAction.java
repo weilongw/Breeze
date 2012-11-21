@@ -60,7 +60,7 @@ public class JoinCommunityAction extends Action{
 			
 			if(relationDAO.exist(curUser, community)){
 				errors.add("You are already in this community: " + community.getName());
-				return "browseCommunity.do";
+				return "viewCommunity.do?name=" + community.getName();
 			}
 				
 			relationDAO.create(curUser, community);
@@ -71,10 +71,10 @@ public class JoinCommunityAction extends Action{
 			return "browseCommunity.do";
 		}
 		
-		String success = "Your item was created successfully!";
+		String success = "You become one of them!";
 		request.setAttribute("success",success);			
 		
-		return "viewCommunity.do";
+		return "viewCommunity.do?name=" + community.getName();
 	}
 
 }

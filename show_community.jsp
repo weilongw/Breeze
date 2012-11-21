@@ -172,7 +172,7 @@
 				<div id="rez_part" style="margin-top:10px;border:1px #E7E6FA solid; height:190px">
 					<div class="right_part_title"> 
 						<span class="right_part_title_font">About Community</span>
-						<a href="#" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
+						<a href="joinCommunity.do?name=${comm.name}" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
 					</div>
 					<ul class="community_ul">
 						<li><span class="community_font">Creater: ${comm.creater.userName}</span></li>
@@ -216,7 +216,7 @@
     									${topic.replyCount}
     								</div>
     							</td>
-    							<td><a href="#">${topic.title}</a></td>
+    							<td><a href="viewTopic.do?topicId=${topic.id}">${topic.title}</a></td>
     							<td>by ${topic.poster.userName}</td>
     							<td>${topic.postDate}</td>
     						</tr>

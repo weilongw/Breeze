@@ -23,6 +23,6 @@ public class Post implements Comparable<Post>{
 	
 	@Override
 	public int compareTo(Post o) {
-		return -this.postDate.compareTo(o.postDate);
+		return this.postDate.compareTo(o.postDate);
 	}
 }

@@ -10,6 +10,7 @@ import org.mybeans.factory.RollbackException;
 import org.mybeans.factory.Transaction;
 
 import databean.Community;
+import databean.Post;
 import databean.Topic;
 
 public class TopicDAO {
@@ -42,6 +43,21 @@ public class TopicDAO {
 		}
 	}
 	
+	public void addReplyCount(int id) throws DAOException{
+    	try {
+			Transaction.begin();
+			Topic dbTopic = factory.lookup(id);
+			dbTopic.setReplyCount(dbTopic.getReplyCount() + 1);
+			Transaction.commit();
+    	} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}		
+	}
+	
+	
 	public Topic[] getAllTopics() throws DAOException {
 		try {
 			Topic[] all = factory.match();
@@ -68,6 +84,16 @@ public class TopicDAO {
 		} catch (RollbackException e) {
 			throw new DAOException(e);
 		}
+	}
+	
+	public Topic lookup(int id) throws DAOException {
+		try {
+			Topic topic = factory.lookup(id);
+			return topic;
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+		
 	}
 	
 	public Topic[] getTopicsByCommunity(Community key) throws DAOException {
