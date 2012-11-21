@@ -36,7 +36,7 @@ function search_movie(choice) {
 	request.onreadystatechange = update;
 	request.open("GET", url, true);
 	request.send();
-
+	document.getElementById("movie").innerHTML="<img src=\"img/pending.gif\">";
 }
 
 function load_movie(movieid) {
@@ -146,4 +146,44 @@ function show_msg(which, msg_id, date) {
 function show_xchg(text) {
 	document.getElementById("xchg").innerHTML = "<strong>Item Exchange Description</strong> \
 												<br/><p>" + text + "</p>";
+}
+
+function waiting(hint) {
+	document.getElementById(hint).innerHTML="<img src=\"img/waiting.gif\">";
+}
+
+function validate_userName() {
+	var userName = document.getElementById("userName").value;
+
+	if(userName.trim().length==0) {
+		document.getElementById("userNameHint").innerHTML="user name cannot be blank";
+	}
+	else{
+		document.getElementById("userNameHint").innerHTML="<img src=\"img/correct.gif\" style=\"max-width:20px\">";
+	}
+	
+}
+
+function validate_blank(text) {
+	var field = document.getElementById(text).value;
+	if (field.trim().length == 0) {
+		document.getElementById(text + "Hint").innerHTML=text + " cannot be blank";
+	}
+	else {
+		document.getElementById(text + "Hint").innerHTML="<img src=\"img/correct.gif\" style=\"max-width:20px\">";
+	}
+}
+
+function validate_same(text) {
+	var email1 = document.getElementById(text).value;
+	var email2 = document.getElementById(text + "Confirm").value;
+	if (email1==email2 && email1=="") {
+		document.getElementById(text + "ConfirmHint").innerHTML=text + " cannot be blank";
+	}
+	else if (email1==email2){
+		document.getElementById(text + "ConfirmHint").innerHTML="<img src=\"img/correct.gif\" style=\"max-width:20px\">";
+	}
+	else {
+		document.getElementById(text + "ConfirmHint").innerHTML="Inconsistent " + text;
+	}
 }

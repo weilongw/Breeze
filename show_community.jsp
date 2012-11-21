@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 	<head>
 		<title> Breeze </title>
@@ -175,9 +173,10 @@
 						<a href="joinCommunity.do?name=${comm.name}" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
 					</div>
 					<ul class="community_ul">
-						<li><span class="community_font">Creater: ${comm.creater.userName}</span></li>
-						<li><span class="community_font">@ ${comm.createdAt}</span></li>
-						<li><span class="community_font">${comm.info}</span></li>
+						<li><span class="community_font">Name: ${comm.name}</span></li>
+						<li><span class="community_font">Creater : ${comm.creater.userName}</span></li>
+						<li><span class="community_font">Created @: <fmt:formatDate value="${comm.createdAt}" type="both" dateStyle="short"/></span></li>
+						<li><span class="community_font">Info : ${comm.info}</span></li>
 					</ul>
 				</div>
 				<p>&nbsp;</p>
@@ -208,7 +207,7 @@
     							<th class="span1">Reply</th>           
     							<th class="span6">Title</th>
     							<th class="span2">Poster</th>
-    							<th class="span2">Time</th>
+    							<th class="span4">Time</th>
     						</tr>
     					</thead>
     					<c:forEach var="topic" items="${topics}">
@@ -220,7 +219,7 @@
     							</td>
     							<td><a href="viewTopic.do?topicId=${topic.id}">${topic.title}</a></td>
     							<td>by ${topic.poster.userName}</td>
-    							<td>${topic.postDate}</td>
+    							<td><fmt:formatDate value="${topic.postDate}" type="both" dateStyle="short"/></td>
     						</tr>
     					</c:forEach>
     					

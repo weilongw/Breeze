@@ -12,37 +12,38 @@
 					<div class="control-group">
 						<label class="control-label">Username</label>
 						<div class="controls">
-							<input class="span4" type="text" name="userName" value="${form.userName}">
+							<input class="span4" type="text" id="userName" name="userName" value="${form.userName}" onfocus="waiting('userNameHint');" onblur="validate_userName();">
+							&nbsp;<span class="text-error" id="userNameHint"></span>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Email</label>
 						<div class="controls">
-							<input class="span4" type="text" name="email" value="${form.email}">
+							<input class="span4" type="text" id="email" name="email" value="${form.email}" onfocus="waiting('emailHint');" onblur="validate_blank('email');">&nbsp;<span class="text-error" id="emailHint"></span>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Confirm Email</label>
 						<div class="controls">
-							<input class="span4" type="text" name="emailConfirm" value="${form.emailConfirm}">
+							<input class="span4" type="text" id="emailConfirm" name="emailConfirm" value="${form.emailConfirm}" onfocus="waiting('emailConfirmHint');" onblur="validate_same('email');">&nbsp;<span class="text-error" id="emailConfirmHint"></span>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Address</label>
 						<div class="controls">
-							<textarea class="span6" rows="4" name="address">${form.address}</textarea>
+							<textarea class="span6" id="address" rows="4" name="address" onfocus="waiting('addressHint');" onblur="validate_blank('address');">${form.address}</textarea>&nbsp;<span class="text-error" id="addressHint"></span>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Password</label>
 						<div class="controls">
-							<input class="span4" type="password" name="password">
+							<input class="span4" type="password" id="password" name="password" onfocus="waiting('passwordHint');" onblur="validate_blank('password');">&nbsp;<span class="text-error" id="passwordHint"></span>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Confirm Password</label>
 						<div class="controls">
-							<input class="span4" type="password" name="passwordConfirm">
+							<input class="span4" type="password" id="passwordConfirm" name="passwordConfirm" onfocus="waiting('passwordConfirmHint');" onblur="validate_same('password');">&nbsp;<span class="text-error" id="passwordConfirmHint"></span>
 						</div>
 					</div>
 					<div class="control-group">
