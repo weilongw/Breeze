@@ -88,4 +88,17 @@ public class CommunityDAO {
 		}
 		
 	}
+	
+	public void addTopic(String name) throws DAOException {
+		try {
+			Transaction.begin();
+			Community comm = factory.lookup(name);
+			comm.setTopicCount(comm.getTopicCount() + 1);
+			Transaction.commit();
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
 }

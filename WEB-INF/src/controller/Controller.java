@@ -43,6 +43,8 @@ public class Controller extends HttpServlet {
         Action.add(new CommunitySearchAction(model));
         Action.add(new ViewCommunityAction(model));
         Action.add(new JoinCommunityAction(model));
+        Action.add(new NewTopicAction(model));
+        
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
