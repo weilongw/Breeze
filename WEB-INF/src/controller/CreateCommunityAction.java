@@ -59,6 +59,7 @@ public class CreateCommunityAction extends Action {
 			return "create_grp.jsp";
 		}
 		request.setAttribute("success", "Your community has been created");
+		request.setAttribute("form", null);
 		return "browseCommunity.do";
 	}
 

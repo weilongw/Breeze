@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import model.CommunityDAO;
 import model.Model;
 import model.PostDAO;
+import model.RelationDAO;
 import model.TopicDAO;
 
 import org.mybeans.dao.DAOException;
@@ -23,6 +24,7 @@ public class NewTopicAction extends Action {
 	private CommunityDAO communityDAO;
 	private TopicDAO topicDAO;
 	private PostDAO postDAO;
+	private RelationDAO relationDAO;
 	
 	public NewTopicAction (Model model) {
 		communityDAO = model.getCommunityDAO();
@@ -62,7 +64,7 @@ public class NewTopicAction extends Action {
 		request.setAttribute("form", form);
 		errors.addAll(form.getValidationErrors());
 		if (errors.size() != 0) return "viewCommunity.do?name=" + comm.getName();
-		
+		if ()
 		
 	}
 
