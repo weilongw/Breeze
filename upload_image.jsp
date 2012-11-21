@@ -13,6 +13,7 @@
 			<div class="span8" style="padding:20px">
                 <jsp:include page="error.jsp" />
                 <jsp:include page="success.jsp" />
+                <jsp:include page="upload_msg.jsp" />
 				<div class="tabbable"> <!-- Only required for left/right tabs -->
     				<ul class="nav nav-tabs">
     				<li class="disabled"><a href="#">Post</a></li>
