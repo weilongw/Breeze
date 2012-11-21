@@ -230,13 +230,13 @@
 		    			<div class="control-group">
 							<label class="control-label" style="width:120px;">Title</label>
 							<div class="controls">
-								<input class="span10" type="text" name="topicName" value="${form.topicName}">
+								<input class="span10" type="text" name="title" value="${form.title}">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" style="width:120px;">Content</label>
 							<div class="controls">
-								<textarea class="span10" rows="4" name="postContent" value="${form.postContent}"></textarea>
+								<textarea class="span10" rows="4" name="content">${form.content}</textarea>
 							</div>
 						</div>
 						<div class="control-group">

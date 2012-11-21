@@ -38,6 +38,12 @@ public class User {
 	public void setEmail(String x)   { email =  x; }
 	public void setUserPhoto(String x) { userPhoto = x; }
 
+	@Override
+	public boolean equals(Object obj) {
+		User usr = (User)obj;
+		return userName.equals(usr.userName);
+	}
+	
 	private String hash(String clearPassword) {
 		if (salt == 0) return null;
 

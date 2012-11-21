@@ -16,6 +16,7 @@ public class Model {
 	private ExchangeDAO exchangeDAO;
 	private CommunityDAO communityDAO;
 	private TopicDAO topicDAO;
+	private PostDAO postDAO;
 	
 	public Model(ServletConfig config) throws ServletException {
 		String jdbcDriver = config.getInitParameter("jdbcDriver");
@@ -28,6 +29,7 @@ public class Model {
 			exchangeDAO = new ExchangeDAO(jdbcDriver, jdbcURL, userDAO);
 			communityDAO = new CommunityDAO(jdbcDriver, jdbcURL, userDAO);
 			topicDAO = new TopicDAO(jdbcDriver, jdbcURL, userDAO, communityDAO);
+			postDAO = new PostDAO(jdbcDriver, jdbcURL, userDAO, topicDAO);
 			
 			
 		} catch (DAOException e) {
@@ -64,5 +66,9 @@ public class Model {
 	
 	public TopicDAO getTopicDAO() {
 		return topicDAO;
+	}
+	
+	public PostDAO getPostDAO() {
+		return postDAO;
 	}
 }
