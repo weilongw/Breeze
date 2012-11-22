@@ -234,7 +234,7 @@
     							<th class="span1">Reply</th>           
     							<th class="span6">Title</th>
     							<th class="span2">Poster</th>
-    							<th class="span2">Time</th>
+    							<th class="span4">Time</th>
     						</tr>
     					</thead>
     					<c:forEach var="topic" items="${search}">
@@ -246,7 +246,7 @@
     							</td>
     							<td><a href="viewTopic.do?topicId=${topic.id}">${topic.title}</a></td>
     							<td>by ${topic.poster.userName}</td>
-    							<td>${topic.postDate}</td>
+    							<td><fmt:formatDate value="${topic.postDate}" type="both" dateStyle="short"/></td>
     						</tr>
     					</c:forEach>
     					

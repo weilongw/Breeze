@@ -39,25 +39,48 @@ NewPostAction.java
 	------------should validate if user is a memeber of the community (or should we?)
 
 NewTopicAction.java
+
 PostItemAction.java
+
 RedirectSendAction.java
+
 RegisterAction.java
+
 SearchAction.java
+
 SearchTopicAction.java
+
 ShowCategoryAction.java
+
 ShowItemPageAction.java
+
 ShowMessageAction.java
+
 ShowMovieAction.java
+	-----------still be able to view the movie if its related item is closed (fix or not)
+
 ShowMyItemsAction.java
+
 ShowProfileAction.java
+
 UpdatePhotoAction.java
+	-----------should validate userPhoto name (or even see if file exist?)
 UpdateProfileAction.java
+
 UploadImageAction.java
-	-should check file name
-	-should check if it's the owner of the item who wishes to change the image.
+	-----------should check file name
+	-----------should check if it's the owner of the item who wishes to change the image.
+
 ViewCommunityAction.java
+
 ViewTopicAction.java
 
 definitely should check external upload servlet ==> easily generate a null pointer exception with malformatted input, use javascript return submit() or something?
 
 refactor the structure of website, logically make sense of the two parts
+
+needing test for concurrency
+
+various cases for paginate
+
+rethink get vs post for various cases, which one is more appropriate

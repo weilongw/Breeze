@@ -38,30 +38,33 @@ public class RedirectSendAction extends Action {
 			errors.add("You are not logged in");
 			return "browse.do";
 		}
+		MessageForm newForm = new MessageForm();
+		request.setAttribute("form", newForm);
 		if (!form.isPresent()) {
-			return "browse.do";
+			return "showMessage.do";
 		}
+
+		newForm.setReceiver(form.getReceiver());
+		newForm.setTitle(form.getTitle());
 		
 		errors.addAll(form.getValidationErrors());
-		if (errors.size() != 0) return "browse.do";
+		if (errors.size() != 0) return "showMessage.do";
 		
 		try {
 			User user = userDAO.lookup(form.getReceiver());
 			if (user == null) {
 				errors.add("No such user present");
-				return "browse.do";
+				return "showMessage.do";
 			}
 		} catch (DAOException e) {
 			errors.add(e.getMessage());
-			return "browse.do";
+			return "showMessage.do";
 		}
 		
-		MessageForm newForm = new MessageForm();
 		
-		newForm.setReceiver(form.getReceiver());
-		newForm.setTitle(form.getTitle());
 		
-		request.setAttribute("form", newForm);
+		
+		//request.setAttribute("form", newForm);
 		return "showMessage.do";
 		
 		

@@ -72,7 +72,7 @@ public class NewTopicAction extends Action {
 		try {
 			if (!relationDAO.exist(curUser, comm)) {
 				errors.add("You are not a member of this community");
-				System.out.println("1");
+				
 				return "viewCommunity.do?name=" + comm.getName();
 			}
 		} catch (DAOException e) {
