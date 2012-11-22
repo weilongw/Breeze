@@ -33,7 +33,7 @@ public class Topic implements Comparable<Topic>{
 	public int compareTo(Topic o) {
 		if(replyCount > o.replyCount) return -1;
 		if (replyCount < o.replyCount) return 1;
-		return 0;
+		return -postDate.compareTo(o.postDate);
 	}
 	
 	public static final Comparator<Topic> REVERSE_TIMEORDER = 
