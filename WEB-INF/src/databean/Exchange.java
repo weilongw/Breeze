@@ -13,8 +13,8 @@ public class Exchange {
 	private Date endDate;
 	
 	public static final int PENDING = 1;
-	public static final int CLOSED = 2;
-	public static final int NO_ONE_ANSWER = 0;
+	public static final int CLOSED = 2;	// closed or success for responders
+	public static final int NO_ONE_ANSWER = 0;	// for items closed by posters without buyer
 	public static final int SUCCESS = 3;
 	
 	public static final int ANSWER_POST_WITH_CREDIT = 1;

@@ -47,7 +47,7 @@
 						</fieldset>
 						<br/>
   						<div id="xchg"></div>
-  						<c:if test="${isOwner == 0}">
+  						<c:if test="${isOwner == 0 && posted.status == 0}">
  						<table>
  							<tbody>
 						    <tr>
@@ -103,7 +103,7 @@
 							<big>${requested.itemDescription}</big>
 						</fieldset><br/>
   						<div id="xchg"></div>
- 						<c:if test="${isOwner == 0}">
+ 						<c:if test="${isOwner == 0 && requested.status == 0}">
  						<table>
  							<tbody>
 						    <tr>

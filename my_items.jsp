@@ -33,7 +33,8 @@
     							<li class="span4" style="margin-left:0">
 									<div class="thumbnail" style="height:300;">
 										<div style="width:240px;height:160px; text-align:center">
-										<img src="img/item/${myPostedItem.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt="">
+											<a href="showItems.do?itemId=${myPostedItem.id}">
+										<img src="img/item/${myPostedItem.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt=""></a>
 										</div>
 										<div class="caption">
 										<a href="showItems.do?itemId=${myPostedItem.id}"><h3>${myPostedItem.itemName}</h3></a>
@@ -57,7 +58,8 @@
     							<li class="span4" style="margin-left:0">
 									<div class="thumbnail" style="height:300;">
 										<div style="width:240px;height:160px; text-align:center">
-										<img src="img/item/${myRequestedItem.imgName}" style="max-width:240px; max-height:160px" alt="">
+											<a href="showItems.do?itemId=${myRequestedItem.id}">
+										<img src="img/item/${myRequestedItem.imgName}" style="max-width:240px; max-height:160px" alt=""></a>
 										</div>
 										<div class="caption">
 										<a href="showItems.do?itemId=${myRequestedItem.id}"><h3>${myRequestedItem.itemName}</h3></a>
@@ -80,7 +82,8 @@
     							<li class="span4" style="margin-left:0">
 									<div class="thumbnail" style="height:300;">
 										<div style="width:240px;height:160px; text-align:center">
-										<img src="img/item/${myPendingItem.imgName}" style="max-width:240px; max-height:160px" alt="">
+											<a href="showItems.do?itemId=${myPendingItem.id}">
+										<img src="img/item/${myPendingItem.imgName}" style="max-width:240px; max-height:160px" alt=""></a>
 										</div>
 										<div class="caption">
 										<a href="showItems.do?itemId=${myPendingItem.id}"><h3>${myPendingItem.itemName}</h3></a>
@@ -106,7 +109,7 @@
    									</thead>
    									<c:forEach var="myFinishedItem" items="${myFinishedItems}">
    										<tr>
-   											<td>${myFinishedItem.item.itemName}</td>
+   											<td><a href="showItems.do?itemId=${myFinishedItem.item.id}">${myFinishedItem.item.itemName}</a></td>
    											<td>${myFinishedItem.poster.userName}</td>
    											<td>${myFinishedItem.responder.userName}</td>
    											<td>${map[myFinishedItem.respondType]}</td>
@@ -128,7 +131,7 @@
    									</thead>
    									<c:forEach var="myClosedItem" items="${myClosedItems}">
    										<tr>
-   											<td>${myClosedItem.item.itemName}</td>
+   											<td><a href="showItems.do?itemId=${myClosedItem.item.id}">${myClosedItem.item.itemName}</a></td>
    											<td>${closedMap[myClosedItem.item.type]}</td>
    											<td><fmt:formatDate value="${myClosedItem.endDate}" type="both" dateStyle="short" /></td>
    										</tr>
