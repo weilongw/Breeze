@@ -59,10 +59,12 @@ public class CompleteExchangeAction extends Action {
 		try {
 			xchg = exchangeDAO.lookup(form.getExchangeIdAsInt());
 			admin = userDAO.lookup("Admin");
+			curUser = userDAO.lookup(curUser.getUserName());
 		} catch (DAOException e) {
 			errors.add(e.getMessage());
 			return "browse.do";
 		}
+		request.getSession().setAttribute("user", curUser);
 		if (xchg == null) {
 			errors.add("Transaction not found");
 			return "browse.do";

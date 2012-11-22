@@ -70,8 +70,8 @@
                                 <section>
                                 <h4>Update your personal icon!</h4>
                                 <c:set var="rand"><%= java.lang.Math.random() %></c:set>
-                                <form method="post" enctype="multipart/form-data" action="upload?config=WEB-INF/up-user.txt&name=${sessionScope.user.userName}${rand}.png">
-                                    <input style="height:30px" type="file" size=20 name="fname">
+                                <form method="post" enctype="multipart/form-data" action="upload?config=WEB-INF/up-user.txt&name=${sessionScope.user.userName}${rand}.png" onsubmit="return validateForm()">
+                                    <input style="height:30px" id="uploadFname" type="file" size=20 name="fname">
                                     <p></p>
                                     <table><tr>
                                     <td><input class="btn" type="Submit" value="Upload"></td>

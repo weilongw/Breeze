@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +41,12 @@ public class UpdatePhotoAction extends Action {
 		
 		errors.addAll(form.getValidationErrors());
 		if (errors.size() != 0) return "showProfile.do";
+		
+		File f = new File("webapps/Breeze/img/user" + form.getUserPhoto());
+		if (!f.exists()) {
+			errors.add("Cannot found uploaded file");
+			return "showProfile.do";
+		}
 		
 		try {
 			userDAO.setPhoto(curUser, form.getUserPhoto());

@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UploadForm {
-	private String id;
+	//private String id;
 	private String imgName;
 	
-	public String getId() { return id; }
+	//public String getId() { return id; }
 	public String getImgName() { return imgName; }
 	
-	public void setId(String x) { id = x; }
+	//public void setId(String x) { id = x; }
 	public void setImgName(String x) { imgName = x; }
 	
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 		
-		if (id == null || id.trim().length() == 0) {
+	/*	if (id == null || id.trim().length() == 0) {
 			errors.add("Illegal state, item not present");
 		}
 
@@ -24,25 +24,23 @@ public class UploadForm {
 			Integer.parseInt(id);
 		} catch (NumberFormatException e) {
 			errors.add("Invalid item id");
-		}
+		}*/
 		
-		if (errors.size() != 0) return errors;
+		//if (errors.size() != 0) return errors;
 		
 		if (imgName == null || imgName.trim().length() == 0) {
 			errors.add("You didn't upload an image");
 		}
-		
-		
 		return errors;
 		
 	}
 	
-	public int getItemIdAsInt() {
+	/*public int getItemIdAsInt() {
 		return Integer.parseInt(id);
-	}
+	}*/
 	
 	public boolean isPresent() {
-		if (id != null) return true;
+		//if (id != null) return true;
 		if (imgName != null) return true;
 		return false;
 	}

@@ -49,6 +49,12 @@ public class PostItemAction extends Action{
         if (!form.isPresent()) {
             return "post_item.jsp";
         }
+        try {
+        	curUser = userDAO.lookup(curUser.getUserName());
+        	request.getSession().setAttribute("user", curUser);
+        } catch (DAOException e) {
+        	errors.add(e.getMessage());
+        }
         
         if (form.getPostTypeAsInt() == Item.POST)
         	request.setAttribute("postForm",form);
