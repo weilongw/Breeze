@@ -1,5 +1,8 @@
 package model;
 
+import java.util.Arrays;
+import java.util.Date;
+
 import org.mybeans.dao.DAOException;
 import org.mybeans.factory.BeanFactory;
 import org.mybeans.factory.BeanFactoryException;
@@ -16,13 +19,14 @@ public class ExchangeDAO {
 
 	private BeanFactory<Exchange> factory;
 	
-	public ExchangeDAO (String jdbcDriver, String jdbcURL, UserDAO userDAO) throws DAOException {
+	public ExchangeDAO (String jdbcDriver, String jdbcURL, UserDAO userDAO, ItemDAO itemDAO) throws DAOException {
 		try {
 			BeanTable<Exchange> exchangeTable = BeanTable.getSQLInstance(Exchange.class, 
 													"team17_exchange", 
 													jdbcDriver, 
 													jdbcURL, 
-													userDAO.getFactory());
+													userDAO.getFactory(),
+													itemDAO.getFactory());
 			if(!exchangeTable.exists()) exchangeTable.create("id");
 			exchangeTable.setIdleConnectionCleanup(true);
 			factory = exchangeTable.getFactory();
@@ -55,23 +59,24 @@ public class ExchangeDAO {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
-	public void closeTransaction(Item item) throws DAOException {
-		int itemId = item.getId();
+	public void createCancelTransaction(Item item) throws DAOException {
+		
 		User owner = item.getOwner();
 		Exchange newExchange = new Exchange();
-		newExchange.setItemId(itemId);
+		newExchange.setItem(item);
 		newExchange.setPoster(owner);
-		newExchange.setRespondType(Exchange.NO_ONE_ANSWER);
-		newExchange.setStatus(Exchange.CLOSED);	
+		newExchange.setRespondType(Exchange.UNDEFINED);
+		newExchange.setStatus(Exchange.NO_ONE_ANSWER);
+		newExchange.setEndDate(new Date());
 		create(newExchange);
 	}
 	
-	public void closeTransaction(Item item, User responder, int respondType) throws DAOException {
-		int itemId = item.getId();
+	/*public void closedfTransaction(Item item, User responder, int respondType) throws DAOException {
+		
 		User owner = item.getOwner();
 		if (respondType == Exchange.ANSWER_POST_WITH_CREDIT) {
 			Exchange newExchange = new Exchange();
-			newExchange.setItemId(itemId);
+			newExchange.setItem(item);
 			newExchange.setPoster(owner);
 			newExchange.setResponder(responder);
 			newExchange.setRespondType(Exchange.ANSWER_POST_WITH_CREDIT);
@@ -79,9 +84,10 @@ public class ExchangeDAO {
 			create(newExchange);
 		}
 		closeItemTransaction(item);
-	}
+	}*/
 	
-	public void closeTransaction(int exchangeId) throws DAOException {
+	
+	/*public void closeTransaction(int exchangeId) throws DAOException {
 		try {
 			Transaction.begin();
 			Exchange xchg = factory.lookup(exchangeId);
@@ -92,16 +98,17 @@ public class ExchangeDAO {
 		} finally {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
-	}
+	}*/
 	
 	public void closeItemTransaction(Item item) throws DAOException {
 		try {
 			Exchange[] item_xchgs = factory.match(MatchArg.equals("status", Exchange.PENDING), 
-											      MatchArg.equals("itemId", item.getId()));
+											      MatchArg.equals("item", item));
 			for (Exchange xchg : item_xchgs) {
 				Transaction.begin();
 				Exchange ex = factory.lookup(xchg.getId());
 				ex.setStatus(Exchange.CLOSED);
+				ex.setEndDate(new Date());
 				Transaction.commit();
 			}
 		} catch (RollbackException e) {
@@ -112,10 +119,10 @@ public class ExchangeDAO {
 	}
 	
 	public int openPendingTransaction(Item item, User responder, int respondType) throws DAOException {
-		int itemId = item.getId();
+	
 		User owner = item.getOwner();
 		Exchange newExchange = new Exchange();
-		newExchange.setItemId(itemId);
+		newExchange.setItem(item);
 		newExchange.setPoster(owner);
 		newExchange.setResponder(responder);
 		newExchange.setRespondType(respondType);
@@ -127,7 +134,7 @@ public class ExchangeDAO {
 		Exchange[] ret = null;
  		try {
 			ret = factory.match(MatchArg.equals("status", Exchange.CLOSED),
-								MatchArg.equals("itemId", item.getId()));
+								MatchArg.equals("item", item));
 		} catch(RollbackException e) {
 			throw new DAOException(e);
 		} finally {
@@ -140,7 +147,7 @@ public class ExchangeDAO {
 		Exchange[] ret = null;
  		try {
 			ret = factory.match(MatchArg.equals("status", Exchange.PENDING),
-								MatchArg.equals("itemId", item.getId()));
+								MatchArg.equals("item", item));
 		} catch(RollbackException e) {
 			throw new DAOException(e);
 		} finally {
@@ -149,9 +156,9 @@ public class ExchangeDAO {
  		return ret;
 	}
 	
-	public boolean exists(int itemId, int respond, User responder) throws DAOException {
+	public boolean exists(Item item, int respond, User responder) throws DAOException {
 		try {
-			Exchange[] xchg = factory.match(MatchArg.equals("itemId", itemId),
+			Exchange[] xchg = factory.match(MatchArg.equals("item", item),
 										   MatchArg.equals("respondType", respond),
 										   MatchArg.equals("responder", responder));
 			if (xchg.length == 0) return false;
@@ -160,5 +167,77 @@ public class ExchangeDAO {
 		}
 		return true;
 	}
-
+	
+	public void createSuccessTransaction(Item item, User responder) throws DAOException {
+		Exchange newXchg = new Exchange();
+		newXchg.setItem(item);
+		newXchg.setPoster(item.getOwner());
+		newXchg.setResponder(responder);
+		newXchg.setRespondType(Exchange.ANSWER_POST_WITH_CREDIT);
+		newXchg.setStatus(Exchange.SUCCESS);
+		newXchg.setEndDate(new Date());
+		create(newXchg);
+	}
+	
+	public void setSuccessTransaction(int xchgId) throws DAOException {
+		try {
+			Transaction.begin();
+			Exchange xchg = factory.lookup(xchgId);
+			xchg.setStatus(Exchange.SUCCESS);
+			xchg.setEndDate(new Date());
+			Transaction.commit();
+		} catch(RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
+	
+	public Item[] getPendingItems(User user) throws DAOException {
+		try {
+			Exchange[] xchgs = factory.match(MatchArg.equals("responder", user),
+											 MatchArg.equals("status", Exchange.PENDING));
+			Item[] items = new Item[xchgs.length];
+			for (int i = 0; i < xchgs.length; i++) {
+				items[i] = xchgs[i].getItem();
+			}
+			return items;
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+	}
+	
+	public Exchange[] getMyFinished(User user) throws DAOException {
+		try {
+			Exchange[] xchgs1 = factory.match(MatchArg.equals("poster", user),
+											  MatchArg.equals("status", Exchange.SUCCESS));
+			Exchange[] xchgs2 = factory.match(MatchArg.equals("responder", user),
+					 						  MatchArg.equals("status", Exchange.SUCCESS));
+			Exchange[] xchgs = Arrays.copyOf(xchgs1, xchgs1.length + xchgs2.length);
+			System.arraycopy(xchgs2, 0, xchgs, xchgs1.length, xchgs2.length);
+			return xchgs;
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+	}
+	
+	public Exchange[] getMyWon(User user) throws DAOException {
+		try {
+			Exchange[] xchgs = factory.match(MatchArg.equals("responder", user),
+											 MatchArg.equals("status", Exchange.SUCCESS));
+			return xchgs;
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+	}
+	
+	public Exchange[] getMyClosed(User user) throws DAOException {
+		try {
+			Exchange[] xchgs = factory.match(MatchArg.equals("poster", user),
+											 MatchArg.equals("status", Exchange.NO_ONE_ANSWER));
+			return xchgs;
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+	}
 }

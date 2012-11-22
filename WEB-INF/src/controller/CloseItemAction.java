@@ -93,6 +93,7 @@ public class CloseItemAction extends Action {
 								") is no longer available");
 			}
 			exchangeDAO.closeItemTransaction(item);
+			exchangeDAO.createCancelTransaction(item);
 		} catch(DAOException e) {
 			errors.add(e.getMessage());
 			return "showMyItems.do";

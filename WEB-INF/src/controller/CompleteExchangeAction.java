@@ -69,7 +69,7 @@ public class CompleteExchangeAction extends Action {
 		}
 		Item item = null;
 		try {
-			item = itemDAO.getItemById(xchg.getItemId());
+			item = itemDAO.getItemById(xchg.getItem().getId());
 		} catch(DAOException e) {
 			errors.add(e.getMessage());
 			return "browse.do";
@@ -88,7 +88,7 @@ public class CompleteExchangeAction extends Action {
 				curUser.setCredit(curUser.getCredit() - item.getCredit());
 			}
 			itemDAO.closeItem(item.getId());
-			exchangeDAO.closeTransaction(xchg.getId());
+			exchangeDAO.setSuccessTransaction(xchg.getId());
 			messageDAO.send(admin, curUser, "Transaction complete", 
 							"You have accepted the request from (" + xchg.getResponder().getUserName()
 							+ "). Your item (" + item.getItemName() + ") is now closed.");
@@ -102,6 +102,7 @@ public class CompleteExchangeAction extends Action {
 				messageDAO.send(admin, each.getResponder(), "Transaction dismissed",
 								"The item (" + item.getItemName() + ") you have reponded to is now closed");
 			}
+			exchangeDAO.closeItemTransaction(item);
 			
 		} catch(DAOException e) {
 			errors.add(e.getMessage());

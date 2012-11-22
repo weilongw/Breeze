@@ -17,7 +17,7 @@
 				<div class="tabbable"> <!-- Only required for left/right tabs -->
     				<ul class="nav nav-tabs">
     				<li class="disabled"><a href="#">Post</a></li>
-    				<li class="disabled"><a href="#">Request</a></li>
+    				<li class="disabled"><a href="#">Request</a></li>   
                     <li class="active"><a href="#tab3" data-toggle="tab">Upload</a></li>
     				</ul>
     				<div class="tab-content">

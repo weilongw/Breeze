@@ -91,7 +91,8 @@ public class ItemDAO {
 	public Item[] getMyPostedItems(User user) throws DAOException{
 		Item[] list;
 		try {
-			list = factory.match(MatchArg.equals("owner", user), MatchArg.equals("type", 1));
+			list = factory.match(MatchArg.equals("owner", user), MatchArg.equals("type", 1),
+							     MatchArg.equals("status", Item.OPEN));
 			Arrays.sort(list);
 			return list;
 		} catch (RollbackException e) {
@@ -102,7 +103,8 @@ public class ItemDAO {
 	public Item[] getMyRequestedItems(User user) throws DAOException{
 		Item[] list;
 		try {
-			list = factory.match(MatchArg.equals("owner", user), MatchArg.equals("type", 2));
+			list = factory.match(MatchArg.equals("owner", user), MatchArg.equals("type", 2),
+								 MatchArg.equals("status", Item.OPEN));
 			Arrays.sort(list);
 			return list;
 		} catch (RollbackException e) {

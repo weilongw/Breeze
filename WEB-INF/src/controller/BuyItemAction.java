@@ -81,10 +81,10 @@ public class BuyItemAction extends Action{
 		else 
 			request.setAttribute("requested", item);
         if (item.getOwner().getUserName().equals(curUser.getUserName())) {
-        	errors.add("You can not buy your own item");
+        	errors.add("You cannot buy your own item");
         	return "item_page.jsp";
         }
-		if(buyType == 1 && item.getType() == Item.POST && item.getCredit() != -1){
+		if(buyType == Exchange.ANSWER_POST_WITH_CREDIT && item.getType() == Item.POST && item.getCredit() != -1){
 			try {
 				
 				int credit = item.getCredit();
@@ -103,7 +103,8 @@ public class BuyItemAction extends Action{
 					messageDAO.send(admin, xchg.getResponder(), "Transaction dismissed", 
 									"The item (" + item.getItemName() + ") you have responded to is now closed");
 				}
-				exchangeDAO.openPendingTransaction(item, curUser, Exchange.ANSWER_POST_WITH_CREDIT);
+				//exchangeDAO.openPendingTransaction(item, curUser, Exchange.ANSWER_POST_WITH_CREDIT);
+				exchangeDAO.createSuccessTransaction(item, curUser);
 				exchangeDAO.closeItemTransaction(item);
 				messageDAO.send(admin, owner, "Your item has been sold", 
 								"Your item: " + item.getItemName() +" has been bought by "
@@ -119,11 +120,11 @@ public class BuyItemAction extends Action{
 				return "item_page.jsp";
 			}			
 		}
-		else if ((buyType == 2 && item.getType() == Item.POST && item.getExchangeItemDescription() != null) ||
-				 (buyType == 3 && item.getType() == Item.REQUEST && item.getCredit() != -1) ||
-				 (buyType == 4 && item.getType() == Item.REQUEST && item.getExchangeItemDescription() != null)) {
+		else if ((buyType == Exchange.ANSWER_POST_WITH_EXCHANGE && item.getType() == Item.POST && item.getExchangeItemDescription() != null) ||
+				 (buyType == Exchange.ANSWER_REQUEST_FOR_CREDIT && item.getType() == Item.REQUEST && item.getCredit() != -1) ||
+				 (buyType == Exchange.ANSWER_REQUEST_FOR_EXCHANGE && item.getType() == Item.REQUEST && item.getExchangeItemDescription() != null)) {
 			try {
-				if (exchangeDAO.exists(itemId, buyType, curUser)) {
+				if (exchangeDAO.exists(item, buyType, curUser)) {
 					errors.add("You have already reponded to this item");
 					return "item_page.jsp";
 				}
@@ -136,7 +137,7 @@ public class BuyItemAction extends Action{
 						"by " + curUser.getUserName() +  
 						", who agreed to " + buyTypeName[buyType - 2] + ". Click this " + url +
 								" if you want to make a transaction with him.";
-				System.out.println(content.length());
+				//System.out.println(content.length());
 				
 				
 				String content2 = "The item: " + item.getItemName() + " you requested has been sent " +

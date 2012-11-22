@@ -27,7 +27,7 @@ public class Model {
 			userDAO  = new UserDAO(jdbcDriver, jdbcURL);
 			itemDAO = new ItemDAO(jdbcDriver, jdbcURL, userDAO);
 			messageDAO = new MessageDAO(jdbcDriver, jdbcURL, userDAO);
-			exchangeDAO = new ExchangeDAO(jdbcDriver, jdbcURL, userDAO);
+			exchangeDAO = new ExchangeDAO(jdbcDriver, jdbcURL, userDAO, itemDAO);
 			communityDAO = new CommunityDAO(jdbcDriver, jdbcURL, userDAO);
 			topicDAO = new TopicDAO(jdbcDriver, jdbcURL, userDAO, communityDAO);
 			postDAO = new PostDAO(jdbcDriver, jdbcURL, userDAO, topicDAO);
