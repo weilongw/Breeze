@@ -28,7 +28,7 @@
 				<section>
       				    <form action="communitySearch.do" method="get" class="form-search" >
     						    <div class="input-append">
-    							<input class="span12" type="text" size="40"  name = "key" value="${form.key}">
+    							<input class="span12" type="text" size="40"  name = "key" value="${searchForm.key}">
     							<span class="add-on">
     								<select name="options" selected="1" style="width:120px;">
     									<option value="0">Community</option>

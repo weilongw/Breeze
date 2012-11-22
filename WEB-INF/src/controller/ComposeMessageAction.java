@@ -36,17 +36,19 @@ public class ComposeMessageAction extends Action{
 	@Override
 	public String perform(HttpServletRequest request) {
 		MessageForm form = formBeanFactory.create(request);
-		
-		request.setAttribute("form", form);
 		List<String> errors = prepareErrors(request);
-		if (!form.isPresent()) {
-			return "message.jsp";
-		}
 		User curUser = (User)request.getSession().getAttribute("user");
 		if (curUser == null) {
 			errors.add("You are not logged in");
 			return "browse.do";
 		}
+		
+		request.setAttribute("form", form);
+		
+		if (!form.isPresent()) {
+			return "message.jsp";
+		}
+		
 		errors.addAll(form.getValidationErrors());
 		if (errors.size() != 0) return "showMessage.do";
 		

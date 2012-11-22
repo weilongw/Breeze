@@ -19,17 +19,19 @@ public class UploadForm {
 		if (id == null || id.trim().length() == 0) {
 			errors.add("Illegal state, item not present");
 		}
-		if (imgName == null || imgName.trim().length() == 0) {
-			errors.add("You didn't upload an image");
-		}
-		
-		if (errors.size() != 0) return errors;
-		
+
 		try {
 			Integer.parseInt(id);
 		} catch (NumberFormatException e) {
 			errors.add("Invalid item id");
 		}
+		
+		if (errors.size() != 0) return errors;
+		
+		if (imgName == null || imgName.trim().length() == 0) {
+			errors.add("You didn't upload an image");
+		}
+		
 		
 		return errors;
 		

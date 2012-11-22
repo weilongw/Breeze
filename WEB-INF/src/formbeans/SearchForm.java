@@ -38,15 +38,17 @@ public class SearchForm {
 		 
 		if (options == null || options.length() == 0){
 			errors.add("Option is required");
-			try{
-				int option = Integer.parseInt(options);
-				if(option > 2 && option < 0){
-					errors.add("Invalid option choice for search.");
-				}
-			}catch (NumberFormatException e) {
+		}
+		
+		if (errors.size() != 0) return errors;
+		
+		try{
+			int option = Integer.parseInt(options);
+			if(option > 2 || option < 0){
 				errors.add("Invalid option choice for search.");
 			}
-			
+		}catch (NumberFormatException e) {
+			errors.add("Invalid option choice for search.");
 		}
 		
 		return errors;

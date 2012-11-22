@@ -42,17 +42,13 @@ public class NewPostAction extends Action{
 		List<String> errors = prepareErrors(request);
 		NewPostForm form = formBeanFactory.create(request);
 		if (!form.isPresent()) return "browseCommunity.do";
-		User curUser = (User)request.getSession().getAttribute("user");
-		if (curUser == null) {
-			errors.add("You are not logged in");
-			return "browseCommunity.do";
-		}
+		
 		
 		request.setAttribute("form", form);
 		
 		errors.addAll(form.getIntegerValidationErrors());
 		if(errors.size() != 0)
-			return "browse.do";
+			return "browseCommunity.do";
 		
 	
 		
@@ -62,7 +58,11 @@ public class NewPostAction extends Action{
 				errors.add("No such topic!");
 				return "browseCommunity.do";
 			}
-			
+			User curUser = (User)request.getSession().getAttribute("user");
+			if (curUser == null) {
+				errors.add("You are not logged in");
+				return "viewTopic.do?topicId=" + topic.getId();
+			}
 			errors.addAll(form.getValidationErrors());
 			
 			if(errors.size() != 0)

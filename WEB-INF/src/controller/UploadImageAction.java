@@ -11,6 +11,7 @@ import model.Model;
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
+import databean.User;
 import formbeans.UploadForm;
 
 public class UploadImageAction extends Action{
@@ -31,6 +32,11 @@ public class UploadImageAction extends Action{
 	public String perform(HttpServletRequest request) {
 		UploadForm form = formBeanFactory.create(request);
 		List<String> errors = prepareErrors(request);
+		User curUser = (User)request.getSession().getAttribute("user");
+		if (curUser == null) {
+			errors.add("You are logged in");
+			return "browse.do";
+		}
 		if (!form.isPresent()) {
 			return "post_item.jsp";
 		}

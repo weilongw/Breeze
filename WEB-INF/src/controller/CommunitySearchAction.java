@@ -37,7 +37,7 @@ public class CommunitySearchAction extends Action {
 		SearchForm form = formBeanFactory.create(request);
 		List<String> errors = prepareErrors(request);
 		if (!form.isPresend()) return "browseCommunity.do";
-		request.setAttribute("form", form);
+		request.setAttribute("searchForm", form);
 		errors.addAll(form.getValidationErrors());
 		if (errors.size() != 0) return "browseCommunity.do";
 		int option = form.getOptionsAsInt();

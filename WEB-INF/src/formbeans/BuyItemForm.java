@@ -34,7 +34,7 @@ public class BuyItemForm {
 		else{
 			try{
 				int type = Integer.parseInt(buyType);
-				if(type > 4 && type < 1){
+				if(type > 4 || type < 1){
 					errors.add("Invalid operation.");
 				}
 			}catch (NumberFormatException e) {
