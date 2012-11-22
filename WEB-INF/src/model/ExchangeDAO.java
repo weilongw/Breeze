@@ -240,4 +240,36 @@ public class ExchangeDAO {
 			throw new DAOException(e);
 		}
 	}
+	
+	public int findExchangeResult(Item item) throws DAOException{
+		try {
+			int result = 0;
+			if(factory.match(MatchArg.equals("item", item), 
+					MatchArg.equals("status", Exchange.NO_ONE_ANSWER)).length == 1)
+				result = 1;
+			else if(factory.match(MatchArg.equals("item", item), 
+					MatchArg.equals("status", Exchange.SUCCESS)).length == 1)
+				result = 2;
+			return result;
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e);
+		}
+	}
+	
+	public Exchange findSuccessExchange(Item item) throws DAOException{
+		try {
+			Exchange[] xchgs = factory.match(MatchArg.equals("item", item), 
+					MatchArg.equals("status", Exchange.SUCCESS));
+			if(xchgs.length != 1)
+				throw new DAOException("Invalid opration " +
+						"in finding success exchange for the item. No or more than " +
+						"two successful exchange record(s).");
+			Exchange xchg = xchgs[0];
+			return xchg;
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e);
+		}
+	}
 }

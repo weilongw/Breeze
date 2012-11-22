@@ -109,7 +109,7 @@
    									</thead>
    									<c:forEach var="myFinishedItem" items="${myFinishedItems}">
    										<tr>
-   											<td><a href="showItems.do?itemId=${myFinishedItem.id}">${myFinishedItem.item.itemName}</a></td>
+   											<td><a href="showItems.do?itemId=${myFinishedItem.item.id}">${myFinishedItem.item.itemName}</a></td>
    											<td>${myFinishedItem.poster.userName}</td>
    											<td>${myFinishedItem.responder.userName}</td>
    											<td>${map[myFinishedItem.respondType]}</td>
@@ -131,7 +131,7 @@
    									</thead>
    									<c:forEach var="myClosedItem" items="${myClosedItems}">
    										<tr>
-   											<td><a href="showItems.do?itemId=${myClosedItem.id}">${myClosedItem.item.itemName}</a></td>
+   											<td><a href="showItems.do?itemId=${myClosedItem.item.id}">${myClosedItem.item.itemName}</a></td>
    											<td>${closedMap[myClosedItem.item.type]}</td>
    											<td><fmt:formatDate value="${myClosedItem.endDate}" type="both" dateStyle="short" /></td>
    										</tr>
