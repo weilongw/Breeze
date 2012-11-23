@@ -28,6 +28,24 @@ function createRequest() {
 	}
 }
 
+function join(commName){
+	if (request.readyState != 0) return;
+		var url = "joinCommunity.do?name=" + commName;
+		request.onreadystatechange = update;
+		request.open("GET", url, true);
+		request.send();
+
+
+}
+
+function unjoin(commName){
+	if (request.readyState != 0) return;
+	var url = "unjoinCommunity.do?name=" + commName;
+	request.onreadystatechange = update;
+	request.open("GET", url, true);
+	request.send();
+}
+
 function search_movie(choice) {
 	if (request.readyState != 0) return;
 	var movie_name = document.getElementById(choice + "-ajax-movie").value;
