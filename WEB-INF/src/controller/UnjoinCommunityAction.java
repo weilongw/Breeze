@@ -57,11 +57,14 @@ public class UnjoinCommunityAction extends Action{
 			}
 			
 			if(!relationDAO.exist(curUser, community)){
-				errors.add("You are not in this community: " + community.getName());
-				return "viewCommunity.do?name=" + community.getName();
+				errors.add("Error: you are not in this community: " + community.getName());
+				request.setAttribute("choice", "Join!");
+				request.setAttribute("commName", community.getName());
+
+				return "unjoin_comm.jsp";
 			}
 				
-			relationDAO.create(curUser, community);
+			relationDAO.destroy(curUser, community);
 			
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -69,10 +72,13 @@ public class UnjoinCommunityAction extends Action{
 			return "browseCommunity.do";
 		}
 		
-		String success = "You become one of them!";
-		request.setAttribute("success",success);			
+		String success = "Success: You are not in the community: " + community.getName() + " now";
+		request.setAttribute("success",success);	
+		request.setAttribute("choice", "Join!");
+		request.setAttribute("commName", community.getName());
+
 		
-		return "viewCommunity.do?name=" + community.getName();
+		return "unjoin_comm.jsp";
 	}
 	
 	

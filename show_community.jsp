@@ -168,10 +168,17 @@
 		<div class="row-fluid">
 			<div class="span3" style="padding:10px;padding-top:20px;">
 				<div id="rez_part" style="margin-top:10px;border:1px #E7E6FA solid; height:190px">
-					<div class="right_part_title"> 
+					<div  class="right_part_title"> 
 						<span class="right_part_title_font">About Community</span>
+						<div id="decide_join">
+						<c:if test="${joining == 0}">
 						<a onclick="join('${comm.name}')" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
+					</c:if>
+					<c:if test="${joining == 1}">					
+					<a onclick="unjoin('${comm.name}')" style="float:right; margin-top:5px; margin-right:8px">Unjoin!</a>
+				</c:if>
 					</div>
+				</div>
 					<ul class="community_ul">
 						<li><span class="community_font">Name: ${comm.name}</span></li>
 						<li><span class="community_font">Creater : ${comm.creater.userName}</span></li>
@@ -198,6 +205,7 @@
     			<hr/>
     			<jsp:include page="error.jsp" />
     			<jsp:include page="success.jsp" />
+    			 <div id="decide_join_message"></div>
     			<section>
     				<c:if test="${!empty(topics)}">
 

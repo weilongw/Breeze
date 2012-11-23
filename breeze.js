@@ -31,20 +31,89 @@ function createRequest() {
 function join(commName){
 	if (request.readyState != 0) return;
 		var url = "joinCommunity.do?name=" + commName;
-		request.onreadystatechange = update;
+		request.onreadystatechange = decideJoin;
 		request.open("GET", url, true);
 		request.send();
+}
+
+function decideJoin(){
+	if (request.readyState != 4) return;
+	
+	if (request.status != 200) {
+		alert("Error, request status is "+request.status);
+		return;
+	}
+
+	var xmlDoc  = request.responseXML;
+	var errors = xmlDoc.getElementsByTagName("error");
+	var success = xmlDoc.getElementsByTagName("success");
+	var success_msg = success[0].childNodes[0].nodeValue;
+	var choice = xmlDoc.getElementsByTagName("choice")[0].childNodes[0].nodeValue;
+	var comm = xmlDoc.getElementsByTagName("comm")[0].childNodes[0].nodeValue;
+
+	var joinDivElMsg = document.getElementById("decide_join_message");
+	var joinDivEl = document.getElementById("decide_join");
+
+	for (var i=0; i<errors.length; i++) {
+		var error_msg = errors[i].getElementsByTagName("error")[0].nodeValue;
+		
+		var errEl = xmlDoc.createTextNode(error_msg);
+		suggestDivElMsg.appendChild(errEl);
+	}
+
+/*<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">x</button>
+		<strong>Success!</strong>
+			${success}<br/>
+	</div>*/
+
+	var msg_btn = xmlDoc.createElement("button");
+	var close_txt = xmlDoc.createElement("x");
+	msg_btn.type = "button";
+	msg_btn.class = "close";
+	msg_btn.data="alert";
+	var msgTextEl = xmlDoc.createTextNode(success_msg);
+	var strongEl = xmlDoc.createElement("strong");
+	strongEl.appendChild(msgTextEl);
+	var msg_div = xmlDoc.createElement("div");
+	msg_div.class = "alert alert-success";
+		msg_btn.appendChild(strongEl);
+
+	msg_div.appendChild(msg_btn);
+//	msg_div.appendChild(strongEl);
+	joinDivElMsg.appendChild(msg_div);
+
+	while (joinDivEl.hasChildNodes()) {
+		joinDivEl.removeChild(joinDivEl.firstChild);
+	}
+
+	var joinTextEl = document.createTextNode(choice);
+
+	var anchorEl = document.createElement("a");
+		anchorEl.style = "float:right; margin-top:5px; margin-right:8px";
+
+	if(choice == "join!")
+
+		anchorEl.onclick = join(comm);
+	else(choice == "unjoin!")
+		anchorEl.onclick = unjoin(comm);
+	anchorEl.appendChild(joinTextEl);
+	joinDivEl.appendChild(anchorEl);
+
+	request = createRequest();
 
 
 }
+
 
 function unjoin(commName){
 	if (request.readyState != 0) return;
 	var url = "unjoinCommunity.do?name=" + commName;
-	request.onreadystatechange = update;
+	request.onreadystatechange = decideJoin;
 	request.open("GET", url, true);
 	request.send();
 }
+
 
 function search_movie(choice) {
 	if (request.readyState != 0) return;

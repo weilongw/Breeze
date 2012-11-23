@@ -39,19 +39,7 @@ public class RelationDAO {
 		}
 	}
 	
-	public void destroy(User user, Community community){
-		
-		try {
-			Transaction.begin();
-			
-			dbrelation.setUser(user);
-			dbrelation.setCommunity(community);
-			Transaction.commit();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public void destroy(User user, Community community) throws DAOException{
 		try {
 			Transaction.begin();
  			Relation[] result = factory.match(MatchArg.equals("user", user), MatchArg.equals("community", community));
@@ -70,10 +58,7 @@ public class RelationDAO {
 			throw new DAOException(e);
 		} finally {
 			if (Transaction.isActive()) Transaction.rollback();
-		}
-		
-		
-		
+		}		
 		
 	}
 	
