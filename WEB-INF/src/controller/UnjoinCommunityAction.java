@@ -57,7 +57,7 @@ public class UnjoinCommunityAction extends Action{
 			}
 			
 			if(!relationDAO.exist(curUser, community)){
-				errors.add("Error: you are not in this community: " + community.getName());
+				errors.add("You are not in this community: " + community.getName());
 				request.setAttribute("choice", "Join!");
 				request.setAttribute("commName", community.getName());
 
@@ -72,7 +72,7 @@ public class UnjoinCommunityAction extends Action{
 			return "browseCommunity.do";
 		}
 		
-		String success = "Success: You are not in the community: " + community.getName() + " now";
+		String success = "You are not in the community: " + community.getName() + " now";
 		request.setAttribute("success",success);	
 		request.setAttribute("choice", "Join!");
 		request.setAttribute("commName", community.getName());

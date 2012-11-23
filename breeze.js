@@ -54,6 +54,10 @@ function decideJoin(){
 	var joinDivElMsg = document.getElementById("decide_join_message");
 	var joinDivEl = document.getElementById("decide_join");
 
+	while (joinDivElMsg.hasChildNodes()) {
+		joinDivElMsg.removeChild(joinDivElMsg.firstChild);
+	}
+
 	for (var i=0; i<errors.length; i++) {
 		var error_msg = errors[i].getElementsByTagName("error")[0].nodeValue;
 		
@@ -67,20 +71,41 @@ function decideJoin(){
 			${success}<br/>
 	</div>*/
 
-	var msg_btn = xmlDoc.createElement("button");
-	var close_txt = xmlDoc.createElement("x");
-	msg_btn.type = "button";
-	msg_btn.class = "close";
-	msg_btn.data="alert";
-	var msgTextEl = xmlDoc.createTextNode(success_msg);
-	var strongEl = xmlDoc.createElement("strong");
-	strongEl.appendChild(msgTextEl);
 	var msg_div = xmlDoc.createElement("div");
-	msg_div.class = "alert alert-success";
-		msg_btn.appendChild(strongEl);
+	var msg_div_class = document.createAttribute("class");
+	msg_div_class.value = "alert alert-success";
+	msg_div.setAttributeNode(msg_div_class);
+
+	var msg_btn = xmlDoc.createElement("button");
+
+	var msg_btn_type = document.createAttribute("type");
+	msg_btn_type.value = "button";
+	msg_btn.setAttributeNode(msg_btn_type);
+
+	var msg_btn_class = document.createAttribute("class");
+	msg_btn_class.value = "close";
+	msg_btn.setAttributeNode(msg_btn_class);
+
+	var msg_btn_data_dismiss = document.createAttribute("data-dismiss");
+	msg_btn_data_dismiss.value = "alert";
+	msg_btn.setAttributeNode(msg_btn_data_dismiss);
+
+	var close_txt = xmlDoc.createTextNode("x");
+
+	msg_btn.appendChild(close_txt);
+
+	var sucTextEl = xmlDoc.createTextNode("success");
+	var strongEl = xmlDoc.createElement("strong");
+	strongEl.appendChild(sucTextEl);
+	var msgTextEl = xmlDoc.createTextNode(success_msg);
+
+	var br = xmlDoc.createElement("br");
 
 	msg_div.appendChild(msg_btn);
-//	msg_div.appendChild(strongEl);
+	msg_div.appendChild(strongEl);
+	msg_div.appendChild(msgTextEl);
+	msg_div.appendChild(br);
+
 	joinDivElMsg.appendChild(msg_div);
 
 	while (joinDivEl.hasChildNodes()) {
@@ -90,15 +115,24 @@ function decideJoin(){
 	var joinTextEl = document.createTextNode(choice);
 
 	var anchorEl = document.createElement("a");
-		anchorEl.style = "float:right; margin-top:5px; margin-right:8px";
+		anchorEl.appendChild(joinTextEl);
 
-	if(choice == "join!")
 
-		anchorEl.onclick = join(comm);
-	else(choice == "unjoin!")
-		anchorEl.onclick = unjoin(comm);
-	anchorEl.appendChild(joinTextEl);
-	joinDivEl.appendChild(anchorEl);
+var style_join = document.createAttribute('style');
+		style_join.value = "float:right; margin-top:5px; margin-right:8px";
+	anchorEl.setAttributeNode(style_join);
+
+	var onclick_attr = document.createAttribute('onclick');
+
+	if(choice == "Join!")
+	onclick_attr.value = "join(\'" + comm + "\')";
+		else if(choice == "Unjoin!")
+	onclick_attr.value = "unjoin(\'" + comm + "\')";
+
+
+	anchorEl.setAttributeNode(onclick_attr);
+
+		joinDivEl.appendChild(anchorEl);
 
 	request = createRequest();
 
