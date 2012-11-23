@@ -4,6 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import model.CommunityDAO;
+import model.Model;
+import model.RelationDAO;
+
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
@@ -12,26 +16,20 @@ import databean.User;
 
 import formbeans.ViewCommunityForm;
 
-import model.CommunityDAO;
-import model.Model;
-import model.RelationDAO;
-
-public class JoinCommunityAction extends Action{
-	
+public class UnjoinCommunityAction extends Action{
 	private FormBeanFactory<ViewCommunityForm> formBeanFactory = FormBeanFactory.getInstance(ViewCommunityForm.class, "<>\"");
 	
 	RelationDAO relationDAO;
 	CommunityDAO communityDAO;
 	
-	public JoinCommunityAction(Model model){
+	public UnjoinCommunityAction(Model model){
 		relationDAO = model.getRelationDAO();
 		communityDAO = model.getCommunityDAO();
 	}
-	
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "joinCommunity.do";
+		return "unjoinCommunity.do";
 	}
 
 	@Override
@@ -58,14 +56,15 @@ public class JoinCommunityAction extends Action{
 				return "browseCommunity.do";
 			}
 			
-			if(relationDAO.exist(curUser, community)){
-				errors.add("You are already in this community: " + community.getName());
-				request.setAttribute("choice", "Unjoin!");
+			if(!relationDAO.exist(curUser, community)){
+				errors.add("You are not in this community: " + community.getName());
+				request.setAttribute("choice", "Join!");
 				request.setAttribute("commName", community.getName());
-				return "join_comm.jsp";
+
+				return "unjoin_comm.jsp";
 			}
 				
-			relationDAO.create(curUser, community);
+			relationDAO.destroy(curUser, community);
 			
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -73,11 +72,15 @@ public class JoinCommunityAction extends Action{
 			return "browseCommunity.do";
 		}
 		
-		String success = "You become one of them!";
-		request.setAttribute("success",success);			
-		request.setAttribute("choice", "Unjoin!");
+		String success = "You are not in the community: " + community.getName() + " now";
+		request.setAttribute("success",success);	
+		request.setAttribute("choice", "Join!");
 		request.setAttribute("commName", community.getName());
-		return "join_comm.jsp";
-	}
 
+		
+		return "unjoin_comm.jsp";
+	}
+	
+	
+	
 }

@@ -244,11 +244,13 @@ public class ExchangeDAO {
 	public int findExchangeResult(Item item) throws DAOException{
 		try {
 			int result = 0;
-			if(factory.match(MatchArg.equals("item", item), 
-					MatchArg.equals("status", Exchange.NO_ONE_ANSWER)).length == 1)
+			Exchange[] cXchg = factory.match(MatchArg.equals("item", item), 
+					MatchArg.equals("status", Exchange.NO_ONE_ANSWER));
+			Exchange[] sXchg = factory.match(MatchArg.equals("item", item), 
+					MatchArg.equals("status", Exchange.SUCCESS));
+			if(cXchg != null && cXchg.length == 1)
 				result = 1;
-			else if(factory.match(MatchArg.equals("item", item), 
-					MatchArg.equals("status", Exchange.SUCCESS)).length == 1)
+			else if(sXchg != null && sXchg.length == 1)
 				result = 2;
 			return result;
 		} catch (RollbackException e) {
@@ -261,7 +263,7 @@ public class ExchangeDAO {
 		try {
 			Exchange[] xchgs = factory.match(MatchArg.equals("item", item), 
 					MatchArg.equals("status", Exchange.SUCCESS));
-			if(xchgs.length != 1)
+			if(xchgs == null || xchgs.length != 1)
 				throw new DAOException("Invalid opration " +
 						"in finding success exchange for the item. No or more than " +
 						"two successful exchange record(s).");

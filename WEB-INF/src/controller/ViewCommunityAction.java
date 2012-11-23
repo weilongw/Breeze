@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.CommunityDAO;
 import model.Model;
+import model.RelationDAO;
 import model.TopicDAO;
 
 import org.mybeans.dao.DAOException;
@@ -13,6 +14,7 @@ import org.mybeans.forms.FormBeanFactory;
 
 import databean.Community;
 import databean.Topic;
+import databean.User;
 import formbeans.ViewCommunityForm;
 
 public class ViewCommunityAction extends Action {
@@ -21,10 +23,12 @@ public class ViewCommunityAction extends Action {
 	
 	private CommunityDAO communityDAO;
 	private TopicDAO topicDAO;
+	private RelationDAO relationDAO;
 	
 	public ViewCommunityAction (Model model) {
 		communityDAO = model.getCommunityDAO();
 		topicDAO = model.getTopicDAO();
+		relationDAO = model.getRelationDAO();
 	}
 	
 	@Override
@@ -59,7 +63,23 @@ public class ViewCommunityAction extends Action {
 		}
 		request.setAttribute("comm", comm);
 		request.setAttribute("topics", topics);
-		return "show_community.jsp";
+
+		User curUser = (User) request.getSession(false).getAttribute("user");
+
+		boolean joining;
+		try {
+			joining = relationDAO.exist(curUser, comm);
+			if(joining)
+				request.setAttribute("joining", 1);
+			else
+				request.setAttribute("joining", 0);
+			return "show_community.jsp";
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			errors.add(e.getMessage());
+			return "browseCommunity.do";
+		}
+		
 	}
 	
 
