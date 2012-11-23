@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import model.Model;
 import model.UserDAO;
-import model.ItemDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
@@ -22,12 +21,12 @@ public class LoginAction extends Action{
 	private FormBeanFactory<LoginForm> formBeanFactory = FormBeanFactory.getInstance(LoginForm.class,"<>\"");
 
 	private UserDAO userDAO;
-	private ItemDAO itemDAO;
+	//private ItemDAO itemDAO;
 	
 	public LoginAction(Model model) {
 		// TODO Auto-generated constructor stub
 		userDAO = model.getUserDAO();
-		itemDAO = model.getItemDAO();
+		//itemDAO = model.getItemDAO();
 	}
 
 	@Override

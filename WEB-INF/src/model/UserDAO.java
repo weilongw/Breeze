@@ -95,35 +95,35 @@ public class UserDAO {
 		}
 	}
 	
-	public void setCredit(int credit, String userName) throws DAOException{
-		try {
-			Transaction.begin();
+	public void setCredit(int credit, String userName) throws RollbackException{
+		//try {
+		//	Transaction.begin();
 			User user = factory.lookup(userName);
 			if (user == null) {
-				throw new DAOException("user not present");
+				throw new RollbackException("user not present");
 			}
 			user.setCredit(credit);
-			Transaction.commit();
-		} catch (RollbackException e) {
+			//Transaction.commit();
+		//} catch (RollbackException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException(e);
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-		}
+		//	throw new DAOException(e);
+		//} finally {
+		//	if (Transaction.isActive()) Transaction.rollback();
+		//}
 	}
 	
-	public void transferCredit(int credit, User from, User to) throws DAOException {
-		try{
+	public void transferCredit(int credit, User from, User to) throws RollbackException{
+		//try{
 			User usr1 = factory.lookup(from.getUserName());
 			User usr2 = factory.lookup(to.getUserName());
-			if (usr1.getCredit() < credit) throw new DAOException("Not enough credit");
+			if (usr1.getCredit() < credit) throw new RollbackException("Not enough credit");
 			setCredit(usr1.getCredit() - credit, usr1.getUserName());
 			setCredit(usr2.getCredit() + credit, usr2.getUserName());
-		} catch (RollbackException e) {
-			throw new DAOException(e);
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-		}
+		//} catch (RollbackException e) {
+		//	throw new DAOException(e);
+		//} finally {
+		//	if (Transaction.isActive()) Transaction.rollback();
+		//}
 	
 	}
 	

@@ -11,8 +11,9 @@ import model.Model;
 import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
+import org.mybeans.factory.RollbackException;
+import org.mybeans.factory.Transaction;
 import org.mybeans.forms.FormBeanFactory;
-
 
 import databean.User;
 import formbeans.MessageForm;
@@ -69,11 +70,15 @@ public class ComposeMessageAction extends Action{
 		//msg.setTitle(form.getTitle().replace("&#39;", "&quot;"));
 		//msg.setSentDate(new Date());
 		try {
+			Transaction.begin();
 			messageDAO.send(curUser, receiver, form.getTitle(),
 											   form.getContent());
-		} catch (DAOException e) {
+			Transaction.commit();
+		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "showMessage.do";
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
 		}
 		
 		request.setAttribute("success", "Your message has been sent");

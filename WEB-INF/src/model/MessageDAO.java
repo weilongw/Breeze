@@ -27,17 +27,17 @@ public class MessageDAO {
 		factory = noteTable.getFactory();
 	}
 	
-	public void create(Message newMessage) throws DAOException {
-		try {
-			Transaction.begin();
+	public void create(Message newMessage) throws RollbackException {
+		//try {
+		//	Transaction.begin();
 			Message dbMessage = factory.create();
 			factory.copyInto(newMessage,dbMessage);
-			Transaction.commit();
-		} catch (RollbackException e) {
-			throw new DAOException(e);
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-		}
+		//	Transaction.commit();
+		//} catch (RollbackException e) {
+		//	throw new DAOException(e);
+		//} finally {
+		//	if (Transaction.isActive()) Transaction.rollback();
+		//}
 	}
 	
 	protected BeanFactory<Message> getFactory() { return factory; }
@@ -73,7 +73,7 @@ public class MessageDAO {
 		}
 	}
 	
-	public void send(User sender, User receiver, String title, String content) throws DAOException {
+	public void send(User sender, User receiver, String title, String content) throws RollbackException {
 		Message msg = new Message();
 		msg.setSender(sender);
 		msg.setReceiver(receiver);
@@ -82,4 +82,5 @@ public class MessageDAO {
 		msg.setContent(content);
 		create(msg);
 	}
+	
 }

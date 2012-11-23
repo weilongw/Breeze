@@ -11,6 +11,8 @@ import model.Model;
 import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
+import org.mybeans.factory.RollbackException;
+import org.mybeans.factory.Transaction;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Exchange;
@@ -94,7 +96,7 @@ public class BuyItemAction extends Action{
 				}
 				
 				User owner = item.getOwner();
-				
+				Transaction.begin();
 				itemDAO.closeItem(itemId);
 				curUser.setCredit(curUser.getCredit() - credit);
 				userDAO.transferCredit(credit, curUser, owner);
@@ -112,13 +114,16 @@ public class BuyItemAction extends Action{
 				messageDAO.send(admin, curUser, "You won the item", 
 								"You have just won the item " + item.getItemName()
 								+ ". Congratulations.");
+				Transaction.commit();
 				request.setAttribute("success", "Transaction was successfully made. Your " +
 						"remaining credits are " + curUser.getCredit());
 				
-			} catch (DAOException e) {
+			} catch (RollbackException e) {
 				errors.add(e.getMessage());
 				return "item_page.jsp";
-			}			
+			} finally {
+				if (Transaction.isActive()) Transaction.rollback();
+			}
 		}
 		else if ((buyType == Exchange.ANSWER_POST_WITH_EXCHANGE && item.getType() == Item.POST && item.getExchangeItemDescription() != null) ||
 				 (buyType == Exchange.ANSWER_REQUEST_FOR_CREDIT && item.getType() == Item.REQUEST && item.getCredit() != -1) ||
@@ -128,7 +133,15 @@ public class BuyItemAction extends Action{
 					errors.add("You have already reponded to this item");
 					return "item_page.jsp";
 				}
+			} catch (DAOException e) {
+				errors.add(e.getMessage());
+				return "item_page.jsp";
+			}
+			
+			try {
+				
 				User owner = item.getOwner();
+				Transaction.begin();
 				int exchangeId = exchangeDAO.openPendingTransaction(item, curUser, buyType);
 				String url = "<a href=&quot;http://localhost:8080/Breeze/complete.do?exchangeId=" + exchangeId + "&quot;>link</a>";
 				String[] buyTypeName = {"exchange with items", "exchange for credits", "exchange with items"};
@@ -147,16 +160,20 @@ public class BuyItemAction extends Action{
 				
 				messageDAO.send(admin, owner, "Your item has been responded", content);
 				messageDAO.send(admin, curUser, "Your request is accepted", content2);
+				Transaction.commit();
 				
 				
 				request.setAttribute("success", "Your request has been sent.");
-			} catch (DAOException e) {
+			} catch (RollbackException e) {
 				errors.add(e.getMessage());
-			}			
+				return "item_page.jsp";
+			} finally {
+				if (Transaction.isActive()) Transaction.rollback();
+			}
 		}
 		else {
 			errors.add("Illegal state argument");
-			
+			return "item_page.jsp";
 		}
 	
 		return "showMyItems.do";

@@ -35,19 +35,19 @@ public class ExchangeDAO {
 		}
 	}
 	
-	public int create(Exchange newExchange) throws DAOException {
-		try{
-			Transaction.begin();
+	public int create(Exchange newExchange) throws RollbackException {
+		//try{
+		//	Transaction.begin();
 			Exchange dbExchange = factory.create();
 			factory.copyInto(newExchange, dbExchange);
 			int exchangeId = dbExchange.getId();
-			Transaction.commit();
+		//	Transaction.commit();
 			return exchangeId;
-		} catch (RollbackException e) {
-			throw new DAOException(e);
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-		}
+		//} catch (RollbackException e) {
+		//	throw new DAOException(e);
+		//} finally {
+		//	if (Transaction.isActive()) Transaction.rollback();
+		//}
 	}
 	public Exchange lookup(int exchangeId) throws DAOException {
 		try {
@@ -59,7 +59,7 @@ public class ExchangeDAO {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
-	public void createCancelTransaction(Item item) throws DAOException {
+	public void createCancelTransaction(Item item) throws RollbackException {
 		
 		User owner = item.getOwner();
 		Exchange newExchange = new Exchange();
@@ -100,25 +100,25 @@ public class ExchangeDAO {
 		}
 	}*/
 	
-	public void closeItemTransaction(Item item) throws DAOException {
-		try {
+	public void closeItemTransaction(Item item) throws RollbackException {
+		//try {
 			Exchange[] item_xchgs = factory.match(MatchArg.equals("status", Exchange.PENDING), 
 											      MatchArg.equals("item", item));
 			for (Exchange xchg : item_xchgs) {
-				Transaction.begin();
-				Exchange ex = factory.lookup(xchg.getId());
-				ex.setStatus(Exchange.CLOSED);
-				ex.setEndDate(new Date());
-				Transaction.commit();
+		//		Transaction.begin();
+		//		Exchange ex = factory.lookup(xchg.getId());
+				xchg.setStatus(Exchange.CLOSED);
+				xchg.setEndDate(new Date());
+		//		Transaction.commit();
 			}
-		} catch (RollbackException e) {
-			throw new DAOException(e);
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-		}
+		//} catch (RollbackException e) {
+		//	throw new DAOException(e);
+		//} finally {
+		//	if (Transaction.isActive()) Transaction.rollback();
+		//}
 	}
 	
-	public int openPendingTransaction(Item item, User responder, int respondType) throws DAOException {
+	public int openPendingTransaction(Item item, User responder, int respondType) throws RollbackException {
 	
 		User owner = item.getOwner();
 		Exchange newExchange = new Exchange();
@@ -143,16 +143,16 @@ public class ExchangeDAO {
  		return ret;
 	}
 	
-	public Exchange[] findItemPendingTransactions(Item item) throws DAOException {
+	public Exchange[] findItemPendingTransactions(Item item) throws RollbackException {
 		Exchange[] ret = null;
- 		try {
-			ret = factory.match(MatchArg.equals("status", Exchange.PENDING),
+ 		//try {
+		ret = factory.match(MatchArg.equals("status", Exchange.PENDING),
 								MatchArg.equals("item", item));
-		} catch(RollbackException e) {
-			throw new DAOException(e);
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-		}
+		//} catch(RollbackException e) {
+		//	throw new DAOException(e);
+		//} finally {
+		//	if (Transaction.isActive()) Transaction.rollback();
+		//}
  		return ret;
 	}
 	
@@ -168,7 +168,7 @@ public class ExchangeDAO {
 		return true;
 	}
 	
-	public void createSuccessTransaction(Item item, User responder) throws DAOException {
+	public void createSuccessTransaction(Item item, User responder) throws RollbackException {
 		Exchange newXchg = new Exchange();
 		newXchg.setItem(item);
 		newXchg.setPoster(item.getOwner());
@@ -179,18 +179,18 @@ public class ExchangeDAO {
 		create(newXchg);
 	}
 	
-	public void setSuccessTransaction(int xchgId) throws DAOException {
-		try {
-			Transaction.begin();
+	public void setSuccessTransaction(int xchgId) throws RollbackException {
+		//try {
+		//	Transaction.begin();
 			Exchange xchg = factory.lookup(xchgId);
 			xchg.setStatus(Exchange.SUCCESS);
 			xchg.setEndDate(new Date());
-			Transaction.commit();
-		} catch(RollbackException e) {
-			throw new DAOException(e);
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-		}
+		//	Transaction.commit();
+		//} catch(RollbackException e) {
+		//	throw new DAOException(e);
+		//} finally {
+		//	if (Transaction.isActive()) Transaction.rollback();
+		//}
 	}
 	
 	public Item[] getPendingItems(User user) throws DAOException {

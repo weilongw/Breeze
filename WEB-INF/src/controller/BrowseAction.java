@@ -1,16 +1,16 @@
 package controller;
 
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.mybeans.dao.DAOException;
-
 import model.ItemDAO;
 import model.Model;
+
+import org.mybeans.dao.DAOException;
+import org.mybeans.factory.RollbackException;
+import org.mybeans.factory.Transaction;
 
 public class BrowseAction extends Action{
 	
@@ -32,8 +32,15 @@ public class BrowseAction extends Action{
 		//List<String> errors = new ArrayList<String>();
         //request.setAttribute("errors",errors);
 		List<String> errors = prepareErrors(request);
-		File f = new File("webapps/Breeze/img/correct.gif");
-		if(f.exists()) System.out.println("ha");
+		try {
+			Transaction.begin();
+			itemDAO.addOne();
+			Transaction.commit();
+		} catch(RollbackException e) {
+			errors.add(e.getMessage());
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
 		
 		try {
 			request.setAttribute("allItemList", itemDAO.getActiveItem());

@@ -12,6 +12,8 @@ import model.Model;
 import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
+import org.mybeans.factory.RollbackException;
+import org.mybeans.factory.Transaction;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Exchange;
@@ -81,6 +83,7 @@ public class CloseItemAction extends Action {
 			return "browse.do";
 		}
 		try {
+			Transaction.begin();
 			itemDAO.closeItem(item.getId());
 			Exchange[] pending = exchangeDAO.findItemPendingTransactions(item);
 			messageDAO.send(admin, item.getOwner(), "Item closed", 
@@ -94,9 +97,12 @@ public class CloseItemAction extends Action {
 			}
 			exchangeDAO.closeItemTransaction(item);
 			exchangeDAO.createCancelTransaction(item);
-		} catch(DAOException e) {
+			Transaction.commit();
+		} catch(RollbackException e) {
 			errors.add(e.getMessage());
 			return "showMyItems.do";
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
 		}
 		request.setAttribute("success", "Your item has just been cancelled");
 		

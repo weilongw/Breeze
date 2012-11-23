@@ -129,21 +129,18 @@ public class ItemDAO {
 		}
 	}
 	
-	public void closeItem(int itemId) throws DAOException{
-		try {
-			Transaction.begin();
+	public void closeItem(int itemId) throws RollbackException{
+		//try {
+			//Transaction.begin();
 			Item item = factory.lookup(itemId);
-			if (item == null) {
-				throw new DAOException("item not present");
-			}
 			item.setStatus(Item.CLOSED);
-			Transaction.commit();
-		} catch (RollbackException e) {
+			//Transaction.commit();
+		//} catch (RollbackException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException(e);
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-		}
+		//	throw new DAOException(e);
+		//} finally {
+		//	if (Transaction.isActive()) Transaction.rollback();
+		//}
 		
 	}
 	
@@ -157,8 +154,10 @@ public class ItemDAO {
 			// TODO Auto-generated catch block
 			throw new DAOException(e);
 		}
-		
-		
-		
+	}
+	
+	public void addOne() throws RollbackException{
+		Item item = factory.lookup(1);
+		item.setClickCount(item.getClickCount() + 1);
 	}
 }

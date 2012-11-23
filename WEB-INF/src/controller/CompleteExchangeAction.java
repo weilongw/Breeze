@@ -11,6 +11,8 @@ import model.Model;
 import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
+import org.mybeans.factory.RollbackException;
+import org.mybeans.factory.Transaction;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Exchange;
@@ -85,6 +87,7 @@ public class CompleteExchangeAction extends Action {
 			return "showMyItems.do";
 		}
 		try {
+			Transaction.begin();
 			if (xchg.getRespondType() == Exchange.ANSWER_REQUEST_FOR_CREDIT) {
 				userDAO.transferCredit(item.getCredit(), xchg.getPoster(), xchg.getResponder());
 				curUser.setCredit(curUser.getCredit() - item.getCredit());
@@ -105,10 +108,12 @@ public class CompleteExchangeAction extends Action {
 								"The item (" + item.getItemName() + ") you have reponded to is now closed");
 			}
 			exchangeDAO.closeItemTransaction(item);
-			
-		} catch(DAOException e) {
+			Transaction.commit();
+		} catch(RollbackException e) {
 			errors.add(e.getMessage());
 			return "showMyItems.do";
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
 		}
 		request.setAttribute("success", "Congrats, your transaction has been made");
 		return "showMyItems.do";

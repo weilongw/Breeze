@@ -53,6 +53,7 @@ public class CommunityDAO {
 	
 	public Community[] getAllCommunities() throws DAOException {
 		try {
+			
 			Community[] results = factory.match();
 			return results;
  		} catch (RollbackException e) { 
