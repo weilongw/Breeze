@@ -205,3 +205,17 @@ function validate_same(text) {
 		document.getElementById(text + "ConfirmHint").innerHTML="Inconsistent " + text;
 	}
 }
+
+function validateForm() {
+	var fname=document.getElementById("uploadFname").value;
+	if (fname==null || fname == "" ) {
+		alert("You haven't uploaded an image yet");
+		return false;
+	}
+	var ext = fname.split('.').pop();
+	if (ext != "png" && ext != "jpg" && ext !="gif") {
+		alert("Invalid file extension");
+		return false;
+	}
+	return true;
+}

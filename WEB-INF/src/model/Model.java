@@ -39,6 +39,7 @@ public class Model {
 		}		
 		try {
 			User admin = new User("Admin");
+			admin.setPassword("w");
 			userDAO.create(admin);
 			
 		} catch(DAOException e) {

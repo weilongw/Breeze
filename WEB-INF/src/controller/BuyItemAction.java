@@ -59,16 +59,18 @@ public class BuyItemAction extends Action{
         	errors.add("You are not logged in");
         	return "browse.do";
         }
+        
         Item item = null;
         User admin = null;
         try {
         	item = itemDAO.getItemById(itemId);
         	admin = userDAO.lookup("Admin");
+        	curUser = userDAO.lookup(curUser.getUserName());
         } catch (DAOException e) {
         	errors.add(e.getMessage());
         	return "browse.do";
         }
-        
+        request.getSession().setAttribute("user", curUser);
         if(item == null || admin == null || item.getStatus() == Item.CLOSED) {
         	errors.add("Item not available");
         	return "browse.do";

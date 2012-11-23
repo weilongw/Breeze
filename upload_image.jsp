@@ -26,9 +26,9 @@
                                 <h4>You can also upload an image of the product</h4>
                                 <table>
                                 <tr>
-                                    <form method="post" enctype="multipart/form-data" action="upload?config=WEB-INF/upconf.txt&name=${sessionScope.user.userName}${sessionScope.newItem.id}.png">
+                                    <form method="post" enctype="multipart/form-data" action="upload?config=WEB-INF/upconf.txt&name=${sessionScope.user.userName}${sessionScope.newItem.id}.png" onsubmit="return validateForm()" >
                                     <td> 
-                                        <input style="height:30px" type="file" size=20 name="fname">
+                                        <input style="height:30px" id="uploadFname" type="file" size=20 name="fname">
                                     </td>
                                 </tr>
                                 <tr>
@@ -43,14 +43,14 @@
                                 <tr>
                                     <td>
                                         <form action="uploadImage.do" method="post">
-                                            <input type="hidden" name="id" value="${sessionScope.newItem.id}">
+                                            <!--input type="hidden" name="id" value="${sessionScope.newItem.id}"-->
                                             <input type="hidden" name="imgName" value="${uploadedFile}">
                                             <input class="btn" type="submit" value="Finish">
                                         </form>
                                     </td>
                                     <td style="padding:50px">
                                         <form action="uploadImage.do" method="post">
-                                            <input type="hidden" name="id" value="${sessionScope.newItem.id}">
+                                            <!--input type="hidden" name="id" value="${sessionScope.newItem.id}"-->
                                             <input type="hidden" name="imgName" value=
                                             "default.png">
                                             <input class="btn" type="submit" value="Skip >>">

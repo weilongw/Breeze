@@ -170,7 +170,7 @@
 				<div id="rez_part" style="margin-top:10px;border:1px #E7E6FA solid; height:190px">
 					<div class="right_part_title"> 
 						<span class="right_part_title_font">About Community</span>
-						<a href="joinCommunity.do?name=${comm.name}" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
+						<a onclick="join('${comm.name}')" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
 					</div>
 					<ul class="community_ul">
 						<li><span class="community_font">Name: ${comm.name}</span></li>

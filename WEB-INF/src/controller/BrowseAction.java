@@ -1,6 +1,8 @@
 package controller;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,11 +27,13 @@ public class BrowseAction extends Action{
 	}
 
 	@Override
-	public String perform(HttpServletRequest request) {
+	public String perform(HttpServletRequest request)  {
 		// TODO Auto-generated method stub
 		//List<String> errors = new ArrayList<String>();
         //request.setAttribute("errors",errors);
 		List<String> errors = prepareErrors(request);
+		File f = new File("webapps/Breeze/img/correct.gif");
+		if(f.exists()) System.out.println("ha");
 		
 		try {
 			request.setAttribute("allItemList", itemDAO.getActiveItem());

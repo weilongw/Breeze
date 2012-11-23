@@ -1,5 +1,5 @@
 Action.java
-	----------set a password for admin to avoid null pointer exception when check password
+	done----------set a password for admin to avoid null pointer exception when check password
 
 BrowseAction.java
 
@@ -7,7 +7,7 @@ BrowseCommunityAction.java
 
 BuyItemAction.java
 	----------ACID Transaction
-	---------should we update curUser from database each time an action related to transaction is performed?
+	done---------should we update curUser from database each time an action related to transaction is performed?
 
 CloseItemAction.java
 
@@ -36,7 +36,7 @@ LoginAction.java
 LogoutAction.java
 
 NewPostAction.java
-	------------should validate if user is a memeber of the community (or should we?)
+	done------------need not validate if user is a memeber of the community
 
 NewTopicAction.java
 
@@ -64,12 +64,12 @@ ShowMyItemsAction.java
 ShowProfileAction.java
 
 UpdatePhotoAction.java
-	-----------should validate userPhoto name (or even see if file exist?)
+	done-----------should validate userPhoto name (or even see if file exist?)
 UpdateProfileAction.java
 
 UploadImageAction.java
-	-----------should check file name
-	-----------should check if it's the owner of the item who wishes to change the image.
+	done-----------should check file name
+	done-----------should check if it's the owner of the item who wishes to change the image.
 
 ViewCommunityAction.java
 

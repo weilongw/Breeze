@@ -61,6 +61,7 @@ public class UpdateProfileAction extends Action{
         
         try {
 			userDAO.update(user);
+			
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
         	errors.add(e.getMessage());
