@@ -336,9 +336,10 @@ function show_msg(which, msg_id, date) {
     }
 }
 
-function show_xchg(text) {
+function show_xchg() {
+//	alert(document.getElementById("xchgMsg").value);
 	document.getElementById("xchg").innerHTML = "<strong>Item Exchange Description</strong> \
-												<br/><p>" + text + "</p>";
+												<br/><p>" + document.getElementById("xchgMsg").value + "</p>";
 }
 
 function waiting(hint) {
@@ -387,7 +388,7 @@ function validateForm() {
 		alert("You haven't uploaded an image yet");
 		return false;
 	}
-	var ext = fname.split('.').pop();
+	var ext = fname.split('.').pop().toLowerCase();
 	if (ext != "png" && ext != "jpg" && ext !="gif") {
 		alert("Invalid file extension");
 		return false;

@@ -195,6 +195,7 @@
 						<li><span class="community_font">Creater : ${comm.creater.userName}</span></li>
 						<li><span class="community_font">Created @: <fmt:formatDate value="${comm.createdAt}" type="both" dateStyle="short"/></span></li>
 						<li><span class="community_font">Info : ${comm.info}</span></li>
+						<li><span class="community_font">Member : ${comm.userCount}</span></li>
 					</ul>
 				</div>
 				<p>&nbsp;</p>
@@ -218,7 +219,9 @@
     			<jsp:include page="success.jsp" />
     			<div id="decide_join_message"></div>
     			<section>
-    				<c:if test="${!empty(topics)}">
+    				<c:choose>
+
+    				<c:when test="${!empty(topics)}">
 
     				<table class="table table-striped">
     					<thead>
@@ -243,34 +246,11 @@
     					</c:forEach>
     					
     				</table>
-    			</c:if>
-
-				<c:if test="${!empty(search)}">
-
-    				<table class="table table-striped">
-    					<thead>
-    						<tr>
-    							<th class="span1">Reply</th>           
-    							<th class="span6">Title</th>
-    							<th class="span2">Poster</th>
-    							<th class="span4">Time</th>
-    						</tr>
-    					</thead>
-    					<c:forEach var="topic" items="${search}">
-    						<tr>
-    							<td>
-    								<div class="rep_num" title="${topic.replyCount} replies">
-    									${topic.replyCount}
-    								</div>
-    							</td>
-    							<td><a href="viewTopic.do?topicId=${topic.id}">${topic.title}</a></td>
-    							<td>by ${topic.poster.userName}</td>
-    							<td><fmt:formatDate value="${topic.postDate}" type="both" dateStyle="short"/></td>
-    						</tr>
-    					</c:forEach>
-    					
-    				</table>
-    			</c:if>
+    				</c:when>
+    				<c:otherwise>
+    					<h4>No topic is found.</h4>
+    				</c:otherwise>
+    			</c:choose>
 
 
     			</section>

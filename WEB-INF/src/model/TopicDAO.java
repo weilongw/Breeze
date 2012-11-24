@@ -2,6 +2,7 @@ package model;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.mybeans.dao.DAOException;
@@ -49,6 +50,7 @@ public class TopicDAO {
 			Transaction.begin();
 			Topic dbTopic = factory.lookup(id);
 			dbTopic.setReplyCount(dbTopic.getReplyCount() + 1);
+			dbTopic.setPostDate(new Date());
 			Transaction.commit();
     	} catch (RollbackException e) {
 			// TODO Auto-generated catch block
@@ -58,11 +60,13 @@ public class TopicDAO {
 		}		
 	}
 	
-	
 	public Topic[] getAllTopics() throws DAOException {
 		try {
 			Topic[] all = factory.match();
-			return all;
+			List<Topic> list = Arrays.asList(all);
+			Collections.sort(list, Topic.REVERSE_TIMEORDER);
+			Topic[] results = (Topic[]) list.toArray();
+			return results;
 		} catch(RollbackException e) {
 			throw new DAOException(e);
 		} 
@@ -80,7 +84,10 @@ public class TopicDAO {
 	
 	public Topic[] search(String key) throws DAOException {
 		try {
-			Topic[] results = factory.match(MatchArg.containsIgnoreCase("title", key));
+			Topic[] oResults = factory.match(MatchArg.containsIgnoreCase("title", key));
+			List<Topic> list = Arrays.asList(oResults);
+			Collections.sort(list, Topic.REVERSE_TIMEORDER);
+			Topic[] results = (Topic[]) list.toArray();
 			return results;
 		} catch (RollbackException e) {
 			throw new DAOException(e);

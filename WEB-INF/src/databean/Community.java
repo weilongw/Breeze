@@ -1,5 +1,6 @@
 package databean;
 
+import java.util.Comparator;
 import java.util.Date;
 
 public class Community implements Comparable<Community> {
@@ -41,8 +42,17 @@ public class Community implements Comparable<Community> {
 
 	@Override
 	public int compareTo(Community o) {
-		if (userCount > o.userCount) return 1;
-		if (userCount < o.userCount) return -1;
+		if (userCount > o.userCount) return -1;
+		if (userCount < o.userCount) return 1;
 		return 0;
 	}
+	
+	public static final Comparator<Community> REVERSE_TIMEORDER = 
+            new Comparator<Community>() {		
+		@Override
+		public int compare(Community t1, Community t2) {
+			// TODO Auto-generated method stub
+			return t2.createdAt.compareTo(t1.createdAt);
+		}
+	};
 }
