@@ -39,29 +39,30 @@ public class JoinCommunityAction extends Action{
 		// TODO Auto-generated method stub
 		ViewCommunityForm form = formBeanFactory.create(request);
 		List<String> errors = prepareErrors(request);
+		request.setAttribute("choice", "Join!");
 
 		User curUser = (User) request.getSession(false).getAttribute("user");
 		if (curUser == null) {
 			errors.add("You are not logged in");
-			return "browse.do";
+			return "join_comm.jsp";
 		}
 		
-		if(!form.isPresent()) return "browseCommunity.do";
+		if(!form.isPresent()) return "join_comm.jsp";
 		errors.addAll(form.getValidationErrors());
-		if (errors.size() != 0) return "browseCommunity.do";
+		if (errors.size() != 0) return "join_comm.jsp";
 		
 		Community community;
 		try {
 			community = communityDAO.lookup(form.getName());
 			if(community == null){
 				errors.add("Unknown Community.");
-				return "browseCommunity.do";
+				return "join_comm.jsp";
 			}
-			
+			request.setAttribute("commName", community.getName());
 			if(relationDAO.exist(curUser, community)){
 				errors.add("You are already in this community: " + community.getName());
 				request.setAttribute("choice", "Unjoin!");
-				request.setAttribute("commName", community.getName());
+				
 				return "join_comm.jsp";
 			}
 				
@@ -70,13 +71,14 @@ public class JoinCommunityAction extends Action{
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			errors.add(e.getMessage());
-			return "browseCommunity.do";
+			return "join_comm.jsp";
 		}
 		
 		String success = "You become one of them!";
 		request.setAttribute("success",success);			
 		request.setAttribute("choice", "Unjoin!");
 		request.setAttribute("commName", community.getName());
+		System.out.println("haha");
 		return "join_comm.jsp";
 	}
 

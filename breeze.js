@@ -190,8 +190,8 @@ function decideJoin(){
 		anchorEl.appendChild(joinTextEl);
 
 
-var style_join = document.createAttribute('style');
-		style_join.value = "float:right; margin-top:5px; margin-right:8px";
+	var style_join = document.createAttribute('style');
+	style_join.value = "float:right; margin-top:5px; margin-right:8px";
 	anchorEl.setAttributeNode(style_join);
 
 	var onclick_attr = document.createAttribute('onclick');
@@ -204,7 +204,7 @@ var style_join = document.createAttribute('style');
 
 	anchorEl.setAttributeNode(onclick_attr);
 
-		joinDivEl.appendChild(anchorEl);
+	joinDivEl.appendChild(anchorEl);
 
 	request = createRequest();
 
@@ -393,4 +393,11 @@ function validateForm() {
 		return false;
 	}
 	return true;
+}
+
+function smartReply(user) {
+	var textarea = document.getElementById("content");
+	textarea.innerHTML = "";
+	textarea.innerHTML = "Reply " + user + " :";
+	textarea.focus();
 }

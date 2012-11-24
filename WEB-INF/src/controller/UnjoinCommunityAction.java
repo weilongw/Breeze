@@ -37,23 +37,23 @@ public class UnjoinCommunityAction extends Action{
 		// TODO Auto-generated method stub
 		ViewCommunityForm form = formBeanFactory.create(request);
 		List<String> errors = prepareErrors(request);
-
+		request.setAttribute("choice", "Unjoin!");
 		User curUser = (User) request.getSession(false).getAttribute("user");
 		if (curUser == null) {
 			errors.add("You are not logged in");
-			return "browse.do";
+			return "unjoin_comm.jsp";
 		}
 		
-		if(!form.isPresent()) return "browseCommunity.do";
+		if(!form.isPresent()) return "unjoin_comm.jsp";
 		errors.addAll(form.getValidationErrors());
-		if (errors.size() != 0) return "browseCommunity.do";
+		if (errors.size() != 0) return "unjoin_comm.jsp";
 		
 		Community community;
 		try {
 			community = communityDAO.lookup(form.getName());
 			if(community == null){
 				errors.add("Unknown Community.");
-				return "browseCommunity.do";
+				return "unjoin_comm.jsp";
 			}
 			
 			if(!relationDAO.exist(curUser, community)){
@@ -69,7 +69,7 @@ public class UnjoinCommunityAction extends Action{
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			errors.add(e.getMessage());
-			return "browseCommunity.do";
+			return "unjoin_comm.jsp";
 		}
 		
 		String success = "You are not in the community: " + community.getName() + " now";

@@ -171,14 +171,16 @@
 					<div  class="right_part_title"> 
 						<span class="right_part_title_font">About Community</span>
 						<div id="decide_join">
-						<c:if test="${joining == 0}">
-						<a onclick="join('${comm.name}')" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
-					</c:if>
-					<c:if test="${joining == 1}">					
-					<a onclick="unjoin('${comm.name}')" style="float:right; margin-top:5px; margin-right:8px">Unjoin!</a>
-				</c:if>
+						<c:if test="${!empty(sessionScope.user)}">
+							<c:if test="${joining == 0}">
+							<a onclick="join('${comm.name}')" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
+							</c:if>
+							<c:if test="${joining == 1}">					
+							<a onclick="unjoin('${comm.name}')" style="float:right; margin-top:5px; margin-right:8px">Unjoin!</a>
+							</c:if>
+						</c:if>
+						</div>
 					</div>
-				</div>
 					<ul class="community_ul">
 						<li><span class="community_font">Name: ${comm.name}</span></li>
 						<li><span class="community_font">Creater : ${comm.creater.userName}</span></li>

@@ -67,7 +67,7 @@
     								</tr>
     							</thead>
     							<tbody>
-                                    <c:forEach var="inboxMsg" items="${inbox}">
+                                    <c:forEach var="inboxMsg" items="${inbox}" begin="0" end="2">
                                     <tr onclick="show_msg('1','${inboxMsg.id}', '${inboxMsg.sentDate}')">
                                         <td style="vertical-align:middle">${inboxMsg.sender.userName}</td>
                                         
@@ -77,6 +77,15 @@
                                     </c:forEach>
     							</tbody>
     						</table>
+                            <div class="pagination">
+                                <ul>
+                                    <li><a href="#">Prev</a></li>
+                                    <c:forEach begin="1" end="${inboxPageCount}" varStatus="loop">
+                                        <li><a href="#">${loop.index}</a></li>
+                                    </c:forEach>
+                                    <li><a href="#">Next</a></li>
+                                </ul>
+                            </div>
                             </div>
                             <div class="span4">
                                 <fieldset>

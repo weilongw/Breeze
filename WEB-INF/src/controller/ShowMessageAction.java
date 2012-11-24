@@ -44,6 +44,9 @@ public class ShowMessageAction extends Action{
 			errors.add(e.getMessage());
 			return "message.jsp";
 		}
+		System.out.println(inbox.length);
+		int inboxPageCount = inbox.length == 0 ? 1 : ((inbox.length - 1) / 5 + 1);
+		request.setAttribute("inboxPageCount", inboxPageCount);
 		request.setAttribute("inbox", inbox);
 		request.setAttribute("sent", sent);
 		

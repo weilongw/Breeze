@@ -30,7 +30,7 @@
 											</div>
 										<div class="p-content-bottom">
 											<div style="float:right;margin-left:10px">
-												<a href="#">reply</a>
+												<a href="#pform" onclick="smartReply('${post.poster.userName}');">reply</a>
 											</div>
 											<div style="float:right; color:#777777">
 												@${post.postDate}
@@ -47,11 +47,11 @@
 						<p>&nbsp;</p>
     				<h4 style="margin-left:20px;">Add a new post</h4>
     				<p>&nbsp;</p>
-    				<form action="newPost.do" method="post" class="form-horizontal" name="post-topic-form">
+    				<form action="newPost.do" method="post" class="form-horizontal" id="pform" name="postForm">
 						<div class="control-group">
 							<label class="control-label" style="width:140px;">Content</label>
 							<div class="controls">
-								<textarea class="span10" rows="4" name="postContent" value="${form.postContent}"></textarea>
+								<textarea class="span10" rows="4" name="postContent" id="content" value="${form.postContent}"></textarea>
 							</div>
 						</div>
 						<div class="control-group">
