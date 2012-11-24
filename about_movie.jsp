@@ -14,11 +14,12 @@
 
 		</style>
 	</head>
-	<body style="padding-top : 60px" onload="load_movie('${item.relatedMovie}')">	
-		<div style="width:1350px;">
-		<header class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div style="width:1200px;height:30px;padding-left:100px">
+	<body onload="load_movie('${item.relatedMovie}')">	
+		<div style="width:1300px;">
+		<header class="navbar" style="padding-left:50px;margin-bottom:0">
+			<img src="img/header.jpg">
+			<div class="navbar-inner" style="padding-left:100px;">
+				<!--div style="width:1200px;height:30px;padding-left:100px"-->
 				<a class="brand" href="browse.do">Breeze</a>
 				<ul class="nav pull-right" style="padding-right:80px">
 					<li class="divider-vertical"></li>
@@ -63,9 +64,16 @@
 					<li class="divider-vertical"></li>
 					</c:if>
 				</ul>
-				</div>
+				<!--/div-->
 			</div>
 		</header>
+		<div style="padding-left:50px;">
+    <ul class="breadcrumb" style="padding-left:100">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li class="active"><a href="browse.do">Market</a> <span class="divider">/</span></li>
+    <li class="active"><a href="showItems.do?itemId=${item.id}">${item.itemName}</a> <span class="divider">/</span></li>
+    </ul>
+    </div>
 <div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span3 bs-docs-sidebar">

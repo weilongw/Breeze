@@ -111,11 +111,12 @@
 		</style>
 		
 	</head>
-	<body style="padding-top : 60px">	
-		<div style="width:1350px;">
-		<header class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div style="width:1200px;height:30px;padding-left:100px">
+	<body>	
+		<div style="width:1300px">
+		<header class="navbar" style="padding-left:50px;margin-bottom:0" >
+			<img src="img/header.jpg">
+			<div class="navbar-inner" style="padding-left:100px;">
+				<!--div style="width:1300px;height:30px;padding-left:100px"-->
 				<a class="brand" href="browse.do">Breeze</a>
 				<ul class="nav pull-right" style="padding-right:80px">
 					<li class="divider-vertical"></li>
@@ -160,6 +161,6 @@
 					<li class="divider-vertical"></li>
 					</c:if>
 				</ul>
-				</div>
+				<!--/div-->
 			</div>
 		</header>

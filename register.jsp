@@ -1,5 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="top.jsp" />
+<div style="padding-left:50px;">
+    <ul class="breadcrumb" style="padding-left:100">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="register.do">Register</a> <span class="divider">/</span></li>
+    
+    </ul>
+    </div>
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span3 bs-docs-sidebar">

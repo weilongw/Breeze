@@ -53,7 +53,7 @@ public class SearchAction extends Action{
         	else 
         		allItems = itemDAO.getItemsByType(option);
         	if (form.getKey().trim().length() == 0) {
-        		request.setAttribute("search_result", allItems);
+        		request.setAttribute("allItemList", allItems);
         		return "index.jsp";
         	}
 			List<Item> searchResultList = new ArrayList<Item>();
@@ -65,7 +65,7 @@ public class SearchAction extends Action{
 			Item[] searchResultArray = 
 					searchResultList.toArray(new Item[searchResultList.size()]);
 			Arrays.sort(searchResultArray);
-			request.setAttribute("search_result", searchResultArray);			
+			request.setAttribute("allItemList", searchResultArray);			
 			
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block

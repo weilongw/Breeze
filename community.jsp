@@ -1,9 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:include page="top.jsp" />
+<div style="padding-left:50px;">
+    <ul class="breadcrumb" style="padding-left:100">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li class="active"><a href="browseCommunity.do">Community</a> <span class="divider">/</span></li>
+    </ul>
+    </div>
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span3" style="padding:10px;padding-top:20px;">
+			<div class="span3" style="padding:10px;padding-top:20px; padding-left:50px;">
 				<div id="rez_part" style="margin-top:10px;border:1px #E7E6FA solid;">
 					<div class="right_part_title"> 
 						<span class="right_part_title_font">Top Community</span>
@@ -24,7 +30,7 @@
                 <p>&nbsp;</p>
 				<span style="padding-top:20px"><a href="createCommunity.do">Create your own group!</a></span>
 			</div>
-			<div class="span8" style="padding:20px">
+			<div class="span9" style="padding:20px">
 				<section>
       				    <form action="communitySearch.do" method="get" class="form-search" >
     						    <div class="input-append">

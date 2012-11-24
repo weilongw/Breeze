@@ -1,5 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="top.jsp" />
+<div style="padding-left:50px;">
+    <ul class="breadcrumb" style="padding-left:100">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li class="active"><a href="browse.do">Market</a> <span class="divider">/</span></li>
+    <c:choose>
+    <c:when test="${!empty(posted)}">
+    	<li class="active"><a href="showItems.do?itemId=${posted.id}">${posted.itemName}</a> <span class="divider">/</span></li>
+    </c:when>
+    <c:otherwise>
+    	<li class="active"><a href="showItems.do?itemId=${requested.id}">${requested.itemName}</a> <span class="divider">/</span></li>
+    </c:otherwise>
+	</c:choose>
+    </ul>
+    </div>
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span3 bs-docs-sidebar">
@@ -16,7 +30,7 @@
 					
 				</ul>
 			</div>
-			<div class="span8" style="padding:20px">
+			<div class="span9" style="padding:20px">
                 <jsp:include page="error.jsp" />
                 <jsp:include page="success.jsp" />
                 <c:if test="${!empty (posted)}">

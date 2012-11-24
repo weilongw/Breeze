@@ -1,6 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:include page="top.jsp" />
+<div style="padding-left:50px;">
+    <ul class="breadcrumb" style="padding-left:100">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="showProfile.do">Personal Account</a> <span class="divider">/</span></li>
+    </ul>
+    </div>
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span3 bs-docs-sidebar">
@@ -11,7 +17,7 @@
 					<li><a href="showMessage.do"><i class="icon-chevron-right"></i>My Messages</a></li>
 				</ul>
 			</div>
-			<div class="span8" style="padding:20px">
+			<div class="span9" style="padding:20px">
                 <jsp:include page="error.jsp" />
                 <jsp:include page="success.jsp" />
 				<div class="tabbable"> <!-- Only required for left/right tabs -->

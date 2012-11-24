@@ -46,7 +46,7 @@ public class UploadImageAction extends Action{
 			return "post_item.jsp";
 		}
 		if (!form.isPresent()) {
-			return "post_item.jsp";
+			return "upload_image.jsp";
 		}
 		errors.addAll(form.getValidationErrors());
 		if (errors.size() != 0 ) return "upload_image.jsp";

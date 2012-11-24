@@ -1,13 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="top.jsp" />
+<div style="padding-left:50px;">
+    <ul class="breadcrumb" style="padding-left:100">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="browseCommunity.do">Community</a> <span class="divider">/</span></li>
+    <li><a href="viewCommunity.do?name=${topic.ownerGroup.name}">${topic.ownerGroup.name}</a> <span class="divider">/</span></li>
+    <li><a href="viewTopic.do?topicId=${topic.id}">${topic.title}</a> <span class="divider">/</span></li>
+    </ul>
+    </div>
 <jsp:include page="error.jsp" />
 <jsp:include page="success.jsp" />
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span10" style="padding-left:100px; padding-top:20px; padding-bottom:50px">
+			<div class="span10" style="padding-left:200px; padding-top:20px; padding-bottom:50px">
 				<div class="topic">
 					<div class="topic-title">
-						<span style="float:left;"><a href="viewCommunity.do?name=${topic.ownerGroup.name}">${topic.ownerGroup.name}</a> / ${topic.title}</span>
+						<span style="float:left;">${topic.title}</span>
 					</div>
 					<div class="post-list">
 						<c:forEach var="post" items="${posts}">

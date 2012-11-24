@@ -1,8 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="top.jsp" />
+<div style="padding-left:50px;">
+    <ul class="breadcrumb" style="padding-left:100">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="browseCommunity.do">Community</a> <span class="divider">/</span></li>
+    <li class="active"><a href="createCommunity.do">New Community</a> <span class="divider">/</span></li>
+    </ul>
+    </div>
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span8">
+			<div class="span8" style="padding-left:80px">
 				<section>
     				<h4 style="margin-left:20px;">Create your own community</h4>
     				<p>&nbsp;</p>
