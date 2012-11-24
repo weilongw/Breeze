@@ -58,7 +58,7 @@ public class UploadImageAction extends Action{
 		if (form.getImgName().equals(fname)) {
 			File f = new File("webapps/Breeze/img/item/" + fname);
 			if (!f.exists()) errors.add("No uploaded file is found");
-		} else if (form.getImgName().equals("default.png")) {
+		} else if (form.getImgName().equals("default.jpg")) {
 			
 		} else {
 			errors.add("Invalid Image file name");

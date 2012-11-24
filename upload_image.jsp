@@ -60,7 +60,7 @@
                                         <form action="uploadImage.do" method="post">
                                             <!--input type="hidden" name="id" value="${sessionScope.newItem.id}"-->
                                             <input type="hidden" name="imgName" value=
-                                            "default.png">
+                                            "default.jpg">
                                             <input class="btn" type="submit" value="Skip >>">
                                         </form>
                                     </td>
