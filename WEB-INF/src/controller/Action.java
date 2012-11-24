@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 
 public abstract class Action {
 	
+	public static final int PAGE = 2;
+	public static final int PAGE_COUNT = 6;
+	
 	public abstract String getName();
 	
     public abstract String perform(HttpServletRequest request);

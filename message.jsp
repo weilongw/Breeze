@@ -59,6 +59,7 @@
                         </c:otherwise>
                         </c:choose>
                             <div class="span8">
+                            <div style="height:270px">
     						<table class="table table-hover">
     							<thead>
     								<tr>
@@ -67,7 +68,7 @@
     								</tr>
     							</thead>
     							<tbody>
-                                    <c:forEach var="inboxMsg" items="${inbox}" begin="0" end="2">
+                                    <c:forEach var="inboxMsg" items="${inbox}" begin="${inboxStart}" end="${inboxEnd}">
                                     <tr onclick="show_msg('1','${inboxMsg.id}', '${inboxMsg.sentDate}')">
                                         <td style="vertical-align:middle">${inboxMsg.sender.userName}</td>
                                         
@@ -77,16 +78,65 @@
                                     </c:forEach>
     							</tbody>
     						</table>
+                            </div>
+                            
                             <div class="pagination">
                                 <ul>
-                                    <li><a href="#">Prev</a></li>
-                                    <c:forEach begin="1" end="${inboxPageCount}" varStatus="loop">
-                                        <li><a href="#">${loop.index}</a></li>
+                                    <li>
+                                        <a href="pageMsg.do?inbox=1&sent=${sentPageCurrent}&render=0">
+                                            |&lt;
+                                        </a>
+                                    </li>
+                                    
+                                    <c:choose>
+                                    <c:when test="${inboxPageCurrent == 1}">
+                                        <li class="disabled">
+                                            <a href="#">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li>
+                                            <a href="pageMsg.do?inbox=${inboxPageCurrent - 1}&sent=${sentPageCurrent}&render=0">
+                                    </c:otherwise>
+                                    </c:choose>
+                                            Prev
+                                    </a>
+                                    </li>
+                                    <c:forEach begin="${inboxPageStart}" end="${inboxPageEnd}" varStatus="loop">
+                                        <c:choose>
+                                            <c:when test="${inboxPageCurrent == loop.index}">
+                                        <li class="disabled">
+                                        <a href="#">${loop.index}
+                                            </c:when>
+                                            <c:otherwise>
+                                        <li>
+                                        <a href="pageMsg.do?inbox=${loop.index}&sent=${sentPageCurrent}&render=0">${loop.index}
+                                            </c:otherwise>
+                                        </c:choose>
+                                        </a>                                    
+                                        </li>
                                     </c:forEach>
-                                    <li><a href="#">Next</a></li>
+                                    <c:choose>
+                                    <c:when test="${inboxPageCurrent == inboxPageCount}">
+                                        <li class="disabled">
+                                            <a href="#">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li>
+                                            <a href="pageMsg.do?inbox=${inboxPageCurrent + 1}&sent=${sentPageCurrent}&render=0">
+                                    </c:otherwise>
+                                    </c:choose>
+                                            Next
+                                    </a>
+                                    </li>
+                                    <li>
+                                    <a href="pageMsg.do?inbox=${inboxPageCount}&sent=${sentPageCurrent}&render=0">&gt;|</a>
+                                    </li>
                                 </ul>
+                                    
+                                </div>
                             </div>
-                            </div>
+                            
+
                             <div class="span4">
                                 <fieldset>
                                     <legend>Message<small id="reply-btn" style="float:right">reply</small></legend>
@@ -112,6 +162,7 @@
                         </c:choose>
     					
                             <div class="span8">
+                            <div style="height:270px">
    							<table class="table table-hover">
     							<thead>
                                     <tr>
@@ -120,7 +171,7 @@
                                     </tr>
                                 </thead>
     							<tbody>
-                                    <c:forEach var="sentMsg" items="${sent}">
+                                    <c:forEach var="sentMsg" items="${sent}" begin="${sentStart}" end="${sentEnd}">
                                     <tr onclick="show_msg('2','${sentMsg.id}', '${sentMsg.sentDate}')">
                                         <td style="vertical-align:middle">${sentMsg.receiver.userName}</td>
                                         <td style="vertical-align:middle">${sentMsg.title}</td>
@@ -128,6 +179,61 @@
                                     </c:forEach>
                                 </tbody>
     						</table>
+                            </div>
+                            <div class="pagination">
+                                <ul>
+                                    <li>
+                                        <a href="pageMsg.do?inbox=${inboxPageCurrent}&sent=1&render=1">
+                                            |&lt;
+                                        </a>
+                                    </li>
+                                    
+                                    <c:choose>
+                                    <c:when test="${sentPageCurrent == 1}">
+                                        <li class="disabled">
+                                            <a href="#">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li>
+                                            <a href="pageMsg.do?inbox=${inboxPageCurrent}&sent=${sentPageCurrent - 1}&render=1">
+                                    </c:otherwise>
+                                    </c:choose>
+                                            Prev
+                                    </a>
+                                    </li>
+                                    <c:forEach begin="${sentPageStart}" end="${sentPageEnd}" varStatus="loop">
+                                        <c:choose>
+                                            <c:when test="${sentPageCurrent == loop.index}">
+                                        <li class="disabled">
+                                            <a href="#">${loop.index}
+                                            </c:when>
+                                            <c:otherwise>
+                                        <li>
+                                            <a href="pageMsg.do?inbox=${inboxPageCurrent}&sent=${loop.index}&render=1">${loop.index}
+                                            </c:otherwise>
+                                        </c:choose>                                    
+                                        </a> 
+                                        </li>
+                                    </c:forEach>
+                                    <c:choose>
+                                    <c:when test="${sentPageCurrent == sentPageCount}">
+                                        <li class="disabled">
+                                            <a href="#">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li>
+                                            <a href="pageMsg.do?inbox=${inboxPageCurrent}&sent=${sentPageCurrent + 1}&render=1">
+                                    </c:otherwise>
+                                    </c:choose>
+                                            Next
+                                    </a>
+                                    </li>
+                                    <li>
+                                    <a href="pageMsg.do?inbox=${inboxPageCurrent}&sent=${sentPageCount}&render=1">&gt;|</a>
+                                    </li>
+                                </ul>
+
+                            </div>
                             </div>
                             <div class="span4">
                                 <fieldset>

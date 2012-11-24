@@ -44,9 +44,26 @@ public class ShowMessageAction extends Action{
 			errors.add(e.getMessage());
 			return "message.jsp";
 		}
-		System.out.println(inbox.length);
-		int inboxPageCount = inbox.length == 0 ? 1 : ((inbox.length - 1) / 5 + 1);
+		
+		int inboxPageCount = inbox.length == 0 ? 1 : ((inbox.length - 1) / PAGE_COUNT + 1);
+		int inboxPageEnd = inboxPageCount > (2 * PAGE + 1) ? (2 * PAGE + 1) : inboxPageCount;
+		int sentPageCount = sent.length == 0 ? 1 : ((sent.length - 1) / PAGE_COUNT + 1);
+		int sentPageEnd = sentPageCount > (2 * PAGE + 1) ? (2 * PAGE + 1) : sentPageCount;
+		
 		request.setAttribute("inboxPageCount", inboxPageCount);
+		request.setAttribute("inboxPageStart", 1);
+		request.setAttribute("inboxPageEnd", inboxPageEnd);
+		request.setAttribute("inboxPageCurrent", 1);
+		request.setAttribute("inboxStart", 0);
+		request.setAttribute("inboxEnd", PAGE_COUNT - 1);
+		
+		request.setAttribute("sentPageCount", sentPageCount);
+		request.setAttribute("sentPageStart", 1);
+		request.setAttribute("sentPageEnd", sentPageEnd);
+		request.setAttribute("sentPageCurrent", 1);
+		request.setAttribute("sentStart", 0);
+		request.setAttribute("sentEnd", PAGE_COUNT - 1);
+		
 		request.setAttribute("inbox", inbox);
 		request.setAttribute("sent", sent);
 		

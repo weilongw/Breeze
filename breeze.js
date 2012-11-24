@@ -397,7 +397,7 @@ function validateForm() {
 
 function smartReply(user) {
 	var textarea = document.getElementById("content");
-	textarea.innerHTML = "";
-	textarea.innerHTML = "Reply " + user + " :";
+	textarea.value = "";
+	textarea.value = "Reply " + user + " :";
 	textarea.focus();
 }
