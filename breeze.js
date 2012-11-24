@@ -58,20 +58,92 @@ function decideJoin(){
 		joinDivElMsg.removeChild(joinDivElMsg.firstChild);
 	}
 
-	for (var i=0; i<errors.length; i++) {
+/*	for (var i=0; i<errors.length; i++) {
 		var error_msg = errors[i].getElementsByTagName("error")[0].nodeValue;
 		
 		var errEl = xmlDoc.createTextNode(error_msg);
 		suggestDivElMsg.appendChild(errEl);
-	}
+	}*/
 
 /*<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert">x</button>
 		<strong>Success!</strong>
 			${success}<br/>
 	</div>*/
+	/*button = document.createElement("button");
+	button.type="button";
+	button.class="close";
+	var msg_btn_data_dismiss = document.createAttribute("data-dismiss");
+	msg_btn_data_dismiss.value = "alert";
+	button.setAttributeNode(msg_btn_data_dismiss);
+	
+	button.innerHTML="X"; */
+	if (errors.length != 0) {
+		var error_div = document.createElement("div");
+		
+		var div_class_error =document.createAttribute("class");
+		div_class_error.value="alert alert-error";
+		error_div.setAttributeNode(div_class_error);
 
-	var msg_div = xmlDoc.createElement("div");
+		var button = document.createElement("button");
+		var btn_class= document.createAttribute("class");
+		btn_class.value="close";
+		button.setAttributeNode(btn_class);
+		var btn_data = document.createAttribute("data-dismiss");
+		btn_data.value="alert";
+		button.setAttributeNode(btn_data);
+		button.innerHTML="x";
+
+		var strong = document.createElement("strong");
+		strong.innerHTML="Error!<br/>";
+
+		var new_line = document.createElement("br");
+
+		error_div.appendChild(button);
+		error_div.appendChild(strong);
+
+		for (var i=0; i<errors.length; i++) {
+			var error_msg = errors[i].getElementsByTagName("error")[0].nodeValue;
+		
+			var errEl = document.createTextNode(error_msg);
+			error_div.appendChild(errEl);
+			error_div.appendChild(new_line);
+		}
+		joinDivElMsg.appendChild(error_div);
+	}
+
+	if (success_msg != null) {
+		var success_div = document.createElement("div");
+		
+		var div_class=document.createAttribute("class");
+		div_class.value="alert alert-success";
+		success_div.setAttributeNode(div_class);
+
+		var button = document.createElement("button");
+		var btn_class= document.createAttribute("class");
+		btn_class.value="close";
+		button.setAttributeNode(btn_class);
+		var btn_data = document.createAttribute("data-dismiss");
+		btn_data.value="alert";
+		button.setAttributeNode(btn_data);
+		button.innerHTML="x";
+
+		var strong = document.createElement("strong");
+		strong.innerHTML="Success!&nbsp;&nbsp;&nbsp;"
+
+		var text = document.createTextNode(success_msg);
+
+		var new_line = document.createElement("br");
+
+	//joinDivElMsg.appendChild(button);
+		success_div.appendChild(button);
+		success_div.appendChild(strong);
+		success_div.appendChild(text);
+		success_div.appendChild(new_line);
+		joinDivElMsg.appendChild(success_div);
+	}
+	
+/*	var msg_div = xmlDoc.createElement("div");
 	var msg_div_class = document.createAttribute("class");
 	msg_div_class.value = "alert alert-success";
 	msg_div.setAttributeNode(msg_div_class);
@@ -106,7 +178,7 @@ function decideJoin(){
 	msg_div.appendChild(msgTextEl);
 	msg_div.appendChild(br);
 
-	joinDivElMsg.appendChild(msg_div);
+	joinDivElMsg.appendChild(msg_div); */
 
 	while (joinDivEl.hasChildNodes()) {
 		joinDivEl.removeChild(joinDivEl.firstChild);

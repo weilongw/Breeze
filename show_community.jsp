@@ -205,7 +205,7 @@
     			<hr/>
     			<jsp:include page="error.jsp" />
     			<jsp:include page="success.jsp" />
-    			 <div id="decide_join_message"></div>
+    			<div id="decide_join_message"></div>
     			<section>
     				<c:if test="${!empty(topics)}">
 
