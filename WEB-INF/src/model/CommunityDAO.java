@@ -102,4 +102,17 @@ public class CommunityDAO {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
+	
+	public void updateUserCount(int x, String name) throws DAOException {
+		try {
+			Transaction.begin();
+			Community comm = factory.lookup(name);
+			comm.setUserCount(comm.getUserCount() + x);
+			Transaction.commit();
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	} 
 }

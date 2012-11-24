@@ -182,10 +182,10 @@
 						<div id="decide_join">
 						<c:if test="${!empty(sessionScope.user)}">
 							<c:if test="${joining == 0}">
-							<a onclick="join('${comm.name}')" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
+							<a href="joinCommunity.do?name=${comm.name}" style="float:right; margin-top:5px; margin-right:8px">Join!</a>
 							</c:if>
 							<c:if test="${joining == 1}">					
-							<a onclick="unjoin('${comm.name}')" style="float:right; margin-top:5px; margin-right:8px">Unjoin!</a>
+							<a href="unjoinCommunity.do?name=${comm.name}" style="float:right; margin-top:5px; margin-right:8px">Unjoin!</a>
 							</c:if>
 						</c:if>
 						</div>
