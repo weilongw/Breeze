@@ -33,7 +33,6 @@ public class Controller extends HttpServlet {
         Action.add(new ComposeMessageAction(model));
         Action.add(new ShowMessageAction(model));
         Action.add(new RedirectSendAction(model));
-        Action.add(new ShowCategoryAction(model));
         Action.add(new ShowMovieAction(model));
         Action.add(new CloseItemAction(model));
         Action.add(new CompleteExchangeAction(model));

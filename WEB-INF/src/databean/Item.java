@@ -9,13 +9,17 @@ public class Item implements Comparable<Item>{
 	public static final int OPEN = 0;
 	public static final int CLOSED = 1;
 	
+	public static final int POSTER = 1;
+	public static final int DVD = 2;
+	public static final int PROP = 3;
+	
 	private int id;	// primary key
 	private String itemName;
 	private String relatedMovie;
 	private User owner;		// user who posted this item
 	private String itemDescription;
 	private String exchangeItemDescription;	
-	private String category;
+	private int category;
 	private String imgName;
 	private Date postDate;
 	private int credit = -1;
@@ -82,10 +86,10 @@ public class Item implements Comparable<Item>{
 	public void setExchangeItemDescription(String exchangeItemDescription) {
 		this.exchangeItemDescription = exchangeItemDescription;
 	}
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 	public Date getPostDate() {

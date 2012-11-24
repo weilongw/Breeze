@@ -65,7 +65,7 @@ public class ItemDAO {
 		}
 	}
 	
-	public Item[] getItemsByCategory(String category) throws DAOException{
+	public Item[] getItemsByCategory(int category) throws DAOException{
 		Item[] list;
 		try {
 			list = factory.match(MatchArg.equals("category", category), MatchArg.equals("status", 0));

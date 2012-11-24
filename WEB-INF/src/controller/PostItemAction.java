@@ -87,9 +87,9 @@ public class PostItemAction extends Action{
 		if(form.getForCredit() != null)
 			newItem.setCredit(Integer.parseInt(form.getCredit()));
 		newItem.setPostDate(new Date());
-		newItem.setStatus(0);
+		newItem.setStatus(Item.OPEN);
 		newItem.setClickCount(0);
-		newItem.setCategory(form.getItemCategory());
+		newItem.setCategory(form.getItemCategoryAsInt());
 		newItem.setRelatedMovie(form.getRelatedMovie());
 		
 		try {

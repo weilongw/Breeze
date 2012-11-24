@@ -32,9 +32,9 @@
 				<label class="control-label">Item Category</label>
 				<div class="controls">
 					<select class="span4" name="itemCategory" value="${postForm.itemCategory}">
-						<option value="Poster">Poster</option>
-						<option value="DVD">DVD</option>
-						<option value="Prop">Prop</option>
+						<option value="1">Poster</option>
+						<option value="2">DVD</option>
+						<option value="3">Prop</option>
 					</select>
 				</div>
 			</div>

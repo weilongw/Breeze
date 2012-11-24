@@ -19,6 +19,7 @@ public class PostItemForm {
 		if (itemName != null) return true;
 		if (itemDescription  != null) return true;
 		if (forCredit  != null) return true;
+		if (itemCategory != null) return true;
 		if (credit   != null) return true;
 		if (forExchange  != null) return true;
 		if (exchangeDescription   != null) return true;
@@ -47,6 +48,18 @@ public class PostItemForm {
 		
 		if (forCredit == null && forExchange == null) {
 			errors.add("You must choose one from the checkbox.");
+		}
+		if (errors.size() != 0 ) return errors;
+		
+		try {
+			int category = Integer.parseInt(itemCategory);
+			if (category < 1 || category > 3) {
+				errors.add("Invalid category");
+				return errors;
+			}
+		} catch (NumberFormatException e) {
+			errors.add("Invalid category");
+			return errors;
 		}
 		
 		if (forCredit != null){
@@ -84,6 +97,9 @@ public class PostItemForm {
 		return Integer.parseInt(postType);
 	}
 	
+	public int getItemCategoryAsInt() {
+		return Integer.parseInt(itemCategory);
+	}
 	
 	public String getItemName() {
 		return itemName;
