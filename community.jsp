@@ -56,7 +56,8 @@
                             <thead>
                                 <tr>
                                     <th class="span1">Reply</th>
-                                    <th class="span6">Title</th>
+                                    <th class="span6">Title</th>                                    
+                                    <th class="span2">Community</th>
                                     <th class="span2">Poster</th>
                                     <th class="span3">Time</th>
                                 </tr>
@@ -70,6 +71,7 @@
                                         </div>
                                     </td>
                                     <td><a href="viewTopic.do?topicId=${topic.id}">${topic.title}</a></td>
+                                    <td><a href="viewCommunity.do?name=${topic.ownerGroup.name}">${topic.ownerGroup.name}</a></td>
                                     <td>by ${topic.poster.userName}</td>
                                     <td>@<fmt:formatDate value="${topic.postDate}" type="both" dateStyle="short" /></td>
                                     </tr>
@@ -84,6 +86,7 @@
                                 <tr>
                                     <th class="span1">Reply</th>
                                     <th class="span6">Title</th>
+                                    <th class="span2">Community</th>
                                     <th class="span2">Poster</th>
                                     <th class="span3">Time</th>
                                 </tr> 
@@ -95,7 +98,8 @@
                                             ${topic.replyCount}
                                         </div>
                                     </td>
-                                    <td><a href="#">${topic.title}</a></td>
+                                    <td><a href="viewTopic.do?topicId=${topic.id}">${topic.title}</a></td>
+                                    <td><a href="viewCommunity.do?name=${topic.ownerGroup.name}">${topic.ownerGroup.name}</a></td>
                                     <td>by ${topic.poster.userName}</td>
                                     <td>@<fmt:formatDate value="${topic.postDate}" type="both" dateStyle="short"/></td>
                                     </tr>

@@ -46,19 +46,34 @@
   						</c:if>
   						<c:if test="${!empty (posted.exchangeItemDescription)}">
   						<p>The poster also accepts exchange..</p><br/>
-						<a href="#" onclick="show_xchg('${posted.exchangeItemDescription}')">view details..</a>
+						<a href="#" onclick="show_xchg()">view details..</a>
 						</c:if>
   					</div>
   					<div class="span8">
-  						<h4>${posted.itemName} (Selling) </h4>
-  						<p>${posted.owner.userName}		
+  						<legend>Item name: </legend><h4>${posted.itemName} </h4>
+  						<legend>Item type: </legend>
+  						<p>Selling</p>
+  						<legend>Category: </legend>
+  						<p><c:choose>
+  							<c:when test="${posted.category==1}">	
+  							POSTER
+  							</c:when>
+  							<c:when test="${posted.category==2}">
+  							DVD
+  							</c:when>		
+  							<c:otherwise>
+  							PROP
+  							</c:otherwise>
+  						</c:choose></p>
+  						<legend>Poster: </legend><p> ${posted.owner.userName}		
   						<c:if test="${isOwner==0}">			
 							<a  href="redirectSend.do?receiver=${posted.owner.userName}&title=About ${posted.itemName}">Send him/her a message..</a>	
 						</c:if></p>
 						<fieldset>
-							<legend>Item Description</legend>
+							<legend>Item Description: </legend>
 							<big>${posted.itemDescription}</big>
 						</fieldset>
+						<input type="hidden" id="xchgMsg" value="${posted.exchangeItemDescription}">
 						<br/>
   						<div id="xchg"></div>
   						<c:if test="${isOwner == 0 && posted.status == 0}">
@@ -103,7 +118,7 @@
   						</c:if>
   						<c:if test="${!empty (requested.exchangeItemDescription)}">
   						<p>The poster also offers exchange..</p><br/>
-						<a href="#" onclick="show_xchg('${requested.exchangeItemDescription}')">view details..</a>
+						<a href="#" onclick="show_xchg()">view details..</a>
 						</c:if>
   					</div>
   					<div class="span8">
@@ -116,6 +131,7 @@
 							<legend>Item Description</legend>
 							<big>${requested.itemDescription}</big>
 						</fieldset><br/>
+						<input type="hidden" id="xchgMsg" value="${requested.exchangeItemDescription}">
   						<div id="xchg"></div>
  						<c:if test="${isOwner == 0 && requested.status == 0}">
  						<table>

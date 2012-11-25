@@ -127,13 +127,13 @@
    							</section>
    							<section style="border-top:1px solid #999999">
    								<p>&nbsp;</p>
-   								<h4>My Closed</h4>
+   								<h4>My Closed Items</h4>
    								<table class="table table-striped">
    									<thead>
    										<tr>
    											<th>Item</th>
    											<th>Type</th>
-   											<th>Ended At</th>
+   											<th>Ended at</th>
    										</tr>
    									</thead>
    									<c:forEach var="myClosedItem" items="${myClosedItems}">

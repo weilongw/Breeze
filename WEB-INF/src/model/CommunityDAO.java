@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.factory.BeanFactory;
@@ -12,6 +14,7 @@ import org.mybeans.factory.RollbackException;
 import org.mybeans.factory.Transaction;
 
 import databean.Community;
+import databean.Topic;
 
 public class CommunityDAO {
 
@@ -52,9 +55,11 @@ public class CommunityDAO {
 	}
 	
 	public Community[] getAllCommunities() throws DAOException {
-		try {
-			
-			Community[] results = factory.match();
+		try {			
+			Community[] oResults = factory.match();
+			List<Community> list = Arrays.asList(oResults);
+			Collections.sort(list, Community.REVERSE_TIMEORDER);
+			Community[] results = (Community[]) list.toArray();		
 			return results;
  		} catch (RollbackException e) { 
  			throw new DAOException(e);
@@ -73,7 +78,10 @@ public class CommunityDAO {
 	
 	public Community[] search(String key) throws DAOException {
 		try {
-			Community[] results = factory.match(MatchArg.containsIgnoreCase("name", key));
+			Community[] oResults = factory.match(MatchArg.containsIgnoreCase("name", key));
+			List<Community> list = Arrays.asList(oResults);
+			Collections.sort(list, Community.REVERSE_TIMEORDER);
+			Community[] results = (Community[]) list.toArray();			
 			return results;
 		} catch(RollbackException e) {
 			throw new DAOException(e);

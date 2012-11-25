@@ -42,7 +42,7 @@ public class UpdatePhotoAction extends Action {
 		errors.addAll(form.getValidationErrors());
 		if (errors.size() != 0) return "showProfile.do";
 		
-		File f = new File("webapps/Breeze/img/user" + form.getUserPhoto());
+		File f = new File("webapps/Breeze/img/user/" + form.getUserPhoto());
 		if (!f.exists()) {
 			errors.add("Cannot found uploaded file");
 			return "showProfile.do";
