@@ -2,6 +2,7 @@ package formbeans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class CreateCommunityForm {
 
@@ -34,6 +35,18 @@ public class CreateCommunityForm {
 		}*/
 		if (info == null || info.trim().length() == 0) {
 			errors.add("Welcome info is required");
+		}
+		if (relatedMovie != null && relatedMovie.trim().length() != 0) {
+			if (!relatedMovie.matches("tt\\d{7}")) {
+				errors.add("Invalid imdb id");
+			}
+		}
+		if (errors.size() != 0 ) return errors;
+		
+		Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+		boolean hasSpecialChar = p.matcher(name).find();
+		if (hasSpecialChar) {
+			errors.add("Community name can only contain characters and digits");
 		}
 		return errors;
 	}

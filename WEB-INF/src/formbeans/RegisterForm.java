@@ -2,6 +2,7 @@ package formbeans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class RegisterForm {
 	private String userName;
@@ -104,7 +105,11 @@ public class RegisterForm {
 			errors.add("Username is too long");
 		}
 		
-		//check email using regex
+		Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+		boolean hasSpecialChar = p.matcher(userName).find();
+		if (hasSpecialChar) {
+			errors.add("username can only contain characters and digits");
+		}
 		
 		return errors;
 	}

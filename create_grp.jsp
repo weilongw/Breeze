@@ -18,14 +18,14 @@
 		    			<div class="control-group">
 							<label class="control-label" style="width:120px;">Community name</label>
 							<div class="controls">
-								<input class="span6" type="text" name="name" value="${form.name}">
+								<input class="span6" type="text" id="commName" name="name" value="${form.name}" onblur="validate_commName();">&nbsp;<span class="text-error" id="commNameHint"></span>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" style="width:120px;">Related Movie</label>
 							<div class="controls">
 								<input type="text" class="span6" id="p-ajax-movie" onchange="search_movie('p');">
-								<input type="text" class="span2" id="p-ajax-movie-year" onchange="search_movie('p');">
+								<input type="text" class="span2" id="p-ajax-movie-year" onchange="search_movie('p');" placeholder="Year">
 							</div>
 						</div>
 						<div class="control-group">
@@ -46,7 +46,7 @@
 			</div>
 
 			<div class="span4" id="movie">
-
+				 <h4>Here shows the movie you are looking for</h4>
 			</div>
 
 		</div>

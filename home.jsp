@@ -9,6 +9,8 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div style="width:850px; padding-left:230; height:320px">
+                    <jsp:include page="error.jsp" />
+                    <jsp:include page="success.jsp" />
 				<div id="myCarousel" class="carousel slide">
     			<!-- Carousel items -->
     				<div class="carousel-inner">
@@ -54,6 +56,7 @@
     			</div>
     			</div>
     			 <div class="container" style="height:400px">
+                    
     				<div class="marketing">
     					<h1>Introducting Breeze</h1>
     					<c:choose>

@@ -44,12 +44,12 @@ public class LoginAction extends Action{
         
 		
         if (!form.isPresent()) {
-            return "browse.do";
+            return "home.jsp";
         }
         request.setAttribute("form",form);
         errors.addAll(form.getValidationErrors());
         if (errors.size() != 0) {
-            return "browse.do";
+            return "home.jsp";
         }
 
         User user;
@@ -57,17 +57,17 @@ public class LoginAction extends Action{
         	user = userDAO.lookup(form.getUserName());
         } catch (DAOException e) {
         	errors.add(e.getMessage());
-        	return "browse.do";
+        	return "home.jsp";
         }
         
         if (user == null) {
             errors.add("Username not found");
-            return "browse.do";
+            return "home.jsp";
         }
 
         if (!user.checkPassword(form.getPassword())) {
             errors.add("Incorrect password");
-            return "browse.do";
+            return "home.jsp";
         }
 
         HttpSession session = request.getSession();
@@ -75,7 +75,7 @@ public class LoginAction extends Action{
         
         
         request.setAttribute("success", "Welcome back! " + user.getUserName());
-        return "browse.do";
+        return "home.jsp";
         
 	}
 

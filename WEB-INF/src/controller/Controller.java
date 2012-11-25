@@ -48,6 +48,7 @@ public class Controller extends HttpServlet {
         Action.add(new SearchTopicAction(model));
         Action.add(new UnjoinCommunityAction(model));
         Action.add(new PaginateMsgAction(model));
+        Action.add(new CheckAction(model));
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -70,7 +71,7 @@ public class Controller extends HttpServlet {
         
         if (action.equals("start")) {
         	// If the user hasn't logged in, direct him to the login page
-			return Action.perform("browse.do",request);
+			return "home.jsp";
         }
         
 		return Action.perform(action,request);

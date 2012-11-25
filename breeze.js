@@ -88,7 +88,8 @@ function update() {
 	var root = xmlDoc.getElementsByTagName("root")[0].attributes.getNamedItem("response").nodeValue;
 	if (root == "False") {
 		request = createRequest();
-		document.getElementById("movie").innerHTML="<h4>Sorry, no movie was found</h4>";	
+		var errorMsg = xmlDoc.getElementsByTagName("error")[0].childNodes[0].nodeValue;
+		document.getElementById("movie").innerHTML="<h4>" + errorMsg + "</h4>";	
 		return;
 	}
 
@@ -156,13 +157,65 @@ function waiting(hint) {
 function validate_userName() {
 	var userName = document.getElementById("userName").value;
 
-	if(userName.trim().length==0) {
-		document.getElementById("userNameHint").innerHTML="user name cannot be blank";
+	if (request.readyState != 0) return;
+	var url = "check.do?value=" + escape(userName) +"&field=1";
+	request.onreadystatechange = updateUserHint;
+	request.open("GET", url, true);
+	request.send();
+	
+}
+
+function updateUserHint() {
+	if (request.readyState != 4) return;
+
+	if (request.status != 200) {
+		alert("Error, request status is " + request.status);
+		return;
 	}
-	else{
+	var xmlDoc = request.responseXML;
+	var root = xmlDoc.getElementsByTagName("root")[0].attributes.getNamedItem("result").nodeValue;
+	if (root == "True") {
+		request = createRequest();
 		document.getElementById("userNameHint").innerHTML="<img src=\"img/correct.gif\" style=\"max-width:20px\">";
+		return;
 	}
 	
+	var msg = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+	
+	document.getElementById("userNameHint").innerHTML=msg;
+	request = createRequest();
+}
+
+function validate_commName() {
+	var commName = document.getElementById("commName").value;
+
+	if (request.readyState != 0) return;
+	var url = "check.do?value=" + escape(commName) +"&field=2";
+	request.onreadystatechange = updateCommNameHint;
+	request.open("GET", url, true);
+	request.send();
+	
+}
+
+function updateCommNameHint() {
+	if (request.readyState != 4) return;
+
+	if (request.status != 200) {
+		alert("Error, request status is " + request.status);
+		return;
+	}
+	var xmlDoc = request.responseXML;
+	var root = xmlDoc.getElementsByTagName("root")[0].attributes.getNamedItem("result").nodeValue;
+	if (root == "True") {
+		request = createRequest();
+		document.getElementById("commNameHint").innerHTML="<img src=\"img/correct.gif\" style=\"max-width:20px\">";
+		return;
+	}
+	
+	var msg = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+	
+	document.getElementById("commNameHint").innerHTML=msg;
+	request = createRequest();
 }
 
 function validate_blank(text) {

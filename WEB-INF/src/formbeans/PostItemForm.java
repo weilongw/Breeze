@@ -45,7 +45,11 @@ public class PostItemForm {
 	/*	if (relatedMovie == null || relatedMovie.trim().length() == 0) {
 			errors.add("Related Movie is required");
 		}*/
-		
+		if (relatedMovie != null && relatedMovie.trim().length() != 0) {
+			if (!relatedMovie.matches("tt\\d{7}")) {
+				errors.add("Invalid imdb id");
+			}
+		}
 		if (forCredit == null && forExchange == null) {
 			errors.add("You must choose one from the checkbox.");
 		}

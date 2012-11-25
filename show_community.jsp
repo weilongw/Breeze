@@ -200,7 +200,7 @@
 				</div>
 				<p>&nbsp;</p>
 				<div>
-					<img src="" alt="No movie info.." id="movie_poster" style="max-height:400px;">
+					<img src="" alt="No movie poster available.." id="movie_poster" style="max-height:400px;">
 				</div>
 				
 			</div>
@@ -285,7 +285,9 @@
 				<div id="rez_part" style="margin-top:10px;border:1px #E7E6FA solid;">
 					<div class="right_part_title"> 
 						<span class="right_part_title_font">About Movie</span>
-						<a href="#" style="float:right; margin-top:5px; margin-right:8px">Imdb link?</a>
+						<c:if test="${!empty(comm.relatedMovie)}">
+						<a href="http://www.imdb.com/title/${comm.relatedMovie}/" target="_blank" style="float:right; margin-top:5px; margin-right:8px">Imdb link</a>
+						</c:if>
 					</div>
 					<div class="community_ul">
 						
