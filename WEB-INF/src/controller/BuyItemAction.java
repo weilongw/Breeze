@@ -83,9 +83,13 @@ public class BuyItemAction extends Action{
 		else 
 			request.setAttribute("requested", item);
         if (item.getOwner().getUserName().equals(curUser.getUserName())) {
+			request.setAttribute("isOwner", 1);
+
         	errors.add("You cannot buy your own item");
         	return "item_page.jsp";
         }
+		request.setAttribute("isOwner", 0);
+
 		if(buyType == Exchange.ANSWER_POST_WITH_CREDIT && item.getType() == Item.POST && item.getCredit() != -1){
 			try {
 				
