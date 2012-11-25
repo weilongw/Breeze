@@ -13,8 +13,9 @@
 				<ul class="nav nav-list bs-docs-sidenav">
 					<li><a href="showProfile.do"><i class="icon-chevron-right"></i>User Info</a></li>
 					<li class="active"><a href="postItem.do"><i class="icon-chevron-right"></i>Post</a></li>
-					<li><a href="showMyItems.do"><i class="icon-chevron-right"></i>My Items</a></li>
-					<li><a href="showMessage.do"><i class="icon-chevron-right"></i>My Messages</a></li>
+					<li><a href="showMyItems.do"><i class="icon-chevron-right"></i>My Item</a></li>
+                    <li><a href="showMyCommunity.do"><i class="icon-chevron-right"></i>My Community</a></li>
+					<li><a href="showMessage.do"><i class="icon-chevron-right"></i>My Message</a></li>
 				</ul>
 			</div>
 			<div class="span6" style="padding:20px">

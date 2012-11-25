@@ -72,4 +72,13 @@ public class RelationDAO {
 		} 
 	}
 
+	public Relation[] getMyCommunity(User user) throws DAOException{
+		try {
+			Relation[] result = factory.match(MatchArg.equals("user", user), MatchArg.equals("user", user));
+			return result;
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e);
+		}		
+	}
 }

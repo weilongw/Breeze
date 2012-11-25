@@ -72,7 +72,7 @@ public class UploadImageAction extends Action{
 			return "upload_image.jsp";
 		}
 		request.getSession().setAttribute("newItem", null);
-		return "showMyItems.do";
+		return "showItems.do?itemId=" + newItem.getId();
 	}
 
 }
