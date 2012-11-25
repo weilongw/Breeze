@@ -2,7 +2,7 @@
 <jsp:include page="top.jsp" />
 <div style="padding-left:50px;">
     <ul class="breadcrumb" style="padding-left:100">
-    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="home.jsp">Home</a> <span class="divider">/</span></li>
     <li class="active"><a href="browse.do">Market</a> <span class="divider">/</span></li>
     <c:choose>
     <c:when test="${!empty(posted)}">

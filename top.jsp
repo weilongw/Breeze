@@ -117,10 +117,10 @@
 			<img src="img/header.jpg">
 			<div class="navbar-inner" style="padding-left:100px;">
 				<!--div style="width:1300px;height:30px;padding-left:100px"-->
-				<a class="brand" href="browse.do">Breeze</a>
+				<a class="brand" href="home.jsp">Breeze</a>
 				<ul class="nav pull-right" style="padding-right:80px">
 					<li class="divider-vertical"></li>
-					<li><a href="browse.do">Home</a></li>
+					<li><a href="browse.do">Market</a></li>
 					<li class="divider-vertical"></li>
 					<li><a href="browseCommunity.do">Community</a></li>
 					<li class="divider-vertical"></li>

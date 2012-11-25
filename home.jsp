@@ -3,7 +3,7 @@
 <jsp:include page="top.jsp" />
     <div style="padding-left:50px;">
     <ul class="breadcrumb" style="padding-left:100">
-    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="home.jsp">Home</a> <span class="divider">/</span></li>
     </ul>
     </div>
 		<div class="container-fluid">
@@ -53,23 +53,33 @@
     				<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
     			</div>
     			</div>
-    			 <div style="width:900px; padding-left:205px">
-    				<div class="hero-unit" style="text-align:center">
-    				<h2>Breeze</h2>
-    				
-    				<p>
-    				<a class="btn btn-primary btn-large">
-    				Learn more
-    				</a>
-    				</p>
+    			 <div class="container" style="height:400px">
+    				<div class="marketing">
+    					<h1>Introducting Breeze</h1>
+    					<c:choose>
+    					<c:when test="${empty(sessionScope.user)}">
+    						<p class="marketing-byline">Not a user? <a href="register.do">Sign up now!</a></p>
+    					</c:when>
+    					<c:otherwise>
+    						<p class="marketing-byline">View your profile, <a href="showProfile.do">GO!</a></p>
+    					</c:otherwise>
+    					</c:choose>
+    					<div class="row-fluid">
+    						<div class="span5" style="padding-left:100px">
+    							<img src="img/propshop.jpg" style="max-height:325">
+    							<h2><a href="browse.do">Market</a></h2>
+    							<p>If you are a huge movie fan and like to collect those magic stuffs in movie, this will make a perfect place for you. It provides a place where collectors can post or request any items they want and exchange with each other. </p>
+    						</div>
+    						<div class="span5" style="margin-left: 100px; padding-left:80px">
+    							<img src="img/forum.jpg" style="max-height:325">
+    							<h2><a href="browseCommunity.do">Community</a></h2>
+    							<p>After watching a movie, have you ever had the feeling to grab someone and talks about it? This forum like community will allow you to spit out opinions on any topic on any movie. We hope you can also make new friends while chatting online.</p>
+    						</div>
+    					</div>
     				</div>
-    			</div>
-    			<div>
 
     			</div>
-    			<div>
-    				
-    			</div>
+    			
 			</div>
 		</div>
 	</div>
