@@ -58,7 +58,7 @@
     			 <div class="container" style="height:400px">
                     
     				<div class="marketing">
-    					<h1>Introducting Breeze</h1>
+    					<h1>Introducing Breeze</h1>
     					<c:choose>
     					<c:when test="${empty(sessionScope.user)}">
     						<p class="marketing-byline">Not a user? <a href="register.do">Sign up now!</a></p>

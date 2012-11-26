@@ -8,6 +8,7 @@ import model.CommunityDAO;
 import model.Model;
 import model.RelationDAO;
 import model.TopicDAO;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
@@ -15,7 +16,6 @@ import org.mybeans.forms.FormBeanFactory;
 import databean.Community;
 import databean.Topic;
 import databean.User;
-
 import formbeans.SearchTopicForm;
 
 public class SearchTopicAction extends Action{
@@ -25,11 +25,13 @@ public class SearchTopicAction extends Action{
 	private TopicDAO topicDAO;
 	private CommunityDAO communityDAO;
 	private RelationDAO relationDAO;
+	private UserDAO userDAO;
 	
 	public SearchTopicAction(Model model){
 		topicDAO = model.getTopicDAO();
 		communityDAO = model.getCommunityDAO();
 		relationDAO = model.getRelationDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -68,12 +70,27 @@ public class SearchTopicAction extends Action{
 			request.setAttribute("comm", community);
 			
 			User curUser = (User) request.getSession(false).getAttribute("user");
+			boolean joining;
+			if (curUser == null) {
+				joining = false;
+			} else {
+				joining = relationDAO.exist(curUser, community);
+			}
 			
-			boolean joining = relationDAO.exist(curUser, community);
 			if(joining)
 				request.setAttribute("joining", 1);
 			else
 				request.setAttribute("joining", 0);
+			
+			
+			if (curUser != null) {
+				try {
+					curUser = userDAO.lookup(curUser.getUserName());
+					request.getSession().setAttribute("user", curUser);
+				} catch (DAOException e) {
+				}
+			}
+			
 			return "show_community.jsp";
 			
 		} catch (DAOException e) {

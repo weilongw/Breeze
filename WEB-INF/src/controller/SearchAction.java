@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.ItemDAO;
 import model.Model;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Item;
+import databean.User;
 import formbeans.AllSearchForm;
 
 public class SearchAction extends Action{
@@ -20,9 +22,11 @@ public class SearchAction extends Action{
 	private FormBeanFactory<AllSearchForm> formBeanFactory = FormBeanFactory.getInstance(AllSearchForm.class,"<>\"");
 
 	private ItemDAO itemDAO;
+	private UserDAO userDAO;
 	
 	public SearchAction(Model model){
 		itemDAO = model.getItemDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -92,6 +96,15 @@ public class SearchAction extends Action{
 		request.setAttribute("itemStart", itemStart);
 		request.setAttribute("itemEnd", itemEnd);
 		request.setAttribute("form", form);
+		
+		User curUser = (User)request.getSession().getAttribute("user");
+		if (curUser != null) {
+			try {
+				curUser = userDAO.lookup(curUser.getUserName());
+				request.getSession().setAttribute("user", curUser);
+			} catch (DAOException e) {
+			}
+		}
 		
 		return "index.jsp";
 	}

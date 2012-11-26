@@ -83,4 +83,19 @@ public class MessageDAO {
 		create(msg);
 	}
 	
+	public Message lookup(int messageID) throws DAOException {
+		try {
+			Message msg = factory.lookup(messageID);
+			return msg;
+		} catch (RollbackException e){
+			throw new DAOException(e);
+		}
+	}
+	
+	public void markRead(int messageID) throws RollbackException {	
+		Message msg = factory.lookup(messageID);
+		msg.setHasRead(1);
+			
+	}
+	
 }

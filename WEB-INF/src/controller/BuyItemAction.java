@@ -108,6 +108,7 @@ public class BuyItemAction extends Action{
 				for (Exchange xchg : pending) {
 					messageDAO.send(admin, xchg.getResponder(), "Transaction dismissed", 
 									"The item (" + item.getItemName() + ") you have responded to is now closed");
+					userDAO.updateNewMsgCount(xchg.getResponder().getUserName(), 1);
 				}
 				//exchangeDAO.openPendingTransaction(item, curUser, Exchange.ANSWER_POST_WITH_CREDIT);
 				exchangeDAO.createSuccessTransaction(item, curUser);
@@ -115,9 +116,11 @@ public class BuyItemAction extends Action{
 				messageDAO.send(admin, owner, "Your item has been sold", 
 								"Your item: " + item.getItemName() +" has been bought by "
 								+ curUser.getUserName() + " and transaction now is closed.");
+				userDAO.updateNewMsgCount(owner.getUserName(), 1);
 				messageDAO.send(admin, curUser, "You won the item", 
 								"You have just won the item " + item.getItemName()
 								+ ". Congratulations.");
+				userDAO.updateNewMsgCount(curUser.getUserName(), 1);
 				Transaction.commit();
 				request.setAttribute("success", "Transaction was successfully made. Your " +
 						"remaining credits are " + curUser.getCredit());
@@ -163,7 +166,9 @@ public class BuyItemAction extends Action{
 								" if the item owner makes the transaction with you.";
 				
 				messageDAO.send(admin, owner, "Your item has been responded", content);
+				userDAO.updateNewMsgCount(owner.getUserName(), 1);
 				messageDAO.send(admin, curUser, "Your request is accepted", content2);
+				userDAO.updateNewMsgCount(curUser.getUserName(), 1);
 				Transaction.commit();
 				
 				
@@ -179,7 +184,14 @@ public class BuyItemAction extends Action{
 			errors.add("Illegal state argument");
 			return "item_page.jsp";
 		}
-	
+		
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch(DAOException e) {
+			
+		}
+		
 		return "showMyItems.do";
 	}
 

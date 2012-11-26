@@ -10,6 +10,7 @@ import model.Model;
 import model.PostDAO;
 import model.RelationDAO;
 import model.TopicDAO;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
@@ -28,12 +29,14 @@ public class NewTopicAction extends Action {
 	private TopicDAO topicDAO;
 	private PostDAO postDAO;
 	private RelationDAO relationDAO;
+	private UserDAO userDAO;
 	
 	public NewTopicAction (Model model) {
 		communityDAO = model.getCommunityDAO();
 		topicDAO = model.getTopicDAO();
 		postDAO = model.getPostDAO();
 		relationDAO = model.getRelationDAO();
+		userDAO = model.getUserDAO();
 	}
 	@Override
 	public String getName() {
@@ -101,6 +104,15 @@ public class NewTopicAction extends Action {
 		}
 		request.setAttribute("success", "A new topic is posted!");
 		request.setAttribute("form", null);
+		
+		
+
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch (DAOException e) {
+		}
+
 		return "viewCommunity.do?name=" + comm.getName();
 		
 	}

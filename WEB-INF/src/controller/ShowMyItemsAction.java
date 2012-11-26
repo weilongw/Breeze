@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import model.ExchangeDAO;
 import model.ItemDAO;
 import model.Model;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 
@@ -19,10 +20,12 @@ public class ShowMyItemsAction extends Action{
 
 	private ItemDAO itemDAO;
 	private ExchangeDAO exchangeDAO;
+	private UserDAO userDAO;
 	
 	public ShowMyItemsAction(Model model){
 		itemDAO = model.getItemDAO();
 		exchangeDAO = model.getExchangeDAO();
+		userDAO = model.getUserDAO();
 	}
 	@Override
 	public String getName() {
@@ -68,7 +71,15 @@ public class ShowMyItemsAction extends Action{
 			return "browse.do";
 		}
         
-        
+       
+		
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch (DAOException e) {
+		}
+	
+		
 		return "my_items.jsp";
 	}
 

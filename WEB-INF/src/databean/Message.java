@@ -8,8 +8,9 @@ public class Message implements Comparable<Message> {
 	private User receiver;
 	private String content;
 	private String title;
-	private int type;
+	private int hasRead = 0;
 	private Date sentDate;
+	
 	
 	@Override
 	public int compareTo(Message o) {
@@ -50,11 +51,11 @@ public class Message implements Comparable<Message> {
 	public void setTitle(String x) {
 		title = x;
 	}
-	public int getType() {
-		return type;
+	public int getHasRead() {
+		return hasRead;
 	}
-	public void setType(int type) {
-		this.type = type;
+	public void setHasRead(int hasRead) {
+		this.hasRead = hasRead;
 	}
 	public Date getSentDate() {
 		return sentDate;

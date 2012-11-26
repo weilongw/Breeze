@@ -73,6 +73,7 @@ public class ComposeMessageAction extends Action{
 			Transaction.begin();
 			messageDAO.send(curUser, receiver, form.getTitle(),
 											   form.getContent());
+			userDAO.updateNewMsgCount(receiver.getUserName(), 1);
 			Transaction.commit();
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
@@ -80,7 +81,14 @@ public class ComposeMessageAction extends Action{
 		} finally {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
-		
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+		} catch(DAOException e) {
+			errors.add(e.getMessage());
+			return "showMyItems.do";
+		}
+		System.out.println(curUser.getNewMsgCount());
+		request.getSession().setAttribute("user", curUser);
 		request.setAttribute("success", "Your message has been sent");
 		return "showMessage.do";
 			

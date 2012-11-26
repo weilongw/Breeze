@@ -56,6 +56,13 @@ public class UpdatePhotoAction extends Action {
 			return "showProfile.do";
 		}
 		request.setAttribute("success", "Your profile has been updated");
+		
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch (DAOException e) {
+		}
+
 		return "showProfile.do";
 	}
 

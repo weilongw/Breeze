@@ -14,9 +14,10 @@
 					<li><a href="showProfile.do"><i class="icon-chevron-right"></i>User Info</a></li>
 					<li><a href="postItem.do"><i class="icon-chevron-right"></i>Post</a></li>
 					<li><a href="showMyItems.do"><i class="icon-chevron-right"></i>My Items</a></li>
-					<li class="active"><a href="showMessage.do"><i class="icon-chevron-right"></i>My Messages</a></li>
+					<li class="active"><a href="showMessage.do"><i class="icon-chevron-right"></i><span id="msgCount">My Messages</span></a></li>
 				</ul>
 			</div>
+            
 			<div class="span9" style="padding:20px">
                 <jsp:include page="error.jsp" />
                 <jsp:include page="success.jsp" />
@@ -76,7 +77,15 @@
     							</thead>
     							<tbody>
                                     <c:forEach var="inboxMsg" items="${inbox}" begin="${inboxStart}" end="${inboxEnd}">
-                                    <tr onclick="show_msg('1','${inboxMsg.id}', '${inboxMsg.sentDate}')">
+                                    <c:choose>
+                                    <c:when test="${inboxMsg.hasRead == 0}">
+                                        <tr id="tr${inboxMsg.id}" style="font-weight:bold" onclick="show_msg('1','${inboxMsg.id}', '${inboxMsg.sentDate}', '${inboxMsg.hasRead}');">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr id="tr${inboxMsg.id}" style="font-weight:normal" onclick="show_msg('1','${inboxMsg.id}', '${inboxMsg.sentDate}', '${inboxMsg.hasRead}');">
+                                    </c:otherwise>
+                                    </c:choose>
+                                    
                                         <td style="vertical-align:middle">${inboxMsg.sender.userName}</td>
                                         
                                         <td>${inboxMsg.title}

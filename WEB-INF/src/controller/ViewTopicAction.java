@@ -5,27 +5,30 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import model.Model;
-import model.TopicDAO;
 import model.PostDAO;
+import model.TopicDAO;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Post;
 import databean.Topic;
-
+import databean.User;
 import formbeans.ViewTopicForm;
 
 public class ViewTopicAction extends Action{
 
 	private FormBeanFactory<ViewTopicForm> formBeanFactory = FormBeanFactory.getInstance(ViewTopicForm.class, "<>\"");
 
-	TopicDAO topicDAO;
-	PostDAO postDAO;
+	private TopicDAO topicDAO;
+	private PostDAO postDAO;
+	private UserDAO userDAO;
 	
 	public ViewTopicAction(Model model) {
 		topicDAO = model.getTopicDAO();
 		postDAO = model.getPostDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -64,6 +67,14 @@ public class ViewTopicAction extends Action{
 			// TODO Auto-generated catch block
 			errors.add(e.getMessage());
 			return "browseCommunity.do";
+		}
+		User curUser = (User)request.getSession().getAttribute("user");
+		if (curUser != null) {
+			try {
+				curUser = userDAO.lookup(curUser.getUserName());
+				request.getSession().setAttribute("user", curUser);
+			} catch (DAOException e) {
+			}
 		}
 		
 		

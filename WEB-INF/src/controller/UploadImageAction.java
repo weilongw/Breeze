@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.ItemDAO;
 import model.Model;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
@@ -19,10 +20,13 @@ import formbeans.UploadForm;
 public class UploadImageAction extends Action{
 	
 	private ItemDAO itemDAO;
+	private UserDAO userDAO;
+	
 	private FormBeanFactory<UploadForm> formBeanFactory = FormBeanFactory.getInstance(UploadForm.class,"<>\"");
 	
 	public UploadImageAction(Model model) {
 		itemDAO = model.getItemDAO();
+		userDAO = model.getUserDAO();
 	}
 
 	@Override
@@ -72,6 +76,15 @@ public class UploadImageAction extends Action{
 			return "upload_image.jsp";
 		}
 		request.getSession().setAttribute("newItem", null);
+		
+	
+
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch (DAOException e) {
+		}
+		
 		return "showMyItems.do";
 	}
 

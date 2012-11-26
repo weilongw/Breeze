@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import model.CommunityDAO;
 import model.Model;
 import model.RelationDAO;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
@@ -22,10 +23,12 @@ public class CreateCommunityAction extends Action {
 	
 	private CommunityDAO communityDAO;
 	private RelationDAO relationDAO;
+	private UserDAO userDAO;
 	
 	public CreateCommunityAction (Model model) {
 		communityDAO = model.getCommunityDAO();
 		relationDAO = model.getRelationDAO();
+		userDAO = model.getUserDAO();
 	}
 	@Override
 	public String getName() {
@@ -66,6 +69,14 @@ public class CreateCommunityAction extends Action {
 		
 		request.setAttribute("success", "Your community has been created");
 		request.setAttribute("form", null);
+		
+		
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch (DAOException e) {
+		}
+	
 		return "browseCommunity.do";
 	}
 

@@ -70,7 +70,13 @@ public class UpdateProfileAction extends Action{
         
 		String successMsg  = "Profile updated!";
         request.setAttribute("success",successMsg);
-
+        
+		try {
+			user = userDAO.lookup(user.getUserName());
+			request.getSession().setAttribute("user", user);
+		} catch (DAOException e) {
+		}
+	
 		return "user_profile.jsp";
 	}
 

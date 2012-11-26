@@ -7,18 +7,22 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.ItemDAO;
 import model.Model;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 
 import databean.Item;
+import databean.User;
 import formbeans.AllSearchForm;
 
 public class BrowseAction extends Action{
 	
 	private ItemDAO itemDAO;
+	private UserDAO userDAO;
 	
 	public BrowseAction(Model model){
 		itemDAO = model.getItemDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -59,6 +63,14 @@ public class BrowseAction extends Action{
 		request.setAttribute("itemEnd", PAGE_COUNT - 1);
 		request.setAttribute("form", form);
 		
+		User curUser = (User)request.getSession().getAttribute("user");
+		if (curUser != null) {
+			try {
+				curUser = userDAO.lookup(curUser.getUserName());
+				request.getSession().setAttribute("user", curUser);
+			} catch (DAOException e) {
+			}
+		}
 		return "index.jsp";
 	}
 

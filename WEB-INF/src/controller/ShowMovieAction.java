@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.ItemDAO;
 import model.Model;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Item;
+import databean.User;
 import formbeans.ShowItemForm;
 
 public class ShowMovieAction extends Action {
@@ -19,9 +21,11 @@ public class ShowMovieAction extends Action {
 	private FormBeanFactory<ShowItemForm> formBeanFactory = FormBeanFactory.getInstance(ShowItemForm.class, "<>\"");
 	
 	private ItemDAO itemDAO;
+	private UserDAO userDAO;
 	
 	public ShowMovieAction(Model model) {
 		itemDAO = model.getItemDAO();
+		userDAO = model.getUserDAO();
 	}
 	@Override
 	public String getName() {
@@ -50,6 +54,16 @@ public class ShowMovieAction extends Action {
 			return "browse.do";
 		}
 		request.setAttribute("item", item);
+		
+		User curUser = (User)request.getSession().getAttribute("user");
+		if (curUser != null) {
+			try {
+				curUser = userDAO.lookup(curUser.getUserName());
+				request.getSession().setAttribute("user", curUser);
+			} catch (DAOException e) {
+			}
+		}
+		
 		return "about_movie.jsp";
 	}
 

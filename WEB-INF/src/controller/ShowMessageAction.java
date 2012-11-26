@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.MessageDAO;
 import model.Model;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 
@@ -16,9 +17,11 @@ import databean.User;
 public class ShowMessageAction extends Action{
 
 	private MessageDAO messageDAO;
+	private UserDAO userDAO;
 
 	public ShowMessageAction(Model model) {
 		messageDAO = model.getMessageDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -66,6 +69,15 @@ public class ShowMessageAction extends Action{
 		
 		request.setAttribute("inbox", inbox);
 		request.setAttribute("sent", sent);
+		
+	
+
+		try {
+			user = userDAO.lookup(user.getUserName());
+			request.getSession().setAttribute("user", user);
+		} catch (DAOException e) {
+		}
+	
 		
 		return "message.jsp";
 	}

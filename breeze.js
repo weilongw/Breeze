@@ -62,7 +62,8 @@ function update_movie() {
 	var root = xmlDoc.getElementsByTagName("root")[0].attributes.getNamedItem("response").nodeValue;
 	if (root == "False") {
 		request = createRequest();
-		document.getElementById("legend_title").innerHTML = "Service unavaliable";
+		var errorMsg = xmlDoc.getElementsByTagName("error")[0].childNodes[0].nodeValue;
+		document.getElementById("legend_title").innerHTML = errorMsg;
 		return;
 	}
 	var attributes = xmlDoc.getElementsByTagName("movie")[0].attributes;
@@ -133,19 +134,62 @@ function enable_text(text, isChecked) {
 	document.getElementById(text).disabled = !isChecked;
 }
 
-function show_msg(which, msg_id, date) {
+function show_msg(which, msg_id, date, hasRead) {
+	
     document.getElementById("user" + which).innerHTML = document.getElementById(msg_id + "user").value;
     document.getElementById("title"+ which).innerHTML = document.getElementById(msg_id + "title").value;
     document.getElementById("content" + which).innerHTML = document.getElementById(msg_id + "content").value;
     document.getElementById("date" + which).innerHTML = date;
-    if (which='1') {
+    if (which =='1') {
     	document.getElementById("reply-btn").innerHTML="<a href=\"redirectSend.do?receiver=" + document.getElementById(msg_id + "user").value 
     													+ "&title=Reply:" + document.getElementById(msg_id + "title").value +"\">reply</a>";
     }
+
+    if (hasRead == '0') {
+
+		if (request.readyState != 0) return;
+		var url = "read.do?msgId=" + msg_id;
+		request.onreadystatechange = markAsRead;
+		request.open("GET", url, true);
+		request.send();
+    }
+}
+
+function markAsRead() {
+	if (request.readyState != 4) return;
+
+	if (request.status != 200) {
+		alert("Error, request status is " + request.status);
+		return;
+	}
+	var xmlDoc = request.responseXML;
+	var root = xmlDoc.getElementsByTagName("root")[0].attributes.getNamedItem("result").nodeValue;
+	if (root == "False") {
+		request = createRequest();
+		var msg = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+		alert(msg);
+		return;
+	}
+	var msg = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+	var msgID = xmlDoc.getElementsByTagName("messageID")[0].childNodes[0].nodeValue;
+	var msgDate = xmlDoc.getElementsByTagName("messageDate")[0].childNodes[0].nodeValue;
+
+	
+	var row = document.getElementById("tr" + msgID);
+	var attr = document.createAttribute("onclick");
+	attr.value="show_msg('1','"+ msgID +"', '" + msgDate +"', '1');";
+	row.setAttributeNode(attr);
+	row.style.fontWeight="normal";
+
+	var hiuser = document.getElementById("headCount");
+
+	hiuser.innerHTML=msg;
+
+	request = createRequest();
 }
 
 function show_xchg() {
-//	alert(document.getElementById("xchgMsg").value);
+
 	document.getElementById("xchg").innerHTML = "<strong>Item Exchange Description</strong> \
 												<br/><p>" + document.getElementById("xchgMsg").value + "</p>";
 }

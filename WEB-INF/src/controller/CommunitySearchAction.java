@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import model.CommunityDAO;
 import model.Model;
 import model.TopicDAO;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Community;
 import databean.Topic;
+import databean.User;
 import formbeans.SearchForm;
 
 public class CommunitySearchAction extends Action {
@@ -21,10 +23,12 @@ public class CommunitySearchAction extends Action {
 	
 	private CommunityDAO communityDAO;
 	private TopicDAO topicDAO;
+	private UserDAO userDAO;
 	
 	public CommunitySearchAction(Model model) {
 		communityDAO = model.getCommunityDAO();
 		topicDAO = model.getTopicDAO();
+		userDAO = model.getUserDAO();
 	}
 			
 	@Override
@@ -67,6 +71,14 @@ public class CommunitySearchAction extends Action {
 			}
 		} catch(DAOException e) {
 			errors.add(e.getMessage());
+		}
+		User curUser = (User)request.getSession().getAttribute("user");
+		if (curUser != null) {
+			try {
+				curUser = userDAO.lookup(curUser.getUserName());
+				request.getSession().setAttribute("user", curUser);
+			} catch (DAOException e) {
+			}
 		}
 		return "community.jsp";
 	}

@@ -7,24 +7,26 @@ import javax.servlet.http.HttpServletRequest;
 import model.CommunityDAO;
 import model.Model;
 import model.RelationDAO;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Community;
 import databean.User;
-
 import formbeans.ViewCommunityForm;
 
 public class UnjoinCommunityAction extends Action{
 	private FormBeanFactory<ViewCommunityForm> formBeanFactory = FormBeanFactory.getInstance(ViewCommunityForm.class, "<>\"");
 	
-	RelationDAO relationDAO;
-	CommunityDAO communityDAO;
+	private RelationDAO relationDAO;
+	private CommunityDAO communityDAO;
+	private UserDAO userDAO;
 	
 	public UnjoinCommunityAction(Model model){
 		relationDAO = model.getRelationDAO();
 		communityDAO = model.getCommunityDAO();
+		userDAO = model.getUserDAO();
 	}
 	@Override
 	public String getName() {
@@ -72,6 +74,12 @@ public class UnjoinCommunityAction extends Action{
 		
 		String success = "You are not in community " + community.getName() + " any more";
 		request.setAttribute("success",success);	
+		
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch (DAOException e) {
+		}
 		
 		return "viewCommunity.do?name=" + form.getName();
 	}

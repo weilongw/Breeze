@@ -20,8 +20,8 @@ import model.UserDAO;
 public class PostItemAction extends Action{
 	private FormBeanFactory<PostItemForm> formBeanFactory = FormBeanFactory.getInstance(PostItemForm.class,"<>\"");
 
-	UserDAO userDAO;
-	ItemDAO itemDAO;
+	private UserDAO userDAO;
+	private ItemDAO itemDAO;
 	
 	public PostItemAction(Model model){
 		userDAO = model.getUserDAO();
@@ -103,6 +103,13 @@ public class PostItemAction extends Action{
 		String success = "Your item was created successfully!";
 		request.setAttribute("success",success);
 		request.getSession().setAttribute("newItem", newItem);
+		
+	
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch (DAOException e) {
+		}
 		
 
     	return "upload_image.jsp";

@@ -92,10 +92,9 @@ rethink get vs post for various cases, which one is more appropriate
 
 test test & test
 
-imdb link?
-
-print appropriate msg for searching movie
 
 relate two parts closer?
 
 myCommunity.do? myTopic.do? myPost.do?
+
+null user visit closed item generate nullpointer exception

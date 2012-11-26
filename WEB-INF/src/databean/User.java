@@ -13,6 +13,7 @@ public class User {
 	private int credit = 0;
 	private String email;
 	private String userPhoto="default_icon.jpg";
+	private int newMsgCount = 0;
 
 	public User(String userName) { this.userName = userName; }
 
@@ -27,6 +28,7 @@ public class User {
 	public String getAddress()        { return address; }
 	public String getEmail()          { return email; }
 	public String getUserPhoto()	  { return userPhoto; }
+	public int getNewMsgCount()		  { return newMsgCount; }
 
 	public int hashCode() 			  { return userName.hashCode(); }
 
@@ -37,6 +39,7 @@ public class User {
 	public void setCredit(int x) { credit = x; }
 	public void setEmail(String x)   { email =  x; }
 	public void setUserPhoto(String x) { userPhoto = x; }
+	public void setNewMsgCount(int x) { newMsgCount = x; }
 
 	@Override
 	public boolean equals(Object obj) {

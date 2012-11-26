@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.MessageDAO;
 import model.Model;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
@@ -20,9 +21,11 @@ public class PaginateMsgAction extends Action{
 	private FormBeanFactory<PageForm> formBeanFactory = FormBeanFactory.getInstance(PageForm.class, "<>\"");
 	
 	private MessageDAO messageDAO;
+	private UserDAO userDAO;
 	
 	public PaginateMsgAction (Model model) {
 		messageDAO = model.getMessageDAO();
+		userDAO = model.getUserDAO();
 	}
 
 	@Override
@@ -99,6 +102,15 @@ public class PaginateMsgAction extends Action{
 		
 		request.setAttribute("inbox", inbox);
 		request.setAttribute("sent", sent);
+		
+		
+
+	    try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch (DAOException e) {
+		}
+
 		
 		return "message.jsp";
 	}

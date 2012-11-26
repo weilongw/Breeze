@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import model.Model;
 import model.PostDAO;
 import model.TopicDAO;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
@@ -15,19 +16,20 @@ import org.mybeans.forms.FormBeanFactory;
 import databean.Post;
 import databean.Topic;
 import databean.User;
-
 import formbeans.NewPostForm;
 
 public class NewPostAction extends Action{
 
 	private FormBeanFactory<NewPostForm> formBeanFactory = FormBeanFactory.getInstance(NewPostForm.class, "<>\"");
 
-	PostDAO postDAO;
-	TopicDAO topicDAO;
+	private PostDAO postDAO;
+	private TopicDAO topicDAO;
+	private UserDAO userDAO;
 	
 	public NewPostAction(Model model){
 		postDAO = model.getPostDAO();
 		topicDAO = model.getTopicDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -86,7 +88,13 @@ public class NewPostAction extends Action{
 			return "browseCommunity.do";
 		}
 		
+		User curUser = (User)request.getSession().getAttribute("user");
 		
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch (DAOException e) {
+		}
 		return "topic.jsp";
 	}
 

@@ -8,4 +8,6 @@
 	<c:forEach var="msg" items="${msgs}">
 		<message>${msg}</message>
 	</c:forEach>
+	<messageID>${messageID}</messageID>
+	<messageDate>${date}</messageDate>
 </root>

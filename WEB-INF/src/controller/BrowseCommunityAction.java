@@ -4,22 +4,27 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.mybeans.dao.DAOException;
-
 import model.CommunityDAO;
 import model.Model;
 import model.TopicDAO;
+import model.UserDAO;
+
+import org.mybeans.dao.DAOException;
+
 import databean.Community;
 import databean.Topic;
+import databean.User;
 
 public class BrowseCommunityAction extends Action {
 
 	private CommunityDAO communityDAO;
 	private TopicDAO topicDAO;
+	private UserDAO userDAO;
 	
 	public BrowseCommunityAction (Model model) {
 		communityDAO = model.getCommunityDAO();
 		topicDAO = model.getTopicDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -41,6 +46,16 @@ public class BrowseCommunityAction extends Action {
 			errors.add(e.getMessage());
 		}
 		request.setAttribute("title", "Hot topics today");
+		
+		User curUser = (User)request.getSession().getAttribute("user");
+		if (curUser != null) {
+			try {
+				curUser = userDAO.lookup(curUser.getUserName());
+				request.getSession().setAttribute("user", curUser);
+			} catch (DAOException e) {
+			}
+		}
+		
 		return "community.jsp";
 		
 	}

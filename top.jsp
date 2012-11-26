@@ -127,7 +127,9 @@
 					<c:if test="${!empty(sessionScope.user)}">
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-							Hi, ${sessionScope.user.userName}
+							
+								Hi, ${sessionScope.user.userName}
+
 							<b class="caret"></b>
 						</a>
 						
@@ -141,6 +143,12 @@
 						</ul>
 					</li>
 					<li class="divider-vertical"></li>
+					
+						<li>
+							<a href="showMessage.do"><i class="icon-envelope"></i>&nbsp;&nbsp;<span id="headCount">${sessionScope.user.newMsgCount}</span>
+							</a>
+						</li>
+					
 					</c:if>
 					<c:if test="${empty(sessionScope.user)}">
 					<li class="dropdown">

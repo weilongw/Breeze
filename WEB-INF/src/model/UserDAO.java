@@ -140,4 +140,10 @@ public class UserDAO {
 		}
 	}
 	
+	public void updateNewMsgCount(String userName, int x) throws RollbackException {		
+			User user = factory.lookup(userName);
+			user.setNewMsgCount(user.getNewMsgCount() + x);
+		
+	}
+	
 }

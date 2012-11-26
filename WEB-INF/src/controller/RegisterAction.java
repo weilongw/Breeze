@@ -52,7 +52,7 @@ public class RegisterAction extends Action{
         user.setEmail(form.getEmail());
         user.setAddress(form.getAddress());
         user.setPassword(form.getPassword());
-        user.setCredit(20);		// initial credit should be defined as static final later
+        user.setCredit(20);		
         
         try {
 			userDAO.create(user);
@@ -64,8 +64,8 @@ public class RegisterAction extends Action{
         
         HttpSession session = request.getSession(false);
         session.setAttribute("user",user);
-        
-        return "browse.do";// add some welcome message or send welcome message to user
+        request.setAttribute("success", "Welcome to Breeze! " + user.getUserName());
+        return "home.jsp";// add some welcome message or send welcome message to user
 	}
 
 }

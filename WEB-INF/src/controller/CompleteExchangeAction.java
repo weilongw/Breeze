@@ -115,6 +115,13 @@ public class CompleteExchangeAction extends Action {
 		} finally {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+		} catch(DAOException e) {
+			errors.add(e.getMessage());
+			return "showMyItems.do";
+		}
+		request.getSession().setAttribute("user", curUser);
 		request.setAttribute("success", "Congrats, your transaction has been made");
 		return "showMyItems.do";
 	}	

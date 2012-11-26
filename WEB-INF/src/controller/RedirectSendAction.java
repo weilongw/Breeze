@@ -63,6 +63,12 @@ public class RedirectSendAction extends Action {
 		
 		
 		
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+			request.getSession().setAttribute("user", curUser);
+		} catch (DAOException e) {
+		}
+
 		
 		//request.setAttribute("form", newForm);
 		return "showMessage.do";

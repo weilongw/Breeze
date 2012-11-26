@@ -89,11 +89,13 @@ public class CloseItemAction extends Action {
 			messageDAO.send(admin, item.getOwner(), "Item closed", 
 										"You have just canceled your item" +
 										item.getItemName());
+			userDAO.updateNewMsgCount(item.getOwner().getUserName(), 1);
 			for (Exchange xchg : pending) {
 				messageDAO.send(admin, xchg.getResponder(), 
 								"Item close notification", 
 								"The item you have responded to(" + item.getItemName() +
 								") is no longer available");
+				userDAO.updateNewMsgCount(xchg.getResponder().getUserName(), 1);
 			}
 			exchangeDAO.closeItemTransaction(item);
 			exchangeDAO.createCancelTransaction(item);
@@ -104,8 +106,15 @@ public class CloseItemAction extends Action {
 		} finally {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
-		request.setAttribute("success", "Your item has just been cancelled");
 		
+		try {
+			curUser = userDAO.lookup(curUser.getUserName());
+		} catch(DAOException e) {
+			errors.add(e.getMessage());
+			return "showMyItems.do";
+		}
+		request.getSession().setAttribute("user", curUser);
+		request.setAttribute("success", "Your item has just been cancelled");
 		return "showMyItems.do";
 		
 	}

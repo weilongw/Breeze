@@ -3,11 +3,12 @@ package controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import model.ExchangeDAO;
 import model.ItemDAO;
 import model.Model;
-
-import javax.servlet.http.HttpServletRequest;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
@@ -15,19 +16,20 @@ import org.mybeans.forms.FormBeanFactory;
 import databean.Exchange;
 import databean.Item;
 import databean.User;
-
 import formbeans.ShowItemForm;
 
 public class ShowItemPageAction extends Action{
 
 	private FormBeanFactory<ShowItemForm> formBeanFactory = FormBeanFactory.getInstance(ShowItemForm.class,"<>\"");
 	
-	ItemDAO itemDAO;
-	ExchangeDAO exchangeDAO;
+	private ItemDAO itemDAO;
+	private ExchangeDAO exchangeDAO;
+	private UserDAO userDAO;
 	
 	public ShowItemPageAction(Model model){
 		itemDAO = model.getItemDAO();
 		exchangeDAO = model.getExchangeDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -44,6 +46,13 @@ public class ShowItemPageAction extends Action{
         
         User user =  (User) request.getSession(false).getAttribute("user");
         
+		if (user != null) {
+			try {
+				user = userDAO.lookup(user.getUserName());
+				request.getSession().setAttribute("user", user);
+			} catch (DAOException e) {
+			}
+		}
         
         errors.addAll(form.getValidationErrors());
         
