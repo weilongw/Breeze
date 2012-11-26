@@ -207,7 +207,14 @@
 				</div>
 				<p>&nbsp;</p>
 				<div>
-					<img src="" alt="No movie poster available.." id="movie_poster" style="max-height:400px;">
+					<c:choose>
+					<c:when test="${empty(comm.relatedMovie)}">
+						No Related Movie present.
+					</c:when>
+					<c:otherwise>
+						<img src="img/poster/${comm.relatedMovie}.jpg" alt="No movie poster available.." id="movie_poster" style="max-height:400px;">
+					</c:otherwise>
+					</c:choose>
 				</div>
 				
 			</div>

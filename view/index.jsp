@@ -19,7 +19,7 @@
           				<li><a href="search.do?key=&options=0&category=2&page=1"><i class="icon-chevron-right"></i>DVD</a></li>
           				<li><a href="search.do?key=&options=0&category=3&page=1"><i class="icon-chevron-right"></i>Prop</a></li>
         			</ul>
-
+                    
       			</div>
       			<div class="span8" style="padding:20px">
       				<section>

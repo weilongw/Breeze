@@ -113,7 +113,14 @@
                 	</table>
                 	</div>
                 	<div class="span3">
-                		<img src="" alt="empty movie.." id="movie_poster">
+                		<c:choose>
+						<c:when test="${empty(item.relatedMovie)}">
+						No Related Movie present.
+						</c:when>
+						<c:otherwise>
+						<img src="img/poster/${item.relatedMovie}.jpg" alt="No movie poster available.." id="movie_poster" style="max-height:400px;">
+						</c:otherwise>
+						</c:choose>
             		</div>
                 </fieldset>
             		
