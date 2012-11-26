@@ -192,7 +192,7 @@ public class BuyItemAction extends Action{
 			
 		}
 		
-		return "showMyItems.do";
+		return "showItems.do?itemId=" + item.getId();
 	}
 
 }
