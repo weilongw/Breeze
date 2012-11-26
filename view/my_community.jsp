@@ -60,7 +60,7 @@
                         </table>
                     </c:when>
                     <c:otherwise>
-                    <h3>No joined community.</h3>
+                    <h4>No joined community.</h4>
                 </c:otherwise>
             </c:choose>
 						</div>
