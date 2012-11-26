@@ -20,7 +20,7 @@
 			<img src="img/header.jpg">
 			<div class="navbar-inner" style="padding-left:100px;">
 				<!--div style="width:1200px;height:30px;padding-left:100px"-->
-				<a class="brand" href="home.jsp">Breeze</a>
+				<a class="brand" href="view/home.jsp">Breeze</a>
 				<ul class="nav pull-right" style="padding-right:80px">
 					<li class="divider-vertical"></li>
 					<li><a href="browse.do">Market</a></li>
@@ -76,7 +76,7 @@
 		</header>
 		<div style="padding-left:50px;">
     <ul class="breadcrumb" style="padding-left:100">
-    <li><a href="home.jsp">Home</a> <span class="divider">/</span></li>
+    <li><a href="view/home.jsp">Home</a> <span class="divider">/</span></li>
     <li class="active"><a href="browse.do">Market</a> <span class="divider">/</span></li>
     <li class="active"><a href="showItems.do?itemId=${item.id}">${item.itemName}</a> <span class="divider">/</span></li>
     </ul>
