@@ -44,7 +44,7 @@
     			</div>
 			</div>
             <div class="span4" id="movie" style="padding-top:50px;">
-                <h4>Here shows the movie you are looking for</h4>
+                <h4>Here shows the movie you are looking for, have a related movie may help you promote your item!</h4>
             </div>
 		</div>
 	</div>

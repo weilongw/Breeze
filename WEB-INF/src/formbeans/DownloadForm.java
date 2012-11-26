@@ -32,10 +32,11 @@ public class DownloadForm {
 		
 		if (!id.matches("tt\\d{7}")) {
 			errors.add("Invalid imdb id");
+			return errors;
 		}
 		
 		if (!url.startsWith("http://ia.media-imdb.com/images")) {
-			System.out.println(url);
+			errors.add("Invalid image url");
 		}
 		
 		return errors;
