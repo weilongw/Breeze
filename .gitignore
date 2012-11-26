@@ -1,5 +1,6 @@
 img/user/*.png
 img/item/*.png
+img/poster/*.jpg
 
 WEB-INF/.classpath
 WEB-INF/classes/controller/*.class

@@ -50,29 +50,34 @@
 						</c:if>
   					</div>
   					<div class="span8">
-  						<legend>Item name: </legend><h4>${posted.itemName} </h4>
-  						<legend>Item type: </legend>
-  						<p>Selling</p>
-  						<legend>Category: </legend>
-  						<p><c:choose>
+  						<dl style="font-size:1.2em;" class="dl-horizontal">
+  							<dt>Item name:</dt>
+  							<dd>${posted.itemName}</dd>
+  							<dt>Item type: </dt>
+  							<dd>Selling</dd>
+  							<dt>Category:</dt>
+  							<c:choose>
   							<c:when test="${posted.category==1}">	
-  							POSTER
+  							<dd>POSTER</dd>
   							</c:when>
   							<c:when test="${posted.category==2}">
-  							DVD
+  							<dd>DVD</dd>
   							</c:when>		
   							<c:otherwise>
-  							PROP
+  							<dd>PROP</dd>
   							</c:otherwise>
-  						</c:choose></p>
-  						<legend>Poster: </legend><p> ${posted.owner.userName}		
-  						<c:if test="${isOwner==0}">			
+  							</c:choose>
+  							<dt>Poster :</dt>
+  							<dd> ${posted.owner.userName} &nbsp;&nbsp;<c:if test="${isOwner==0}">			
 							<a  href="redirectSend.do?receiver=${posted.owner.userName}&title=About ${posted.itemName}">Send him/her a message..</a>	
-						</c:if></p>
-						<fieldset>
-							<legend>Item Description: </legend>
-							<big>${posted.itemDescription}</big>
-						</fieldset>
+							</c:if></dd>
+							<dt>Item Description: </dt>
+							<dd>${posted.itemDescription}</dd>
+							<dt id="xchg_title"></dt>
+							<dd id="xchg"></dd>
+
+  						</dl>
+  					
 						<input type="hidden" id="xchgMsg" value="${posted.exchangeItemDescription}">
 						<br/>
   						<div id="xchg"></div>
@@ -122,15 +127,33 @@
 						</c:if>
   					</div>
   					<div class="span8">
-  						<h4>${requested.itemName} (Wanted) </h4>
-  						<p>${requested.owner.userName}		
-  						<c:if test="${isOwner == 0}">			
-							<a  href="redirectSend.do?receiver=${requested.owner.userName}&title=About ${requested.itemName}">Send him/her a message..</a>		
-						</c:if></p>
-  						<fieldset>
-							<legend>Item Description</legend>
-							<big>${requested.itemDescription}</big>
-						</fieldset><br/>
+  						<dl style="font-size:1.2em;" class="dl-horizontal">
+  							<dt>Item name:</dt>
+  							<dd>${requested.itemName}</dd>
+  							<dt>Item type: </dt>
+  							<dd>Wanted</dd>
+  							<dt>Category:</dt>
+  							<c:choose>
+  							<c:when test="${requested.category==1}">	
+  							<dd>POSTER</dd>
+  							</c:when>
+  							<c:when test="${requested.category==2}">
+  							<dd>DVD</dd>
+  							</c:when>		
+  							<c:otherwise>
+  							<dd>PROP</dd>
+  							</c:otherwise>
+  							</c:choose>
+  							<dt>Poster :</dt>
+  							<dd> ${requested.owner.userName} &nbsp;&nbsp;<c:if test="${isOwner==0}">			
+							<a  href="redirectSend.do?receiver=${requested.owner.userName}&title=About ${requested.itemName}">Send him/her a message..</a>	
+							</c:if></dd>
+							<dt>Item Description: </dt>
+							<dd>${requested.itemDescription}</dd>
+							<dt id="xchg_title"></dt>
+							<dd id="xchg"></dd>
+
+  						</dl>
 						<input type="hidden" id="xchgMsg" value="${requested.exchangeItemDescription}">
   						<div id="xchg"></div>
  						<c:if test="${isOwner == 0 && requested.status == 0}">

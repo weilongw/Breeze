@@ -74,8 +74,13 @@ function update_movie() {
 			attributes[i].nodeName +": </strong></td><td>" + attributes[i].nodeValue +"</td>";
 	}
 	document.getElementById("legend_title").innerHTML=attributes.getNamedItem("title").nodeValue;
-	document.getElementById("movie_poster").src=attributes.getNamedItem("poster").nodeValue;
+	//document.getElementById("movie_poster").src=attributes.getNamedItem("poster").nodeValue;
+	//var img_src = document.createAttribute("src");
+	//img_src.value ="img/poster/" + attributes[attributes.length - 1].nodeValue + ".jpg";
+	//document.getElementById("movie_poster").setAttributeNode(img_src);
 	request = createRequest();
+
+	
 }
 
 function update() {
@@ -93,6 +98,15 @@ function update() {
 		document.getElementById("movie").innerHTML="<h4>" + errorMsg + "</h4>";	
 		return;
 	}
+	var attributes = xmlDoc.getElementsByTagName("movie")[0].attributes;
+
+	request = createRequest();
+	if (request.readyState != 0) return;
+	
+	var url = "download.do?url=" + attributes.getNamedItem("poster").nodeValue + "&id=" + attributes[attributes.length - 1].nodeValue;
+	request.onreadystatechange = download_movie;
+	request.open("GET", url, true);
+	request.send();
 
 	var movieDiv = document.getElementById("movie");
 	var movieHead = document.createElement("h4");
@@ -101,7 +115,7 @@ function update() {
 	movieHead.appendChild(movieHeadText);
 	var line = document.createElement("hr");
 	movieDiv.appendChild(line);
-	var attributes = xmlDoc.getElementsByTagName("movie")[0].attributes;
+	
 	var movieTitle = document.createElement("h4");
 	var movieTitleText = document.createTextNode("Title");
 	movieDiv.appendChild(movieTitle);
@@ -112,11 +126,34 @@ function update() {
 	movieDiv.appendChild(titlep);
 	titlep.appendChild(titlepstrong);	
 	titlepstrong.appendChild(xmlTitle);
-	var movieImg = document.createElement("img");
-	movieImg.src = attributes.getNamedItem("poster").nodeValue;
-	movieDiv.appendChild(movieImg);
+	
 	document.getElementById("p-movie-name").value=attributes[attributes.length - 1].nodeValue;
 	document.getElementById("r-movie-name").value=attributes[attributes.length - 1].nodeValue;
+
+	
+
+	
+}
+
+function download_movie() {
+	if (request.readyState != 4) return;
+	if (request.status != 200) {
+		alert("request status is " + request.status);
+		return;
+	}
+	var xmlDoc = request.responseXML;
+	var root = xmlDoc.getElementsByTagName("root")[0].attributes.getNamedItem("result").nodeValue;
+	if (root == "False") {
+		request = createRequest();
+		
+		return;
+	}
+	var movieDiv = document.getElementById("movie");
+	var msg = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+	var movieImg = document.createElement("img");
+	//movieImg.src = attributes.getNamedItem("poster").nodeValue;
+	movieImg.src = "img/poster/" + msg + ".jpg";
+	movieDiv.appendChild(movieImg);
 	request = createRequest();
 }
 
@@ -167,7 +204,7 @@ function markAsRead() {
 	if (root == "False") {
 		request = createRequest();
 		var msg = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
-		alert(msg);
+		//alert(msg);
 		return;
 	}
 	var msg = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
@@ -189,9 +226,8 @@ function markAsRead() {
 }
 
 function show_xchg() {
-
-	document.getElementById("xchg").innerHTML = "<strong>Item Exchange Description</strong> \
-												<br/><p>" + document.getElementById("xchgMsg").value + "</p>";
+	document.getElementById("xchg_title").innerHTML="Item Exchange Detail:";
+	document.getElementById("xchg").innerHTML = document.getElementById("xchgMsg").value;
 }
 
 function waiting(hint) {
