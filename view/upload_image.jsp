@@ -2,7 +2,7 @@
 <jsp:include page="top.jsp" />
 <div style="padding-left:50px;">
     <ul class="breadcrumb" style="padding-left:100">
-    <li><a href="view/home.jsp">Home</a> <span class="divider">/</span></li>
+    <li><a href="home.do">Home</a> <span class="divider">/</span></li>
     <li><a href="showProfile.do">Personal Account</a> <span class="divider">/</span></li>
     <li><a href="postItem.do">New Item</a> <span class="divider">/</span></li>
     <li class="active"><a href="uploadImage.do">Upload Image</a> <span class="divider">/</span></li>

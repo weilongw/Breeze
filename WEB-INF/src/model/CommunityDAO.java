@@ -14,7 +14,7 @@ import org.mybeans.factory.RollbackException;
 import org.mybeans.factory.Transaction;
 
 import databean.Community;
-import databean.Topic;
+
 
 public class CommunityDAO {
 

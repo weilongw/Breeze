@@ -6,7 +6,7 @@ import java.util.Date;
 import org.mybeans.dao.DAOException;
 import org.mybeans.factory.BeanFactory;
 import org.mybeans.factory.BeanTable;
-import org.mybeans.factory.DuplicateKeyException;
+
 import org.mybeans.factory.MatchArg;
 import org.mybeans.factory.RollbackException;
 import org.mybeans.factory.Transaction;

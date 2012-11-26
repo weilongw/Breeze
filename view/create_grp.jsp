@@ -2,7 +2,7 @@
 <jsp:include page="top.jsp" />
 <div style="padding-left:50px;">
     <ul class="breadcrumb" style="padding-left:100">
-    <li><a href="view/home.jsp">Home</a> <span class="divider">/</span></li>
+    <li><a href="home.do">Home</a> <span class="divider">/</span></li>
     <li><a href="browseCommunity.do">Community</a> <span class="divider">/</span></li>
     <li class="active"><a href="createCommunity.do">New Community</a> <span class="divider">/</span></li>
     </ul>

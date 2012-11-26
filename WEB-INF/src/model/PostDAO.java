@@ -9,10 +9,10 @@ import org.mybeans.factory.MatchArg;
 import org.mybeans.factory.RollbackException;
 import org.mybeans.factory.Transaction;
 
-import databean.Item;
+
 import databean.Post;
 import databean.Topic;
-import databean.User;
+
 
 public class PostDAO {
 	private BeanFactory<Post> factory;
