@@ -11,7 +11,7 @@
 	<h4>Ask for anything you want</h4><br/>
 <form action="postItem.do" method="post" class="form-horizontal">
     <div class="control-group">
-		<label class="control-label">Item name</label>
+		<label class="control-label">Item Name</label>
 			<div class="controls">
 			<input class="span6" type="text" name="itemName" value="${requestForm.itemName}">
 		</div>

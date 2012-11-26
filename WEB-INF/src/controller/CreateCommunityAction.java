@@ -77,7 +77,7 @@ public class CreateCommunityAction extends Action {
 		} catch (DAOException e) {
 		}
 	
-		return "browseCommunity.do";
+		return "viewCommunity.do?name=" + newCommunity.getName();
 	}
 
 	
