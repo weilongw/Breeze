@@ -5,7 +5,7 @@
 		<link type="text/css" href="css/bootstrap.css" rel="stylesheet" media="screen">
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	
 		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<script type="text/javascript" src="breeze.js"></script>
+		<script type="text/javascript" src="js/breeze.js"></script>
 		<style type="text/css">
 		.right_part_title{
 			background: url("img/bataiTitle.png") repeat-x;
@@ -136,6 +136,7 @@
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="showProfile.do"> Profile </a></li>
 							<li><a tabindex="-1" href="postItem.do"> Post item </a></li>
+							<li><a tabindex="-1" href="createCommunity.do"> Create Community </a></li>
 							<li><a tabindex="-1" href="showMyItems.do"> My item </a></li>
 							<li><a tabindex="-1" href="showMyCommunity.do"> My Community</a></li>
 							<li><a tabindex="-1" href="showMessage.do"> My Message</a></li>

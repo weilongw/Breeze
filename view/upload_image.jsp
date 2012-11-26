@@ -10,15 +10,8 @@
     </div>
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span3 bs-docs-sidebar">
-				<ul class="nav nav-list bs-docs-sidenav">
-					<li><a href="showProfile.do"><i class="icon-chevron-right"></i>User Info</a></li>
-					<li class="active"><a href="postItem.do"><i class="icon-chevron-right"></i>Post</a></li>
-					<li><a href="showMyItems.do"><i class="icon-chevron-right"></i>My Items</a></li>
-					<li><a href="message.jsp"><i class="icon-chevron-right"></i>My Messages</a></li>
-				</ul>
-			</div>
-			<div class="span8" style="padding:20px">
+			
+			<div class="span8" style="padding-left:80px">
                 <jsp:include page="error.jsp" />
                 <jsp:include page="success.jsp" />
                 <jsp:include page="upload_msg.jsp" />
@@ -67,7 +60,7 @@
                                 </tr>
                                 </table>
                             </div>
-                            <div class="span3">
+                            <div class="span4">
                                 <img src="img/item/${uploadedFile}" style="max-width:250px; max-height:250px; float:left; padding-top:100px" alt="preview">
                             </div>
                         </div>        

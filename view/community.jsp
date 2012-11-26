@@ -9,8 +9,11 @@
     </div>
 	<div class="container-fluid">
 		<div class="row-fluid">
+
 			<div class="span3" style="padding:10px;padding-top:20px; padding-left:50px;">
-				<div id="rez_part" style="margin-top:10px;border:1px #E7E6FA solid;">
+                <span style="padding-top:20px"><big><a href="createCommunity.do">Create your own group!</a></big></span>
+            <p>&nbsp;</p>
+				<div id="rez_part" style="margin-top:10px;border:1px #E7E6FA solid;height:300px">
 					<div class="right_part_title"> 
 						<span class="right_part_title_font">Top Community</span>
 					</div>
@@ -27,8 +30,8 @@
 
 					</ul>
 				</div>
-                <p>&nbsp;</p>
-				<span style="padding-top:20px"><a href="createCommunity.do">Create your own group!</a></span>
+                
+				
 			</div>
 			<div class="span9" style="padding:20px">
 				<section>
@@ -37,8 +40,23 @@
     							<input class="span12" type="text" size="40"  name = "key" value="${searchForm.key}">
     							<span class="add-on">
     								<select name="options" selected="1" style="width:120px;">
-    									<option value="0">Community</option>
-    									<option value="1">Topic</option>
+                                        <c:choose>
+                                        <c:when test="${searchForm.options == '0'}">
+    									<option value="0" selected>Community</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                        <option value="0">Community</option>
+                                        </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                        <c:when test="${searchForm.options == '1'}">
+                                        <option value="1" selected>Topic</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                        <option value="1">Topic</option>
+                                        </c:otherwise>
+                                        </c:choose>
+    									
     								</select>
     							</span>
     							<input class="btn" type="submit" value="Search">

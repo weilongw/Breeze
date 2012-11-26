@@ -106,7 +106,7 @@ public class Controller extends HttpServlet {
     	
     	System.out.println(nextPage);
     	
-    	RequestDispatcher d = request.getRequestDispatcher("/"+nextPage);
+    	RequestDispatcher d = request.getRequestDispatcher("/view/"+nextPage);
     	d.forward(request,response);
     }
 

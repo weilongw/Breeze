@@ -1,6 +1,6 @@
 dir=./img/item/
 session=fname
 extensions=gif,png,jpg
-reply=/upload_image.jsp
-error=/upload_image.jsp
+reply=/view/upload_image.jsp
+error=/view/upload_image.jsp
 overwrite=1

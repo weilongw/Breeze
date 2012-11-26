@@ -5,7 +5,7 @@
 		<link type="text/css" href="css/bootstrap.css" rel="stylesheet" media="screen">
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	
 		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<script type="text/javascript" src="breeze.js"></script>
+		<script type="text/javascript" src="js/breeze.js"></script>
 		<style media="screen" type="text/css">
 
 		.movie tr{
@@ -37,13 +37,20 @@
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="showProfile.do"> Profile </a></li>
 							<li><a tabindex="-1" href="postItem.do"> Post item </a></li>
-							<li><a tabindex="-1" href="showMyItems.do"> My items </a></li>
+							<li><a tabindex="-1" href="createCommunity.do"> Create Community </a></li>
+							<li><a tabindex="-1" href="showMyItems.do"> My item </a></li>
+							<li><a tabindex="-1" href="showMyCommunity.do"> My Community</a></li>
 							<li><a tabindex="-1" href="showMessage.do"> My Message</a></li>
 							<li class="divider"></li>
 							<li><a tabindex="-1" href="logout.do"> Sign out </a></li>
 						</ul>
 					</li>
 					<li class="divider-vertical"></li>
+
+						<li>
+							<a href="showMessage.do"><i class="icon-envelope"></i>&nbsp;&nbsp;<span id="headCount">${sessionScope.user.newMsgCount}</span>
+							</a>
+						</li>
 					</c:if>
 					<c:if test="${empty(sessionScope.user)}">
 					<li class="dropdown">

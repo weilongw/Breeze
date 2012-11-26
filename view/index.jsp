@@ -11,11 +11,15 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
       			<div class="span3 bs-docs-sidebar">
+
+                    <big><a href="postItem.do">Post your own item</a></big>
+                    <p>&nbsp;</p>
         			<ul class="nav nav-list bs-docs-sidenav">
           				<li><a href="search.do?key=&options=0&category=1&page=1"><i class="icon-chevron-right"></i>Poster</a></li>
           				<li><a href="search.do?key=&options=0&category=2&page=1"><i class="icon-chevron-right"></i>DVD</a></li>
           				<li><a href="search.do?key=&options=0&category=3&page=1"><i class="icon-chevron-right"></i>Prop</a></li>
         			</ul>
+
       			</div>
       			<div class="span8" style="padding:20px">
       				<section>

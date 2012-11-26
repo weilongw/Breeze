@@ -43,11 +43,7 @@ public class CreateCommunityForm {
 		}
 		if (errors.size() != 0 ) return errors;
 		
-		Pattern p = Pattern.compile("[^a-zA-Z0-9]");
-		boolean hasSpecialChar = p.matcher(name).find();
-		if (hasSpecialChar) {
-			errors.add("Community name can only contain characters and digits");
-		}
+		
 		return errors;
 	}
 }

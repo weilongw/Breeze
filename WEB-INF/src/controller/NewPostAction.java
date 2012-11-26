@@ -13,6 +13,7 @@ import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
 import org.mybeans.factory.RollbackException;
+import org.mybeans.factory.Transaction;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Post;
@@ -95,6 +96,16 @@ public class NewPostAction extends Action{
 						+ "<a href=viewTopic.do?topicId=" + topic.getId() + ">link</a> to view it.";
 				
 				messageDAO.sendDirectly(sender, topic.getPoster(), title, content);
+				try {
+					Transaction.begin();
+					userDAO.updateNewMsgCount( topic.getPoster().getUserName(), 1);
+					Transaction.commit();
+				} catch(RollbackException e) {
+					throw new DAOException(e);
+				} finally {
+					if (Transaction.isActive()) Transaction.rollback();
+				}
+				
 			}
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block

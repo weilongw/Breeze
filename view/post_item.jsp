@@ -9,16 +9,8 @@
     </div>
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span3 bs-docs-sidebar">
-				<ul class="nav nav-list bs-docs-sidenav">
-					<li><a href="showProfile.do"><i class="icon-chevron-right"></i>User Info</a></li>
-					<li class="active"><a href="postItem.do"><i class="icon-chevron-right"></i>Post</a></li>
-					<li><a href="showMyItems.do"><i class="icon-chevron-right"></i>My Item</a></li>
-                    <li><a href="showMyCommunity.do"><i class="icon-chevron-right"></i>My Community</a></li>
-					<li><a href="showMessage.do"><i class="icon-chevron-right"></i>My Message</a></li>
-				</ul>
-			</div>
-			<div class="span6" style="padding:20px">
+			
+			<div class="span8" style="padding-left:80px">
                 <jsp:include page="error.jsp" />
                 <jsp:include page="success.jsp" />
 				<div class="tabbable"><!-- Only required for left/right tabs -->
@@ -51,7 +43,7 @@
     				</div>
     			</div>
 			</div>
-            <div class="span3" id="movie">
+            <div class="span4" id="movie" style="padding-top:50px;">
                 <h4>Here shows the movie you are looking for</h4>
             </div>
 		</div>

@@ -132,7 +132,7 @@ public class PostItemAction extends Action{
 					newTopic.setPostDate(new Date());
 					newTopic = topicDAO.create(newTopic);
 					String url = "<a href=showItems.do?itemId=" + newItem.getId() + ">link</a>";
-					String content = "Item: " + newItem.getItemName() + " was just post, click the " + url + " to view it.";
+					String content = "Item: " + newItem.getItemName() + " was just posted, click the " + url + " to view it.";
 					newPost.setContent(content);
 					newPost.setPoster(poster);
 					newPost.setTopic(newTopic);

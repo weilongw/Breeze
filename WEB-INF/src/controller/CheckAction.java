@@ -75,13 +75,7 @@ public class CheckAction extends Action{
 			String comm = form.getValue();
 			if (comm.trim().length() == 0)
 				msgs.add("community name cannot be blank");
-			Pattern p = Pattern.compile("[^a-zA-Z0-9]");
-			boolean hasSpecialChar = p.matcher(comm).find();
-			//boolean hasNonAlpha = userName.matches("^.*[^a-zA-Z0-9 ].*$");
-			if (hasSpecialChar) {
-				System.out.println("here");
-				msgs.add("Community name can only contain characters and digits");
-			}
+			
 			if (msgs.size() != 0) return "ajaxCheck.jsp";
 			try {
 				Community old_comm = communityDAO.lookup(comm);
