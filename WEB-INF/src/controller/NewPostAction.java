@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import model.Model;
 import model.PostDAO;
 import model.TopicDAO;
+import model.MessageDAO;
+import model.UserDAO;
 
 import org.mybeans.dao.DAOException;
+import org.mybeans.factory.RollbackException;
 import org.mybeans.forms.FormBeanFactory;
 
 import databean.Post;
@@ -24,10 +27,14 @@ public class NewPostAction extends Action{
 
 	PostDAO postDAO;
 	TopicDAO topicDAO;
+	MessageDAO messageDAO;
+	UserDAO userDAO;
 	
 	public NewPostAction(Model model){
 		postDAO = model.getPostDAO();
 		topicDAO = model.getTopicDAO();
+		messageDAO = model.getMessageDAO();
+		userDAO = model.getUserDAO();
 	}
 	
 	@Override
@@ -80,6 +87,16 @@ public class NewPostAction extends Action{
 			request.setAttribute("posts", list);
 			String success = "Your post was created successfully";
 			request.setAttribute("success", success);
+			
+			if(!topic.getPoster().getUserName().equals(curUser.getUserName())){
+				System.out.println("get here!");
+				User sender = userDAO.lookup("Admin");
+				String title = "NOTICE: Topic Responded";
+				String content = curUser.getUserName() + " responded your topic: " + topic.getTitle() + " , click the "
+						+ "<a href=viewTopic.do?topicId=" + topic.getId() + ">link</a> to view it.";
+				
+				messageDAO.sendDirectly(sender, topic.getPoster(), title, content);
+			}
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			errors.add(e.getMessage());

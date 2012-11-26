@@ -78,7 +78,7 @@ public class ShowItemPageAction extends Action{
 	    		request.setAttribute("isOwner",isOwner);
 	    		return "item_page.jsp";
         	}
-        	else{
+        	else if(user != null){
         		int result = exchangeDAO.findExchangeResult(item);
         		if(result == 1){	// no one answer
         			if(item.getOwner().getUserName().equals(user.getUserName())){
@@ -96,7 +96,7 @@ public class ShowItemPageAction extends Action{
         	    		return "item_page.jsp";
         			}      				
         		}
-        		else if(result == 2){
+        		else{
         			if(item.getOwner().getUserName().equals(user.getUserName())){
         				Item requested;
         	        	Item posted;
@@ -126,10 +126,6 @@ public class ShowItemPageAction extends Action{
         	    		request.setAttribute("isOwner",0);
         	    		return "item_page.jsp";
         			}      				
-        		}
-        		else{
-	        		errors.add("Invalid operation.");
-	        		return "browse.do";
         		}
         	}
 		} catch (DAOException e) {
