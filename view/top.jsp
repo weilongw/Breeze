@@ -167,7 +167,7 @@
 						</div>
 					</li>
 					<li class="divider-vertical"></li>
-					<li><a href="register.jsp">Sign up</a></li>
+					<li><a href="register.do">Sign up</a></li>
 					<li class="divider-vertical"></li>
 					</c:if>
 				</ul>
