@@ -6,6 +6,7 @@ import java.util.Date;
 import org.mybeans.dao.DAOException;
 import org.mybeans.factory.BeanFactory;
 import org.mybeans.factory.BeanTable;
+import org.mybeans.factory.DuplicateKeyException;
 import org.mybeans.factory.MatchArg;
 import org.mybeans.factory.RollbackException;
 import org.mybeans.factory.Transaction;
@@ -96,6 +97,24 @@ public class MessageDAO {
 		Message msg = factory.lookup(messageID);
 		msg.setHasRead(1);
 			
+	}
+	
+	public void sendDirectly(User sender, User receiver, String title, String content) throws DAOException{
+		try {
+        	Transaction.begin();
+			Message msg = new Message();
+			msg.setSender(sender);
+			msg.setReceiver(receiver);
+			msg.setSentDate(new Date());
+			msg.setTitle(title);
+			msg.setContent(content);
+			create(msg);
+			Transaction.commit();
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
 	}
 	
 }

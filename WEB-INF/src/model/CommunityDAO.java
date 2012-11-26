@@ -76,6 +76,16 @@ public class CommunityDAO {
 		return part;
 	}
 	
+	public Community[] getCommunityByMovie(String rM) throws DAOException{
+		try {
+			Community[] result = factory.match(MatchArg.contains("relatedMovie", rM));
+			return result;
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e);
+		}
+	}
+		
 	public Community[] search(String key) throws DAOException {
 		try {
 			Community[] oResults = factory.match(MatchArg.containsIgnoreCase("name", key));

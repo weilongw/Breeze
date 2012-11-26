@@ -50,6 +50,7 @@ public class Controller extends HttpServlet {
         Action.add(new PaginateMsgAction(model));
         Action.add(new CheckAction(model));
         Action.add(new AjaxReadAction(model));
+        Action.add(new ShowMyCommunityAction(model));
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -8,13 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import org.mybeans.dao.DAOException;
 import org.mybeans.forms.FormBeanFactory;
 
+import databean.Community;
 import databean.Item;
+import databean.Post;
+import databean.Topic;
 import databean.User;
 
 import formbeans.PostItemForm;
 
+import model.CommunityDAO;
 import model.ItemDAO;
 import model.Model;
+import model.PostDAO;
+import model.TopicDAO;
 import model.UserDAO;
 
 public class PostItemAction extends Action{
@@ -22,10 +28,16 @@ public class PostItemAction extends Action{
 
 	private UserDAO userDAO;
 	private ItemDAO itemDAO;
+    private	CommunityDAO communityDAO;
+	private TopicDAO topicDAO;
+	private PostDAO postDAO;
 	
 	public PostItemAction(Model model){
 		userDAO = model.getUserDAO();
 		itemDAO = model.getItemDAO();
+		communityDAO = model.getCommunityDAO();
+		topicDAO = model.getTopicDAO();
+		postDAO = model.getPostDAO();
 	}
 	
 	
@@ -103,15 +115,43 @@ public class PostItemAction extends Action{
 		String success = "Your item was created successfully!";
 		request.setAttribute("success",success);
 		request.getSession().setAttribute("newItem", newItem);
-		
 	
+		String relatedMovie = newItem.getRelatedMovie();
+		if(relatedMovie.length() != 0){
+			try {
+				Community[] relatedCommunities = communityDAO.getCommunityByMovie(relatedMovie);
+				for(Community c:relatedCommunities){
+					Topic newTopic = new Topic();
+					Post newPost = new Post();
+					newTopic.setOwnerGroup(c);
+					User poster = userDAO.lookup("Admin");
+					newTopic.setPoster(poster);
+					newTopic.setReplyCount(1);
+					newTopic.setTitle("NOTICE: a related item was post.");
+					newTopic.setViewCount(0);
+					newTopic.setPostDate(new Date());
+					newTopic = topicDAO.create(newTopic);
+					String url = "<a href=showItems.do?itemId=" + newItem.getId() + ">link</a>";
+					String content = "Item: " + newItem.getItemName() + " was just post, click the " + url + " to view it.";
+					newPost.setContent(content);
+					newPost.setPoster(poster);
+					newPost.setTopic(newTopic);
+					newPost.setPostDate(new Date());
+					postDAO.create(newPost);
+					communityDAO.addTopic(c.getName());	
+				}
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				errors.add(e.getMessage());
+			}
+		}
 		try {
 			curUser = userDAO.lookup(curUser.getUserName());
 			request.getSession().setAttribute("user", curUser);
 		} catch (DAOException e) {
 		}
-		
 
+		
     	return "upload_image.jsp";
 
 	}

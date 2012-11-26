@@ -85,7 +85,7 @@ public class UploadImageAction extends Action{
 		} catch (DAOException e) {
 		}
 		
-		return "showMyItems.do";
+		return "showItems.do?itemId=" + newItem.getId();
 	}
 
 }

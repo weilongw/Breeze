@@ -14,6 +14,7 @@ import org.mybeans.factory.Transaction;
 
 import databean.Community;
 import databean.Topic;
+import databean.User;
 
 public class TopicDAO {
 
@@ -80,6 +81,18 @@ public class TopicDAO {
 		for (int i = 0; i < 10; i++)
 			part[i] = all[i];
 		return part;
+	}
+	
+	public Topic[] getMyTopic(User user) throws DAOException{
+		try {
+			Topic[] oResults = factory.match(MatchArg.equals("poster", user));
+			List<Topic> list = Arrays.asList(oResults);
+			Collections.sort(list, Topic.REVERSE_TIMEORDER);
+			Topic[] results = (Topic[]) list.toArray();
+			return results;
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}		
 	}
 	
 	public Topic[] search(String key) throws DAOException {

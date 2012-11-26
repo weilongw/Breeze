@@ -150,7 +150,7 @@ public class BuyItemAction extends Action{
 				User owner = item.getOwner();
 				Transaction.begin();
 				int exchangeId = exchangeDAO.openPendingTransaction(item, curUser, buyType);
-				String url = "<a href=&quot;http://localhost:8080/Breeze/complete.do?exchangeId=" + exchangeId + "&quot;>link</a>";
+				String url = "<a href=complete.do?exchangeId=" + exchangeId + ">link</a>";
 				String[] buyTypeName = {"exchange with items", "exchange for credits", "exchange with items"};
 				
 				String content = "Your item (" + item.getItemName() + ") has been responded " +
