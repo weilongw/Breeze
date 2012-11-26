@@ -850,6 +850,7 @@ dt {
 
 dd {
   margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .dl-horizontal {
@@ -869,7 +870,8 @@ dd {
 
 .dl-horizontal dt {
   float: left;
-  width: 160px;
+  margin-bottom: 10px;
+  width: 180px;
   overflow: hidden;
   clear: left;
   text-align: right;
@@ -878,7 +880,7 @@ dd {
 }
 
 .dl-horizontal dd {
-  margin-left: 180px;
+  margin-left: 200px;
 }
 
 hr {

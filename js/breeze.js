@@ -74,7 +74,10 @@ function update_movie() {
 			attributes[i].nodeName +": </strong></td><td>" + attributes[i].nodeValue +"</td>";
 	}
 	document.getElementById("legend_title").innerHTML=attributes.getNamedItem("title").nodeValue;
-	document.getElementById("movie_poster").src=attributes.getNamedItem("poster").nodeValue;
+	//document.getElementById("movie_poster").src=attributes.getNamedItem("poster").nodeValue;
+	var img_src = document.createAttribute("src");
+	img_src.value = attributes.getNamedItem("poster").nodeValue;
+	document.getElementById("movie_poster").setAttributeNode(img_src);
 	request = createRequest();
 }
 
@@ -189,9 +192,8 @@ function markAsRead() {
 }
 
 function show_xchg() {
-
-	document.getElementById("xchg").innerHTML = "<strong>Item Exchange Description</strong> \
-												<br/><p>" + document.getElementById("xchgMsg").value + "</p>";
+	document.getElementById("xchg_title").innerHTML="Item Exchange Detail:";
+	document.getElementById("xchg").innerHTML = document.getElementById("xchgMsg").value;
 }
 
 function waiting(hint) {
