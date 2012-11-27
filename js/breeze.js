@@ -322,6 +322,19 @@ function validate_same(text) {
 	}
 }
 
+function validate_email() {
+	var email = document.getElementById("email").value;
+	var re = new RegExp("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+	if (email == "") {
+		document.getElementById("emailHint").innerHTML="email cannot be blank";
+	} else if (!re.test(email)) {
+		document.getElementById("emailHint").innerHTML="Invalid email address";
+	} else {
+		document.getElementById("emailHint").innerHTML="<img src=\"img/correct.gif\" style=\"max-width:20px\">";
+	}
+}
+
 function validateForm() {
 	var fname=document.getElementById("uploadFname").value;
 	if (fname==null || fname == "" ) {

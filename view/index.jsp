@@ -107,7 +107,7 @@
     						<c:if test="${!empty (allItemList)}">
     						<c:forEach var="item" items="${allItemList}" begin="${itemStart}" end="${itemEnd}">  
     						<li class="span4" style="margin-left:0">
-                            <div class="thumbnail" style="height:300px;">
+                            <div class="thumbnail" style="height:30 0px;">
                                 <div style="width:240px; height:160px; text-align:center">
                                   <a href="showItems.do?itemId=${item.id}"><img src="img/item/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt=""></a>
                                 </div>
