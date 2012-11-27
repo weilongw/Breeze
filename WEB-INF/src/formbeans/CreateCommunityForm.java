@@ -43,7 +43,13 @@ public class CreateCommunityForm {
 		}
 		if (errors.size() != 0 ) return errors;
 		
+		if (name.length() > 50){
+			errors.add("Community name is too long.");
+		}
 		
+		if (info.length() > 250){
+			errors.add("Welcome info is too long.");
+		}
 		return errors;
 	}
 }
