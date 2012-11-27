@@ -26,7 +26,7 @@
 					<div class="control-group">
 						<label class="control-label">Email</label>
 						<div class="controls">
-							<input class="span4" type="text" id="email" name="email" value="${form.email}" onfocus="waiting('emailHint');" onblur="validate_blank('email');">&nbsp;<span class="text-error" id="emailHint"></span>
+							<input class="span4" type="text" id="email" name="email" value="${form.email}" onfocus="waiting('emailHint');" onblur="validate_email();">&nbsp;<span class="text-error" id="emailHint"></span>
 						</div>
 					</div>
 					<div class="control-group">

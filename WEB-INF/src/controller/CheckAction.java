@@ -52,11 +52,13 @@ public class CheckAction extends Action{
 			String userName = form.getValue();
 			if (userName.trim().length() == 0)
 				msgs.add("username cannot be blank");
+			if (userName.length() > 15)
+				msgs.add("username is too long, at most 15 characters");
 			Pattern p = Pattern.compile("[^a-zA-Z0-9]");
 			boolean hasSpecialChar = p.matcher(userName).find();
 			//boolean hasNonAlpha = userName.matches("^.*[^a-zA-Z0-9 ].*$");
 			if (hasSpecialChar) {
-				System.out.println("here");
+				
 				msgs.add("username can only contain characters and digits");
 			}
 			if (msgs.size() != 0) return "ajaxCheck.jsp";
