@@ -96,6 +96,7 @@ public class NewPostAction extends Action{
 						+ "<a href=viewTopic.do?topicId=" + topic.getId() + ">link</a> to view it.";
 				
 				messageDAO.sendDirectly(sender, topic.getPoster(), title, content);
+				
 				try {
 					Transaction.begin();
 					userDAO.updateNewMsgCount( topic.getPoster().getUserName(), 1);

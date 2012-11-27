@@ -19,6 +19,7 @@ public class Model {
 	private PostDAO postDAO;
 	private RelationDAO relationDAO;
 	
+	
 	public Model(ServletConfig config) throws ServletException {
 		String jdbcDriver = config.getInitParameter("jdbcDriver");
 		String jdbcURL    = config.getInitParameter("jdbcURL");
