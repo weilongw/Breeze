@@ -114,8 +114,8 @@ public class BuyItemAction extends Action{
 				exchangeDAO.createSuccessTransaction(item, curUser);
 				exchangeDAO.closeItemTransaction(item);
 				messageDAO.send(admin, owner, "Your item has been sold", 
-								"Your item: " + item.getItemName() +" has been bought by "
-								+ curUser.getUserName() + " and transaction now is closed.");
+								"Your item (" + item.getItemName() +") has been bought by <a href=&quot;redirectSend.do?receiver="
+								+ curUser.getUserName() + "&title=About "+item.getItemName() + "&quot;>" + curUser.getUserName() +"</a> and transaction now is closed.");
 				userDAO.updateNewMsgCount(owner.getUserName(), 1);
 				messageDAO.send(admin, curUser, "You won the item", 
 								"You have just won the item " + item.getItemName()
@@ -154,14 +154,17 @@ public class BuyItemAction extends Action{
 				String[] buyTypeName = {"exchange with items", "exchange for credits", "exchange with items"};
 				
 				String content = "Your item (" + item.getItemName() + ") has been responded " +
-						"by " + curUser.getUserName() +  
-						", who agreed to " + buyTypeName[buyType - 2] + ". Click this " + url +
+						"by <a href=&quot;redirectSend.do?receiver="
+								+ curUser.getUserName() + "&title=About "+item.getItemName() + "&quot;>" + curUser.getUserName() + 
+						"</a>, who agreed to " + buyTypeName[buyType - 2] + ". Click this " + url +
 								" if you want to make a transaction with him.";
-				System.out.println(content.length());
+				//System.out.println(content.length());
 				
 				
-				String content2 = "The item: " + item.getItemName() + " you requested has been sent " +
-						"to the user: " + item.getOwner().getUserName() + ", email: " + item.getOwner().getEmail() + 
+				String content2 = "Your request on " + item.getItemName() + " has been sent " +
+						"to <a href=&quot;redirectSend.do?receiver="
+								+ item.getOwner().getUserName() + "&title=About "+item.getItemName() + "&quot;>" + item.getOwner().getUserName() + 
+						"</a>, email: " + item.getOwner().getEmail() + 
 						". You agreed to " + buyTypeName[buyType - 2] + ". You will get automatically message notification" +
 								" if the item owner makes the transaction with you.";
 				
