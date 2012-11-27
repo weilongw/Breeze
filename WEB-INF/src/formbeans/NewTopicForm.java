@@ -35,6 +35,13 @@ public class NewTopicForm {
 		if (communityName == null || communityName.trim().length() == 0) {
 			errors.add("Community Name is required");
 		}
+		
+		if (errors.size() != 0 ) return errors;
+		
+		if (title.length() > 50){
+			errors.add("Topic title is too long.");
+		}
+		
 		return errors;
 	}
 

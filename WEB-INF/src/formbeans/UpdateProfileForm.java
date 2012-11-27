@@ -2,6 +2,7 @@ package formbeans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class UpdateProfileForm {
 	private String address;
@@ -9,6 +10,11 @@ public class UpdateProfileForm {
 	private String confirmEmail;
 	private String password;
 	private String confirmPwd;
+	
+	private static final String EMAIL_PATTERN = 
+			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
 	 
 	public String getAddress() {
 		return address;
@@ -75,6 +81,16 @@ public class UpdateProfileForm {
 		
 		if (!email.equals(confirmEmail)) {
 			errors.add("Emails are not the same");
+		}
+		
+		if(address.length() > 250){
+			errors.add("Address is too long");
+		}
+		
+		Pattern pForEmail = Pattern.compile(EMAIL_PATTERN);
+		boolean emailValidate = pForEmail.matcher(email).find();
+		if (!emailValidate) {
+			errors.add("Invalid email address");
 		}
 		
 		return errors;
