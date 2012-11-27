@@ -42,7 +42,7 @@ public class MessageDAO {
 		try {
 			FakeMessage[] list = factory.match();
 			Message[] ret = new Message[list.length];
-			for (int i = 0; i < list.length; i++)
+			for (int i = 0; i < list.length; i++) 
 				ret[i] = Message.toMessage(list[i]);
 			Arrays.sort(ret);
 			return ret;

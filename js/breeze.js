@@ -174,8 +174,21 @@ function enable_text(text, isChecked) {
 function show_msg(which, msg_id, date, hasRead) {
 	
     document.getElementById("user" + which).innerHTML = document.getElementById(msg_id + "user").value;
-    document.getElementById("title"+ which).innerHTML = document.getElementById(msg_id + "title").value;
-    document.getElementById("content" + which).innerHTML = document.getElementById(msg_id + "content").value;
+
+    if (document.getElementById(msg_id + "user").value == "Admin") {
+    	document.getElementById("title" + which).innerHTML = document.getElementById(msg_id + "title").value;
+    	document.getElementById("content" + which).innerHTML = document.getElementById(msg_id + "content").value;
+    }
+    else {
+	    document.getElementById("title" + which).innerHTML="";
+	    var title = document.createTextNode(document.getElementById(msg_id + "title").value);
+	    document.getElementById("title" + which).appendChild(title);
+
+	    document.getElementById("content" + which).innerHTML="";
+	    var content = document.createTextNode(document.getElementById(msg_id + "content").value);
+	    document.getElementById("content" + which).appendChild(content);
+    }
+
     document.getElementById("date" + which).innerHTML = date;
     if (which =='1') {
     	document.getElementById("reply-btn").innerHTML="<a href=\"redirectSend.do?receiver=" + document.getElementById(msg_id + "user").value 
@@ -227,7 +240,9 @@ function markAsRead() {
 
 function show_xchg() {
 	document.getElementById("xchg_title").innerHTML="Item Exchange Detail:";
-	document.getElementById("xchg").innerHTML = document.getElementById("xchgMsg").value;
+	var xchg = document.createTextNode(document.getElementById("xchgMsg").value);
+	document.getElementById("xchg").innerHTML = "";
+	document.getElementById("xchg").appendChild(xchg);
 }
 
 function waiting(hint) {
