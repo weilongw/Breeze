@@ -150,14 +150,14 @@ public class BuyItemAction extends Action{
 				User owner = item.getOwner();
 				Transaction.begin();
 				int exchangeId = exchangeDAO.openPendingTransaction(item, curUser, buyType);
-				String url = "<a href=complete.do?exchangeId=" + exchangeId + ">link</a>";
+				String url = "<a href=&quot;complete.do?exchangeId=" + exchangeId + "&quot;>link</a>";
 				String[] buyTypeName = {"exchange with items", "exchange for credits", "exchange with items"};
 				
 				String content = "Your item (" + item.getItemName() + ") has been responded " +
 						"by " + curUser.getUserName() +  
 						", who agreed to " + buyTypeName[buyType - 2] + ". Click this " + url +
 								" if you want to make a transaction with him.";
-				//System.out.println(content.length());
+				System.out.println(content.length());
 				
 				
 				String content2 = "The item: " + item.getItemName() + " you requested has been sent " +

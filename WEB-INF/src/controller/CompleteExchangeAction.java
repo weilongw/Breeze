@@ -97,15 +97,17 @@ public class CompleteExchangeAction extends Action {
 			messageDAO.send(admin, curUser, "Transaction complete", 
 							"You have accepted the request from (" + xchg.getResponder().getUserName()
 							+ "). Your item (" + item.getItemName() + ") is now closed.");
+			userDAO.updateNewMsgCount(curUser.getUserName(), 1);
 			messageDAO.send(admin, xchg.getResponder(), "Transaction complete", 
 							"The owner of item (" + item.getItemName() + 
 							"has accepted your request");
 			
-			
+			userDAO.updateNewMsgCount(xchg.getResponder().getUserName(), 1);
 			Exchange[] pending = exchangeDAO.findItemPendingTransactions(item);
 			for (Exchange each : pending) {
 				messageDAO.send(admin, each.getResponder(), "Transaction dismissed",
 								"The item (" + item.getItemName() + ") you have reponded to is now closed");
+				userDAO.updateNewMsgCount(each.getResponder().getUserName(), 1);
 			}
 			exchangeDAO.closeItemTransaction(item);
 			Transaction.commit();
