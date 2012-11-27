@@ -34,15 +34,7 @@ public class HomeAction extends Action {
 			}
 		}
 		
-		String hello = "hello world";
-		byte[] haha = null;
-		try {
-			haha = hello.getBytes("ISO-8859-1");
-		} catch (UnsupportedEncodingException e) {
-			
-			e.printStackTrace();
-		}
-		String str = new String(haha); 
+		
 		return "home.jsp";
 	}
 
