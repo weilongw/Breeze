@@ -32,6 +32,14 @@ public class MessageForm {
 		if (content == null || content.trim().length() == 0) {
 			errors.add("content is required");
 		}
+		
+		if (errors.size() != 0 ) return errors;
+		
+		if (title.length() > 50){
+			errors.add("Message title is too long.");
+		}
+		
+		
 		return errors;
 	}
 	

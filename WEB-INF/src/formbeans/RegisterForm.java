@@ -12,7 +12,9 @@ public class RegisterForm {
 	private String password;
 	private String passwordConfirm;
 	
-	
+	private static final String EMAIL_PATTERN = 
+			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
 	public String getUserName() {
 		return userName;
@@ -68,7 +70,8 @@ public class RegisterForm {
 		if (userName == null || userName.trim().length() == 0) {
 			errors.add("User name is required");
 		}
-
+	
+		
 		if (address == null || address.trim().length() == 0) {
 			errors.add("Address is required");
 		}
@@ -101,14 +104,24 @@ public class RegisterForm {
 			errors.add("Emails are not the same");
 		}
 		
-		if (userName.length() > 10) {
+		if (userName.length() > 15) {
 			errors.add("Username is too long");
+		}
+		
+		if(address.length() > 250){
+			errors.add("Address is too long");
 		}
 		
 		Pattern p = Pattern.compile("[^a-zA-Z0-9]");
 		boolean hasSpecialChar = p.matcher(userName).find();
 		if (hasSpecialChar) {
 			errors.add("username can only contain characters and digits");
+		}
+		
+		Pattern pForEmail = Pattern.compile(EMAIL_PATTERN);
+		boolean emailValidate = pForEmail.matcher(email).find();
+		if (!emailValidate) {
+			errors.add("Invalid email address");
 		}
 		
 		return errors;
