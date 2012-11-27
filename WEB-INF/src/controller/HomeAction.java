@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import model.Model;
@@ -31,6 +33,16 @@ public class HomeAction extends Action {
 			} catch (DAOException e) {
 			}
 		}
+		
+		String hello = "hello world";
+		byte[] haha = null;
+		try {
+			haha = hello.getBytes("ISO-8859-1");
+		} catch (UnsupportedEncodingException e) {
+			
+			e.printStackTrace();
+		}
+		String str = new String(haha); 
 		return "home.jsp";
 	}
 

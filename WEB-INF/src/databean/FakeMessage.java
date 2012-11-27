@@ -2,25 +2,21 @@ package databean;
 
 import java.util.Date;
 
-public class Message implements Comparable<Message> {
+public class FakeMessage implements Comparable<FakeMessage> {
+
 	private int id;		// primary key
 	private User sender;
 	private User receiver;
-	private String content;
+	private byte[] content;
 	private String title;
 	private int hasRead = 0;
 	private Date sentDate;
 	
-	
 	@Override
-	public int compareTo(Message o) {
+	public int compareTo(FakeMessage o) {
 		return -sentDate.compareTo(o.sentDate);
 	}
 	
-	/*
-	public int compareTo(Object other){
-		return -sentDate.compareTo(((Message)other).sentDate);
-	}*/
 	public int getId() {
 		return id;
 	}
@@ -39,10 +35,10 @@ public class Message implements Comparable<Message> {
 	public void setReceiver(User receiver) {
 		this.receiver = receiver;
 	}
-	public String getContent() {
+	public byte[] getContent() {
 		return content;
 	}
-	public void setContent(String content) {
+	public void setContent(byte[] content) {
 		this.content = content;
 	}
 	public String getTitle() {
@@ -63,17 +59,5 @@ public class Message implements Comparable<Message> {
 	public void setSentDate(Date sentDate) {
 		this.sentDate = sentDate;
 	}
-	
-	public static Message toMessage(FakeMessage o) {
-		Message ret = new Message();
-		ret.id = o.getId();
-		ret.receiver = o.getReceiver();
-		ret.sender = o.getSender();
-		ret.hasRead = o.getHasRead();
-		ret.sentDate = o.getSentDate();
-		ret.title = o.getTitle();
-		ret.content = new String(o.getContent());
-		return ret;
-	}
-	
+
 }
