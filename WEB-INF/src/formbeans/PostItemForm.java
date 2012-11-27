@@ -94,6 +94,14 @@ public class PostItemForm {
 			errors.add("Item name is too long");
 		}
 		
+		if(itemDescription.length() > 250){
+			errors.add("Item description is too long.");
+		}
+		
+		if(forExchange != null && exchangeDescription.trim().length() > 250){
+			errors.add("Exchange discription is too long.");
+		}
+		
 		return errors;
 	}
 	
