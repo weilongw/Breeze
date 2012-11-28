@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import databean.Item;
+
 public class PostItemForm {
 	
 	private String itemName;
@@ -46,6 +48,11 @@ public class PostItemForm {
 	/*	if (relatedMovie == null || relatedMovie.trim().length() == 0) {
 			errors.add("Related Movie is required");
 		}*/
+		
+		if (relatedMovie == null) {
+			errors.add("related movie is required");
+		}
+		
 		if (relatedMovie != null && relatedMovie.trim().length() != 0) {
 			if (!relatedMovie.matches("tt\\d{7}")) {
 				errors.add("Invalid imdb id");
@@ -86,11 +93,14 @@ public class PostItemForm {
 			errors.add("Exchange discription is required.");
 		
 		try {
-			Integer.parseInt(postType);
+			int type = Integer.parseInt(postType);
+			if (type != Item.POST && type != Item.REQUEST) {
+				errors.add("Invalid post type");
+			}
 		}catch (NumberFormatException e) {
 			errors.add("Invalid post type");
 		}
-		
+		if (errors.size() != 0) return errors;
 		if (itemName.length() > 30) {
 			errors.add("Item name is too long");
 		}

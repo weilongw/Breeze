@@ -20,7 +20,7 @@ public class Item implements Comparable<Item>{
 	private String itemDescription;
 	private String exchangeItemDescription;	
 	private int category;
-	private String imgName;
+	private String imgName = "default.jpg";
 	private Date postDate;
 	private int credit = -1;
 	private int type;	// whether the item is posted as on sale or being requested

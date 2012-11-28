@@ -63,11 +63,11 @@ public class UpdateProfileForm {
 			errors.add("Confirm Email is required");
 		}
 		
-		if (password == null || password.length() == 0) {
+		if (password == null || password.trim().length() == 0) {
 			errors.add("Password is required");
 		}
 
-		if (confirmPwd == null || confirmPwd.length() == 0) {
+		if (confirmPwd == null || confirmPwd.trim().length() == 0) {
 			errors.add("Confirm password is required");
 		}
 		

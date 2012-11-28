@@ -67,13 +67,20 @@ public class PostItemAction extends Action{
         } catch (DAOException e) {
         	errors.add(e.getMessage());
         }
+        try {
+        	int type = Integer.parseInt(form.getPostType());
+        	if (type != Item.POST && type != Item.REQUEST) {
+        		errors.add("Invalid post type");
+        	}
+        } catch (NumberFormatException e) {
+        	errors.add("Invalid post type");
+        }
+        if (errors.size() != 0) return "post_item.jsp";
         
         if (form.getPostTypeAsInt() == Item.POST)
         	request.setAttribute("postForm",form);
         else 
         	request.setAttribute("requestForm", form);
-        	
-        
         
         errors.addAll(form.getValidationErrors());
         
@@ -81,6 +88,7 @@ public class PostItemAction extends Action{
             return "post_item.jsp";
         }
         
+ 
         
         if (form.getPostTypeAsInt() == Item.REQUEST && form.getForCredit() != null) {
         	int forCredit = Integer.parseInt(form.getCredit());
