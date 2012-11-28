@@ -2,6 +2,7 @@ package formbeans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class NewTopicForm {
 	
@@ -42,6 +43,11 @@ public class NewTopicForm {
 			errors.add("Topic title is too long.");
 		}
 		
+		/*Pattern p = Pattern.compile("[^a-zA-Z0-9 _'-:,.!?;()~=+@*]");
+		boolean hasSpecialChar = p.matcher(title).find();
+		if (hasSpecialChar) {
+			errors.add("topic title can only contain characters, digits, and regular symbols");
+		}*/
 		return errors;
 	}
 

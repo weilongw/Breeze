@@ -2,6 +2,7 @@ package formbeans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class PostItemForm {
 	
@@ -93,6 +94,11 @@ public class PostItemForm {
 		if (itemName.length() > 30) {
 			errors.add("Item name is too long");
 		}
+		/*Pattern p = Pattern.compile("[^a-zA-Z0-9 _'-:,.!?;()~=+@*]");
+		boolean hasSpecialChar = p.matcher(itemName).find();
+		if (hasSpecialChar) {
+			errors.add("Item name can only contain characters, digits, and regular symbols" );
+		}*/
 		
 		if(itemDescription.length() > 250){
 			errors.add("Item description is too long.");

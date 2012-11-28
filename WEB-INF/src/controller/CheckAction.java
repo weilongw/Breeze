@@ -78,6 +78,12 @@ public class CheckAction extends Action{
 			if (comm.trim().length() == 0)
 				msgs.add("community name cannot be blank");
 			
+			Pattern p = Pattern.compile("[^a-zA-Z0-9 _':]");
+			boolean hasSpecialChar = p.matcher(comm).find();
+			if (hasSpecialChar) {
+				msgs.add("community name can only contain characters, digits, spaces and underscore");
+			}
+			
 			if (msgs.size() != 0) return "ajaxCheck.jsp";
 			try {
 				Community old_comm = communityDAO.lookup(comm);

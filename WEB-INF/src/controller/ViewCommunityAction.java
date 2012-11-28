@@ -52,7 +52,7 @@ public class ViewCommunityAction extends Action {
 			errors.add(e.getMessage());
 			return "browseCommunity.do";
 		}
-		
+		System.out.println("haha" + form.getName());
 		if (comm == null) {
 			errors.add("Community named " + form.getName() + " not found");
 			return "browseCommunity.do";

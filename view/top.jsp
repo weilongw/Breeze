@@ -147,10 +147,14 @@
 					<li class="divider-vertical"></li>
 					
 						<li>
-							<a href="showMessage.do"><i class="icon-envelope"></i>&nbsp;&nbsp;<span id="headCount">${sessionScope.user.newMsgCount}</span>
+							<a href="showMessage.do" title="new message"><i class="icon-envelope"></i>&nbsp;&nbsp;<span id="headCount">${sessionScope.user.newMsgCount}</span>
 							</a>
+
 						</li>
-					
+						<li class="divider-vertical"></li>
+						<li>
+						<a href="#" title="credit"><i class="icon-gift"></i>&nbsp;&nbsp;<span>${sessionScope.user.credit}</span></a>
+						</li>
 					</c:if>
 					<c:if test="${empty(sessionScope.user)}">
 					<li class="dropdown">

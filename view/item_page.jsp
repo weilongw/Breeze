@@ -17,6 +17,8 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span3 bs-docs-sidebar">
+        <big><a href="postItem.do">Post your own item</a></big>
+                    <p>&nbsp;</p>
 				<ul class="nav nav-list bs-docs-sidenav">
 				<c:if test="${!empty (posted)}">
 
@@ -69,7 +71,7 @@
   							</c:choose>
   							<dt>Poster :</dt>
   							<dd> ${posted.owner.userName} &nbsp;&nbsp;<c:if test="${isOwner==0}">			
-							<a  href="redirectSend.do?receiver=${posted.owner.userName}&title=About ${posted.itemName}">Send him/her a message..</a>	
+							<a  href="redirectSend.do?receiver=${posted.owner.userName}">Send him/her a message..</a>	
 							</c:if></dd>
 							<dt>Item Description: </dt>
 							<dd>${posted.itemDescription}</dd>
@@ -146,7 +148,7 @@
   							</c:choose>
   							<dt>Poster :</dt>
   							<dd> ${requested.owner.userName} &nbsp;&nbsp;<c:if test="${isOwner==0}">			
-							<a  href="redirectSend.do?receiver=${requested.owner.userName}&title=About ${requested.itemName}">Send him/her a message..</a>	
+							<a  href="redirectSend.do?receiver=${requested.owner.userName}">Send him/her a message..</a>	
 							</c:if></dd>
 							<dt>Item Description: </dt>
 							<dd>${requested.itemDescription}</dd>

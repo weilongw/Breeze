@@ -76,7 +76,7 @@ public class CreateCommunityAction extends Action {
 			request.getSession().setAttribute("user", curUser);
 		} catch (DAOException e) {
 		}
-	
+		
 		return "viewCommunity.do?name=" + newCommunity.getName();
 	}
 

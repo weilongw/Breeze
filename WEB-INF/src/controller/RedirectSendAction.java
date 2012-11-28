@@ -45,7 +45,6 @@ public class RedirectSendAction extends Action {
 		}
 
 		newForm.setReceiver(form.getReceiver());
-		newForm.setTitle(form.getTitle());
 		
 		errors.addAll(form.getValidationErrors());
 		if (errors.size() != 0) return "showMessage.do";

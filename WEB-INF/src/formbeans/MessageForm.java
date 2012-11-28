@@ -2,6 +2,7 @@ package formbeans;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class MessageForm {
 
@@ -38,7 +39,11 @@ public class MessageForm {
 		if (title.length() > 50){
 			errors.add("Message title is too long.");
 		}
-		
+		/*Pattern p = Pattern.compile("[^a-zA-Z0-9 _'-:,.!?;()~=+@*]");
+		boolean hasSpecialChar = p.matcher(title).find();
+		if (hasSpecialChar) {
+			errors.add("Title can only contain characters, digits, and regular symbols" );
+		}*/
 		
 		return errors;
 	}

@@ -40,14 +40,34 @@
 								<c:forEach var="myPostedItem" items="${myPostedItems}"> 
 
     							<li class="span4" style="margin-left:0">
-									<div class="thumbnail" style="height:300;">
+									<div class="thumbnail" style="height:350px;">
 										<div style="width:240px;height:160px; text-align:center">
 											<a href="showItems.do?itemId=${myPostedItem.id}">
 										<img src="img/item/${myPostedItem.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt=""></a>
 										</div>
 										<div class="caption">
-										<a href="showItems.do?itemId=${myPostedItem.id}"><h3>${myPostedItem.itemName}</h3></a>
-										<p>${fn:substring(myPostedItem.itemDescription,0,30)}</p>
+										<a href="showItems.do?itemId=${myPostedItem.id}"><h3>
+											<c:choose>
+											<c:when test="${fn:length(myPostedItem.itemName) gt 18}">
+												${fn:substring(myPostedItem.itemName, 0, 18)}...
+											</c:when>
+											<c:otherwise>
+												${myPostedItem.itemName}
+											</c:otherwise>
+											</c:choose>
+											
+										</h3></a>
+										<p>
+											<c:choose>
+											<c:when test="${fn:length(myPostedItem.itemDescription) gt 30}">
+												${fn:substring(myPostedItem.itemDescription, 0, 30)}...
+											</c:when>
+											<c:otherwise>
+												${myPostedItem.itemDescription}
+											</c:otherwise>
+											</c:choose>
+											
+										</p>
 										<c:if test="${myPostedItem.status == 0}">
 										<form action="closeItem.do" method="post" onsubmit="return confirm('Do you really want to close this item?');">
 											<input type="hidden" name="itemId" value="${myPostedItem.id}">
@@ -65,14 +85,34 @@
    							<ul class="thumbnails">
 								<c:forEach var="myRequestedItem" items="${myRequestedItems}"> 
     							<li class="span4" style="margin-left:0">
-									<div class="thumbnail" style="height:300;">
+									<div class="thumbnail" style="height:350;">
 										<div style="width:240px;height:160px; text-align:center">
 											<a href="showItems.do?itemId=${myRequestedItem.id}">
 										<img src="img/item/${myRequestedItem.imgName}" style="max-width:240px; max-height:160px" alt=""></a>
 										</div>
 										<div class="caption">
-										<a href="showItems.do?itemId=${myRequestedItem.id}"><h3>${myRequestedItem.itemName}</h3></a>
-										<p>${fn:substring(myRequestedItem.itemDescription,0,30)}</p>
+										<a href="showItems.do?itemId=${myRequestedItem.id}"><h3>
+											<c:choose>
+											<c:when test="${fn:length(myRequestedItem.itemName) gt 18}">
+												${fn:substring(myRequestedItem.itemName, 0, 18)}...
+											</c:when>
+											<c:otherwise>
+												${myRequestedItem.itemName}
+											</c:otherwise>
+											</c:choose>
+											
+										</h3></a>
+										<p>
+											<c:choose>
+											<c:when test="${fn:length(myRequestedItem.itemDescription) gt 30}">
+												${fn:substring(myRequestedItem.itemDescription, 0, 30)}...
+											</c:when>
+											<c:otherwise>
+												${myRequestedItem.itemDescription}
+											</c:otherwise>
+											</c:choose>
+											
+										</p>
 										<c:if test="${myRequestedItem.status==0}">
 										<form action="closeItem.do" method="post" onsubmit="return confirm('Do you really want to close this item?');">
 											<input type="hidden" name="itemId" value="${myRequestedItem.id}">
@@ -95,8 +135,28 @@
 										<img src="img/item/${myPendingItem.imgName}" style="max-width:240px; max-height:160px" alt=""></a>
 										</div>
 										<div class="caption">
-										<a href="showItems.do?itemId=${myPendingItem.id}"><h3>${myPendingItem.itemName}</h3></a>
-										<p>${fn:substring(myPendingItem.itemDescription,0,30)}</p>
+											<a href="showItems.do?itemId=${myPendingItem.id}"><h3>
+											<c:choose>
+											<c:when test="${fn:length(myPendingItem.itemName) gt 18}">
+												${fn:substring(myPendingItem.itemName, 0, 18)}...
+											</c:when>
+											<c:otherwise>
+												${myPendingItem.itemName}
+											</c:otherwise>
+											</c:choose>
+											
+										</h3></a>
+										<p>
+											<c:choose>
+											<c:when test="${fn:length(myPendingItem.itemDescription) gt 30}">
+												${fn:substring(myPendingItem.itemDescription, 0, 30)}...
+											</c:when>
+											<c:otherwise>
+												${myPendingItem.itemDescription}
+											</c:otherwise>
+											</c:choose>
+											
+										</p>
 										</div>
 									</div>
 								</li>

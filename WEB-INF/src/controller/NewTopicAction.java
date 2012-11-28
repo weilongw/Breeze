@@ -113,7 +113,7 @@ public class NewTopicAction extends Action {
 		} catch (DAOException e) {
 		}
 
-		return "viewCommunity.do?name=" + comm.getName();
+		return "viewTopic.do?topicId=" + newTopic.getId();
 		
 	}
 

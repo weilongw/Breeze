@@ -37,9 +37,19 @@
 											${post.content}
 											</div>
 										<div class="p-content-bottom">
-											<div style="float:right;margin-left:10px">
+											<c:choose>
+											<c:when test="${post.poster.userName == sessionScope.user.userName}">
+												<div style="float:right;margin-left:10px">
+												reply
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div style="float:right;margin-left:10px">
 												<a href="#pform" onclick="smartReply('${post.poster.userName}');">reply</a>
-											</div>
+												</div>
+											</c:otherwise>
+											</c:choose>
+											
 											<div style="float:right; color:#777777">
 												@${post.postDate}
 											</div>

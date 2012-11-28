@@ -2,6 +2,7 @@ package formbeans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class CreateCommunityForm {
@@ -42,6 +43,12 @@ public class CreateCommunityForm {
 			}
 		}
 		if (errors.size() != 0 ) return errors;
+		
+		Pattern p = Pattern.compile("[^a-zA-Z0-9 _':]");
+		boolean hasSpecialChar = p.matcher(name).find();
+		if (hasSpecialChar) {
+			errors.add("community name can only contain characters, digits, spaces and underscore");
+		}
 		
 		if (name.length() > 50){
 			errors.add("Community name is too long.");

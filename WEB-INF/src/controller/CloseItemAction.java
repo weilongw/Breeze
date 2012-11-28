@@ -86,15 +86,14 @@ public class CloseItemAction extends Action {
 			Transaction.begin();
 			itemDAO.closeItem(item.getId());
 			Exchange[] pending = exchangeDAO.findItemPendingTransactions(item);
-			messageDAO.send(admin, item.getOwner(), "Item closed", 
-										"You have just canceled your item" +
-										item.getItemName());
+			String url1 = "<a href=&quot;showItems.do?itemId=" + item.getId() +"&quot;>item</a>";
+			messageDAO.send(admin, item.getOwner(), "Item (" + item.getItemName() + ") closed", 
+										"You have just canceled your " + url1);
 			userDAO.updateNewMsgCount(item.getOwner().getUserName(), 1);
 			for (Exchange xchg : pending) {
 				messageDAO.send(admin, xchg.getResponder(), 
-								"Item close notification", 
-								"The item you have responded to(" + item.getItemName() +
-								") is no longer available");
+								"Item (" + item.getItemName() + ") close notification", 
+								"This item you have responded to is no longer available");
 				userDAO.updateNewMsgCount(xchg.getResponder().getUserName(), 1);
 			}
 			exchangeDAO.closeItemTransaction(item);

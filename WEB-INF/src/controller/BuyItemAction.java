@@ -106,20 +106,21 @@ public class BuyItemAction extends Action{
 				userDAO.transferCredit(credit, curUser, owner);
 				Exchange[] pending = exchangeDAO.findItemPendingTransactions(item);
 				for (Exchange xchg : pending) {
-					messageDAO.send(admin, xchg.getResponder(), "Transaction dismissed", 
-									"The item (" + item.getItemName() + ") you have responded to is now closed");
+					messageDAO.send(admin, xchg.getResponder(), "Transaction on (" + item.getItemName()+") dismissed", 
+									"The item you have responded to is now closed");
 					userDAO.updateNewMsgCount(xchg.getResponder().getUserName(), 1);
 				}
 				//exchangeDAO.openPendingTransaction(item, curUser, Exchange.ANSWER_POST_WITH_CREDIT);
 				exchangeDAO.createSuccessTransaction(item, curUser);
 				exchangeDAO.closeItemTransaction(item);
-				messageDAO.send(admin, owner, "Your item has been sold", 
-								"Your item (" + item.getItemName() +") has been bought by <a href=&quot;redirectSend.do?receiver="
-								+ curUser.getUserName() + "&title=About "+item.getItemName() + "&quot;>" + curUser.getUserName() +"</a> and transaction now is closed.");
+				String url1 = "<a href=&quot;showItems.do?itemId=" + item.getId() +"&quot;>item</a>";
+				//String url2 = "<a href=&quot;showItems.do?itemId=" + item.getId() +"&quot;>" + item.getItemName() + "</a>";
+				messageDAO.send(admin, owner, "Your item (" + item.getItemName() + ") has been sold", 
+								"Your " + url1 + " has been bought by <a href=&quot;redirectSend.do?receiver="
+								+ curUser.getUserName() + "&quot;>" + curUser.getUserName() +"</a> and transaction now is closed.");
 				userDAO.updateNewMsgCount(owner.getUserName(), 1);
-				messageDAO.send(admin, curUser, "You won the item", 
-								"You have just won the item " + item.getItemName()
-								+ ". Congratulations.");
+				messageDAO.send(admin, curUser, "You won the item (" + item.getItemName() +")", 
+								"You have just won the "+ url1 +". Congratulations.");
 				userDAO.updateNewMsgCount(curUser.getUserName(), 1);
 				Transaction.commit();
 				request.setAttribute("success", "Transaction was successfully made. Your " +
@@ -148,29 +149,31 @@ public class BuyItemAction extends Action{
 			try {
 				
 				User owner = item.getOwner();
+				String url1 = "<a href=&quot;showItems.do?itemId=" + item.getId() +"&quot;>item</a>";
+				//String url2 = "<a href=&quot;showItems.do?itemId=" + item.getId() +"&quot;>" + item.getItemName() + "</a>";
 				Transaction.begin();
 				int exchangeId = exchangeDAO.openPendingTransaction(item, curUser, buyType);
 				String url = "<a href=&quot;complete.do?exchangeId=" + exchangeId + "&quot;>link</a>";
 				String[] buyTypeName = {"exchange with items", "exchange for credits", "exchange with items"};
 				
-				String content = "Your item (" + item.getItemName() + ") has been responded " +
+				String content = "Your " + url1 + " has been responded " +
 						"by <a href=&quot;redirectSend.do?receiver="
-								+ curUser.getUserName() + "&title=About "+item.getItemName() + "&quot;>" + curUser.getUserName() + 
+								+ curUser.getUserName() + "&quot;>" + curUser.getUserName() + 
 						"</a>, who agreed to " + buyTypeName[buyType - 2] + ". Click this " + url +
 								" if you want to make a transaction with him.";
 				//System.out.println(content.length());
 				
 				
-				String content2 = "Your request on " + item.getItemName() + " has been sent " +
+				String content2 = "Your request on " + url1 + " has been sent " +
 						"to <a href=&quot;redirectSend.do?receiver="
-								+ item.getOwner().getUserName() + "&title=About "+item.getItemName() + "&quot;>" + item.getOwner().getUserName() + 
+								+ item.getOwner().getUserName() + "&quot;>" + item.getOwner().getUserName() + 
 						"</a>, email: " + item.getOwner().getEmail() + 
 						". You agreed to " + buyTypeName[buyType - 2] + ". You will get automatically message notification" +
 								" if the item owner makes the transaction with you.";
 				
-				messageDAO.send(admin, owner, "Your item has been responded", content);
+				messageDAO.send(admin, owner, "Your item (" + item.getItemName() + ") has been responded", content);
 				userDAO.updateNewMsgCount(owner.getUserName(), 1);
-				messageDAO.send(admin, curUser, "Your request is accepted", content2);
+				messageDAO.send(admin, curUser, "Your request on (" + item.getItemName() + ") is accepted", content2);
 				userDAO.updateNewMsgCount(curUser.getUserName(), 1);
 				Transaction.commit();
 				

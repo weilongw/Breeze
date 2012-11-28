@@ -103,10 +103,14 @@ function update() {
 	request = createRequest();
 	if (request.readyState != 0) return;
 	
-	var url = "download.do?url=" + attributes.getNamedItem("poster").nodeValue + "&id=" + attributes[attributes.length - 1].nodeValue;
+	//var url = "download.do?url=" + attributes.getNamedItem("poster").nodeValue + "&id=" + attributes[attributes.length - 1].nodeValue;
+	var downurl = "download.do";
+	//alert(downurl);
 	request.onreadystatechange = download_movie;
-	request.open("GET", url, true);
-	request.send();
+	request.open("POST", downurl, true);
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send("url="+attributes.getNamedItem("poster").nodeValue
+				  +"&id=" + attributes[attributes.length - 1].nodeValue );
 
 	var movieDiv = document.getElementById("movie");
 	var movieHead = document.createElement("h4");
@@ -176,7 +180,10 @@ function show_msg(which, msg_id, date, hasRead) {
     document.getElementById("user" + which).innerHTML = document.getElementById(msg_id + "user").value;
 
     if (document.getElementById(msg_id + "user").value == "Admin") {
-    	document.getElementById("title" + which).innerHTML = document.getElementById(msg_id + "title").value;
+    	document.getElementById("title" + which).innerHTML="";
+	    var title = document.createTextNode(document.getElementById(msg_id + "title").value);
+	    document.getElementById("title" + which).appendChild(title);
+    	//document.getElementById("title" + which).innerHTML = document.getElementById(msg_id + "title").value;
     	document.getElementById("content" + which).innerHTML = document.getElementById(msg_id + "content").value;
     }
     else {
@@ -190,18 +197,29 @@ function show_msg(which, msg_id, date, hasRead) {
     }
 
     document.getElementById("date" + which).innerHTML = date;
+
     if (which =='1') {
-    	document.getElementById("reply-btn").innerHTML="<a href=\"redirectSend.do?receiver=" + document.getElementById(msg_id + "user").value 
-    													+ "&title=Reply:" + document.getElementById(msg_id + "title").value +"\">reply</a>";
+    	//alert(document.getElementById(msg_id + "title").value);
+    	if (document.getElementById(msg_id + "user").value == "Admin") {
+    		document.getElementById("reply-btn").innerHTML="reply";
+    	}
+    	else{
+    		//var title = document.createTextNode(document.getElementById(msg_id + "title").value);
+    		document.getElementById("reply-btn").innerHTML="<a href=\"redirectSend.do?receiver=" + document.getElementById(msg_id + "user").value 
+    													+ "\">reply</a>";
+    	}
+    	
     }
 
     if (hasRead == '0') {
 
 		if (request.readyState != 0) return;
-		var url = "read.do?msgId=" + msg_id;
+		//var url = "read.do?msgId=" + msg_id;
+		var readurl = "read.do"
 		request.onreadystatechange = markAsRead;
-		request.open("GET", url, true);
-		request.send();
+		request.open("POST", readurl, true);
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.send("msgId=" + msg_id);
     }
 }
 

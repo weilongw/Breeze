@@ -89,11 +89,11 @@ public class NewPostAction extends Action{
 			request.setAttribute("success", success);
 			
 			if(!topic.getPoster().getUserName().equals(curUser.getUserName())){
-				System.out.println("get here!");
+				
 				User sender = userDAO.lookup("Admin");
-				String title = "NOTICE: Topic Responded";
-				String content = curUser.getUserName() + " responded your topic: " + topic.getTitle() + " , click the "
-						+ "<a href=viewTopic.do?topicId=" + topic.getId() + ">link</a> to view it.";
+				String url = "<a href=viewTopic.do?topicId=" + topic.getId() + ">topic</a>";
+				String title = "NOTICE: Topic " + topic.getTitle() + " Responded";
+				String content = curUser.getUserName() + " responded your " +url;
 				
 				messageDAO.sendDirectly(sender, topic.getPoster(), title, content);
 				

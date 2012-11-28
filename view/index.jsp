@@ -107,12 +107,32 @@
     						<c:if test="${!empty (allItemList)}">
     						<c:forEach var="item" items="${allItemList}" begin="${itemStart}" end="${itemEnd}">  
     						<li class="span4" style="margin-left:0">
-                            <div class="thumbnail" style="height:30 0px;">
+                            <div class="thumbnail" style="height:300px;">
                                 <div style="width:240px; height:160px; text-align:center">
                                   <a href="showItems.do?itemId=${item.id}"><img src="img/item/${item.imgName}" style="max-width:240px; max-height:160px; vertical-align:middle" alt=""></a>
                                 </div>
-									<a href="showItems.do?itemId=${item.id}"><h3>${item.itemName}</h3></a>
-									<p>${fn:substring(item.itemDescription,0,30)}</p>
+									<a href="showItems.do?itemId=${item.id}"><h3>
+                                            <c:choose>
+                                            <c:when test="${fn:length(item.itemName) gt 18}">
+                                                ${fn:substring(item.itemName, 0, 18)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${item.itemName}
+                                            </c:otherwise>
+                                            </c:choose>
+                                            
+                                        </h3></a>
+                                        <p>
+                                            <c:choose>
+                                            <c:when test="${fn:length(item.itemDescription) gt 30}">
+                                                ${fn:substring(item.itemDescription, 0, 30)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${item.itemDescription}
+                                            </c:otherwise>
+                                            </c:choose>
+                                            
+                                        </p>
 								</div>
 							</li>
 						</c:forEach>

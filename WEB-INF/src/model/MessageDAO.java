@@ -90,6 +90,9 @@ public class MessageDAO {
 	public Message lookup(int messageID) throws DAOException {
 		try {
 			FakeMessage msg = factory.lookup(messageID);
+			if (msg == null) {
+				throw new DAOException("Message not found");
+			}
 			return Message.toMessage(msg);
 		} catch (RollbackException e){
 			throw new DAOException(e);
@@ -98,6 +101,9 @@ public class MessageDAO {
 	
 	public void markRead(int messageID) throws RollbackException {	
 		FakeMessage msg = factory.lookup(messageID);
+		if (msg == null) {
+			throw new RollbackException("Message not found");
+		}
 		msg.setHasRead(1);
 			
 	}

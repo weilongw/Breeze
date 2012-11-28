@@ -92,21 +92,21 @@ public class CompleteExchangeAction extends Action {
 				userDAO.transferCredit(item.getCredit(), xchg.getPoster(), xchg.getResponder());
 				curUser.setCredit(curUser.getCredit() - item.getCredit());
 			}
+			String url1 = "<a href=&quot;showItems.do?itemId=" + item.getId() +"&quot;>item</a>";
 			itemDAO.closeItem(item.getId());
 			exchangeDAO.setSuccessTransaction(xchg.getId());
-			messageDAO.send(admin, curUser, "Transaction complete", 
-							"You have accepted the request from (" + xchg.getResponder().getUserName()
-							+ "). Your item (" + item.getItemName() + ") is now closed.");
+			messageDAO.send(admin, curUser, "Transaction on (" + item.getItemName() + ") complete", 
+							"You have accepted the request from (" + "<a href=&quot;redirectSend.do?receiver=" +xchg.getResponder().getUserName()
+							+ "&quot;>" + xchg.getResponder().getUserName() + "</a>). Your " + url1 + " is now closed.");
 			userDAO.updateNewMsgCount(curUser.getUserName(), 1);
-			messageDAO.send(admin, xchg.getResponder(), "Transaction complete", 
-							"The owner of item (" + item.getItemName() + 
-							"has accepted your request");
+			messageDAO.send(admin, xchg.getResponder(), "Transaction on (" + item.getItemName() + ") complete", 
+							"The <a href=&quot;redirectSend.do?receiver=" + item.getOwner().getUserName() + "&quot;>owner</a> of " + url1 + " has accepted your request");
 			
 			userDAO.updateNewMsgCount(xchg.getResponder().getUserName(), 1);
 			Exchange[] pending = exchangeDAO.findItemPendingTransactions(item);
 			for (Exchange each : pending) {
-				messageDAO.send(admin, each.getResponder(), "Transaction dismissed",
-								"The item (" + item.getItemName() + ") you have reponded to is now closed");
+				messageDAO.send(admin, each.getResponder(), "Transaction on (" + item.getItemName() + ") dismissed",
+								"The item you have reponded to is now closed");
 				userDAO.updateNewMsgCount(each.getResponder().getUserName(), 1);
 			}
 			exchangeDAO.closeItemTransaction(item);
