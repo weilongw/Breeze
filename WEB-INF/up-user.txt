@@ -1,6 +1,0 @@
-dir=./img/user/
-session=fname
-extensions=gif,png,jpg
-reply=/view/user_profile.jsp
-error=/view/user_profile.jsp
-overwrite=1

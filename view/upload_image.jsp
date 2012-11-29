@@ -27,7 +27,8 @@
                                 <h4>You can also upload an image of the product</h4>
                                 <table>
                                 <tr>
-                                    <form method="post" enctype="multipart/form-data" action="upload?config=WEB-INF/upconf.txt&name=${sessionScope.user.userName}${sessionScope.newItem.id}.png" onsubmit="return validateForm()" >
+                                    <!--form method="post" enctype="multipart/form-data" action="upload?config=WEB-INF/upconf.txt&name=${sessionScope.user.userName}${sessionScope.newItem.id}.png" onsubmit="return validateForm()" -->
+                                    <form method="post" enctype="multipart/form-data" action="uploadItem.do">
                                     <td> 
                                         <input style="height:30px" id="uploadFname" type="file" size=20 name="fname">
                                     </td>
@@ -61,7 +62,14 @@
                                 </table>
                             </div>
                             <div class="span4">
-                                <img src="img/item/${uploadedFile}" style="max-width:250px; max-height:250px; float:left; padding-top:100px" alt="preview">
+                                <c:choose>
+                                <c:when test="${empty(uploadedFile)}">
+                                    <img src="img/item/default.jpg" style="max-width:250px; max-height:250px; float:left; padding-top:100px" alt="preview">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="img/item/${uploadedFile}" style="max-width:250px; max-height:250px; float:left; padding-top:100px" alt="preview">
+                                </c:otherwise>
+                                </c:choose>    
                             </div>
                         </div>        
     				</div>

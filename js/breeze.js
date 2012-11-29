@@ -46,6 +46,7 @@ function load_movie(movieid) {
 		return;
 	}
 	var url = "http://www.omdbapi.com/?i="+movieid+"&r=XML";
+	document.getElementById("pending").innerHTML = "<img src=\"img/pending.gif\">";
 	request.onreadystatechange = update_movie;
 	request.open("GET", url, true);
 	request.send();
@@ -60,10 +61,12 @@ function update_movie() {
 
 	var xmlDoc = request.responseXML;
 	var root = xmlDoc.getElementsByTagName("root")[0].attributes.getNamedItem("response").nodeValue;
+	document.getElementById("pending").innerHTML = "";
 	if (root == "False") {
 		request = createRequest();
 		var errorMsg = xmlDoc.getElementsByTagName("error")[0].childNodes[0].nodeValue;
 		document.getElementById("legend_title").innerHTML = errorMsg;
+		
 		return;
 	}
 	var attributes = xmlDoc.getElementsByTagName("movie")[0].attributes;

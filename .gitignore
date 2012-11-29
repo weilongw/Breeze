@@ -1,6 +1,10 @@
-img/user/*.png
-img/item/*.png
-img/poster/*.jpg
+img/user/*
+img/item/*
+img/poster/*
+
+!img/item/default.jpg
+!img/user/default_icon.jpg
+!img/poster/.keep
 
 WEB-INF/.classpath
 WEB-INF/classes/controller/*.class

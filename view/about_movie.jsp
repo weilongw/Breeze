@@ -105,6 +105,7 @@
                 	<legend id="legend_title"></legend>
                 	<div class="span8">
                 	<table class="movie">
+                	<span id="pending"></span>
                 	<tr id="title"></tr>
                 	<tr id="year"></tr>
                 	<tr id="rated"></tr>
